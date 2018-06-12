@@ -17,3 +17,4 @@ Web.Release.config
 Web.config
 Web.Debug.config
 packages
+*.suo
