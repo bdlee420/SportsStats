@@ -1,0 +1,10 @@
+﻿<div class="row">
+    <div class="col-xs-12 divpadding" ng-repeat="Player in ListPlayers">
+        <a style="cursor:pointer;" ng-href="/SportsStats/Players/{{Player.ID}}">{{Player.Name}}</a>
+    </div>
+    <div class="col-xs-12" ng-hide="ReadOnly">
+        <img src="/SportsStats/assets/img/add.png" style="cursor: pointer; margin-right:3px;" ng-click="AddPlayer(NewPlayer)" />
+        <input ng-model="NewPlayer.Name" style="width:175px;" placeholder="player name" />
+        <input type="number" min="0" ng-hide="HideNumber" ng-model="NewPlayer.Number2" placeholder="#" style="width:50px;" />
+    </div>
+</div>

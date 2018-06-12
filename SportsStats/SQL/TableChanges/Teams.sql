@@ -1,0 +1,1 @@
+﻿alter table teams drop column leagueID

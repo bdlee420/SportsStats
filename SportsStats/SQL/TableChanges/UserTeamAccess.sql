@@ -1,0 +1,1 @@
+﻿alter table UserTeamAccess add LeagueID int null

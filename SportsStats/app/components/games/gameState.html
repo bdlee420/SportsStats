@@ -1,0 +1,65 @@
+﻿<table class="statTable">
+    <tr ng-hide="IsGamePage"><td colspan="6">{{Stats.GameResult.Team1Name}} - {{Stats.GameResult.Team1Score}}</td></tr>
+    <tr ng-hide="IsGamePage"><td colspan="6">{{Stats.GameResult.Team2Name}} - {{Stats.GameResult.Team2Score}}</td></tr>
+    <tr>
+        <td>Inning</td>
+        <td>{{InningText}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>1st</td>
+        <td style="white-space:nowrap">{{BaseballGameStateResult.PlayerOnFirst.Number}}-{{BaseballGameStateResult.PlayerOnFirst.Name}}</td>
+        <td><button class="btn btn-info btn-md" ng-hide="ReadOnly || BaseballGameStateResult.PlayerOnFirst == null" ng-click="MoveRunner(BaseballGameStateResult.PlayerOnFirst, 1, 2)">+</button></td>
+        <td><button class="btn btn-info btn-md redbackground" ng-hide="ReadOnly || BaseballGameStateResult.PlayerOnFirst == null" ng-click="MoveRunner(BaseballGameStateResult.PlayerOnFirst, 1, 0)">Out</button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2nd</td>
+        <td style="white-space:nowrap">{{BaseballGameStateResult.PlayerOnSecond.Number}}-{{BaseballGameStateResult.PlayerOnSecond.Name}}</td>
+        <td><button class="btn btn-info btn-md" ng-hide="ReadOnly || BaseballGameStateResult.PlayerOnSecond == null" ng-click="MoveRunner(BaseballGameStateResult.PlayerOnSecond, 2, 1)">-</button></td>
+        <td><button class="btn btn-info btn-md" ng-hide="ReadOnly || BaseballGameStateResult.PlayerOnSecond == null" ng-click="MoveRunner(BaseballGameStateResult.PlayerOnSecond, 2, 3)">+</button></td>
+        <td><button class="btn btn-info btn-md redbackground" ng-hide="ReadOnly || BaseballGameStateResult.PlayerOnSecond == null" ng-click="MoveRunner(BaseballGameStateResult.PlayerOnSecond, 2, 0)">Out</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3rd</td>
+        <td style="white-space:nowrap">{{BaseballGameStateResult.PlayerOnThird.Number}}-{{BaseballGameStateResult.PlayerOnThird.Name}}</td>
+        <td><button class="btn btn-info btn-md greenbackground" ng-hide="ReadOnly || BaseballGameStateResult.PlayerOnThird == null" ng-click="MoveRunner(BaseballGameStateResult.PlayerOnThird, 3, 4)">Run</button></td>
+        <td><button class="btn btn-info btn-md" ng-hide="ReadOnly || BaseballGameStateResult.PlayerOnThird == null" ng-click="MoveRunner(BaseballGameStateResult.PlayerOnThird, 3, 2)">-</button></td>
+        <td><button class="btn btn-info btn-md redbackground" ng-hide="ReadOnly || BaseballGameStateResult.PlayerOnThird == null" ng-click="MoveRunner(BaseballGameStateResult.PlayerOnThird, 3, 0)">Out</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Outs</td>
+        <td>{{BaseballGameStateResult.NumberOfOuts}}</td>
+        <td><button class="btn btn-info btn-md" ng-show="!ReadOnly && BaseballGameStateResult.IsStatsPage" ng-click="ChangeOuts(-1)">-</button></td>
+        <td><button class="btn btn-info btn-md" ng-show="!ReadOnly && BaseballGameStateResult.IsStatsPage" ng-click="ChangeOuts(1)">+</button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr ng-hide="ReadOnly" ng-repeat="Runner in BaseballGameStateResult.RunnersScored">
+        <td>Run</td>
+        <td>{{Runner.Number}}-{{Runner.Name}}</td>
+        <td><button class="btn btn-info btn-md" ng-click="MoveRunner(Runner, 4, 1)">1st</button></td>
+        <td><button class="btn btn-info btn-md" ng-click="MoveRunner(Runner, 4, 2)">2nd</button></td>
+        <td><button class="btn btn-info btn-md" ng-click="MoveRunner(Runner, 4, 3)">3rd</button></td>
+        <td><button class="btn btn-info btn-md redbackground" ng-click="MoveRunner(Runner, 4, 0)">Out</button></td>
+    </tr>
+    <tr ng-hide="ReadOnly" ng-repeat="Runner in BaseballGameStateResult.RunnersOut">
+        <td>Out</td>
+        <td>{{Runner.Number}}-{{Runner.Name}}</td>
+        <td><button class="btn btn-info btn-md" ng-click="MoveRunner(Runner, 0, 1)">1st</button></td>
+        <td><button class="btn btn-info btn-md" ng-click="MoveRunner(Runner, 0, 2)">2nd</button></td>
+        <td><button class="btn btn-info btn-md" ng-click="MoveRunner(Runner, 0, 3)">3rd</button></td>   
+        <td><button class="btn btn-info btn-md greenbackground" ng-click="MoveRunner(Runner, 0, 4)">Run</button></td>     
+    </tr>
+    <tr ng-hide="ReadOnly">
+        <td colspan="6">
+            <span ng-show="InningChanged">There are 3 outs, this ends the inning.</span>
+        </td>
+    </tr>
+</table>

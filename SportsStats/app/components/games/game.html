@@ -1,0 +1,125 @@
+﻿<div ng-controller="gameController">
+    <div class="col-xs-12 col-md-6 removebootpadding">
+        <table class="statTable">
+            <tr>
+                <td ng-hide="ReadOnly">
+                    <button type="button" class="btn btn-info btn-md" ng-class="ShowGameEdit ? 'greenbackground' : ''" ng-click="ShowGameEdit = !ShowGameEdit" data-toggle="collapse" data-target="#gameData">Edit Game</button>
+                </td>
+                <td ng-show="!ReadOnly && IsBaseball">
+                    <button type="button" class="btn btn-info btn-md" ng-class="ShowOrder ? 'greenbackground' : ''" ng-click="ShowOrder = !ShowOrder">Order</button>
+                </td>
+                <td ng-show="!ReadOnly && IsBaseball">
+                    <button type="button" class="btn btn-info btn-md" ng-class="ShowAll ? 'greenbackground' : ''" ng-click="ShowAll = !ShowAll">All</button>
+                </td>
+                <td ng-show="!ReadOnly && IsBaseball">
+                    <button type="button" class="btn btn-info btn-md" ng-click="GoToLog()">Log</button>
+                </td>
+            </tr>
+        </table>
+        <table class="statTable">
+            <tr>
+                <td ng-show="IsBaseball">
+                    <button type="button" class="btn btn-info btn-md" ng-class="ShowGameData ? 'greenbackground' : ''" ng-click="ShowGameData = !ShowGameData" data-toggle="collapse" data-target="#gameState">Game Data</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-info btn-md" ng-class="AutoRefresh ? 'greenbackground' : 'redbackground'" ng-click="SetAutoRefresh()">Live</button>
+                </td>
+                <td>
+                    <img src="/SportsStats/assets/img/refresh.png" ng-click="LoadData()" style="cursor: pointer;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="gameData" class="col-xs-12 collapse">
+        <div class="col-xs-12 divpadding">Edit Game Date</div>
+        <div class="col-xs-12 divpadding">
+            <input ng-disabled="ReadOnly" type="date" ng-model="Game.GameDate" />
+        </div>
+        <div class="col-xs-12 divpadding">Team 1</div>
+        <div class="col-xs-12 divpadding">
+            <select ng-disabled="ReadOnly" ng-model="Game.Team1ID" ng-options="i.ID as i.Name for i in ListTeams">
+                <option></option>
+            </select>
+        </div>
+        <div class="col-xs-12 divpadding">Team 2</div>
+        <div class="col-xs-12 divpadding">
+            <select ng-disabled="ReadOnly" ng-model="Game.Team2ID" ng-options="i.ID as i.Name for i in ListTeams">
+                <option></option>
+            </select>
+        </div>
+        <div class="col-xs-12 divpadding" ng-hide="ReadOnly">
+            <img src="/SportsStats/assets/img/save.png" ng-click="SaveGame(Game)" />
+        </div>
+    </div>
+    <div id="gameState" class="col-xs-12 collapse">
+        <div ng-include="'/SportsStats/app/components/games/gameState.html'"></div>
+    </div>
+    <div style="padding-top:15px;" ng-touchmove="move($event)" ng-touchstart="start($event)" ng-touchend="end($event)">
+        <div class="col-xs-12 divpadding titlebar navbar navbar-inverse">
+            <div>{{Game.Team1Name}} - {{Game.Team1Score}}</div>
+        </div>
+        <div class="col-xs-12">
+            <div class="frozencolumn">
+                <table class="table statsTable .table-striped">
+                    <thead>
+                        <tr>
+                            <td class="headcol1 firstcolumn" ng-show="ShowOrder">Order</td>
+                            <td class="headcol2 firstcolumn" ng-class="ShowOrder ? 'headcol2' : 'headcol2b'">Name</td>
+                            <td ng-hide="ReadOnly" ng-repeat="QuickStatTypes in Game.QuickStatTypes"></td>
+                            <td ng-repeat="StatType in Game.StatTypes">{{StatType.DisplayName}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-class="{success: Player.AtBat}" ng-repeat="Player in Game.Team1PlayerStats" ng-show="ShowAll || Player.Order > 0">
+                            <td ng-show="ShowOrder" class="headcol1 firstcolumn"><input maxlength="2" type="number" class="form-control input-xs order" ng-model="Player.Order" ng-change="SaveOrder(Player, Game.Team1ID, false)" /></td>
+                            <td ng-click="GoToStats(Player)" class="headcol2 firstcolumn" ng-class="ShowOrder ? 'headcol2' : 'headcol2b'">#{{Player.PlayerNumber}} {{Player.PlayerName}}</td>
+                            <td ng-hide="ReadOnly" ng-repeat="QuickStatTypes in Game.QuickStatTypes" ng-class="GetQuickButtonClass(QuickStatTypes.IsPositive)">
+                                <button ng-click="AddStat(Player, QuickStatTypes.StatTypeID)">{{QuickStatTypes.QuickButtonText}}</button>
+                            </td>
+                            <td ng-click="GoToStats(Player)" ng-repeat="Stats in Player.PlayerStats">{{Stats.Value | picker:Stats.Filter}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-xs-12 removebootpadding" style="padding-bottom:5px" ng-hide="ReadOnly || !IsBaseball">            
+            <input type="number" min="0" ng-model="NewPlayer1.Order" placeholder="" style="width:45px;" />
+            <input ng-model="NewPlayer1.Name" style="width:100px;" placeholder="player name" />
+            <input type="number" min="0" ng-model="NewPlayer1.Number2" placeholder="#" style="width:45px;" />
+            <img src="/SportsStats/assets/img/add.png" style="cursor: pointer; margin-right:3px;" ng-click="AddPlayer(NewPlayer1, Game.Team1ID)" />
+        </div>
+        <div class="col-xs-12 divpadding titlebar navbar navbar-inverse" style="margin-top:5px">
+            <div>{{Game.Team2Name}} - {{Game.Team2Score}}</div>
+        </div>
+        <div class="col-xs-12">
+            <div class="frozencolumn">
+                <table class="table statsTable .table-striped">
+                    <thead>
+                        <tr>
+                            <td class="headcol1 firstcolumn" ng-show="ShowOrder">Order</td>
+                            <td class="headcol2 firstcolumn" ng-class="ShowOrder ? 'headcol2' : 'headcol2b'">Name</td>
+                            <td ng-hide="ReadOnly" ng-repeat="QuickStatTypes in Game.QuickStatTypes"></td>
+                            <td ng-repeat="StatType in Game.StatTypes">{{StatType.DisplayName}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-class="{success: Player.AtBat}" ng-repeat="Player in Game.Team2PlayerStats" ng-show="ShowAll || Player.Order > 0">
+                            <td ng-show="ShowOrder" class="headcol1 firstcolumn"><input maxlength="2" type="number" class="form-control input-xs order" ng-model="Player.Order" ng-change="SaveOrder(Player, Game.Team2ID, false)" /></td>
+                            <td ng-click="GoToStats(Player)" class="headcol2 firstcolumn" ng-class="ShowOrder ? 'headcol2' : 'headcol2b'">#{{Player.PlayerNumber}} {{Player.PlayerName}}</td>
+                            <td ng-hide="ReadOnly" ng-repeat="QuickStatTypes in Game.QuickStatTypes" ng-class="GetQuickButtonClass(QuickStatTypes.IsPositive)">
+                                <button ng-click="AddStat(Player, QuickStatTypes.StatTypeID)">{{QuickStatTypes.QuickButtonText}}</button>
+                            </td>
+                            <td ng-click="GoToStats(Player)" ng-repeat="Stats in Player.PlayerStats">{{Stats.Value | picker:Stats.Filter}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-xs-12 removebootpadding" style="padding-bottom:50px" ng-hide="ReadOnly || !IsBaseball"">           
+            <input type="number" min="0" ng-model="NewPlayer2.Order" placeholder="" style="width:45px;" />
+            <input ng-model="NewPlayer2.Name" style="width:100px;" placeholder="player name" />
+            <input type="number" min="0" ng-model="NewPlayer2.Number2" placeholder="#" style="width:45px;" />
+            <img src="/SportsStats/assets/img/add.png" style="cursor: pointer; margin-right:3px;" ng-click="AddPlayer(NewPlayer2, Game.Team2ID)" />
+        </div>
+    </div>
+</div>

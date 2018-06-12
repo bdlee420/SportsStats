@@ -1,0 +1,100 @@
+﻿<div ng-controller="playerController">
+    <div class="row">
+        <div class="col-xs-12 divpadding">
+            <div class="col-xs-3">
+                Name
+            </div>
+            <div class="col-xs-9">
+                <input ng-model="Player.Name" ng-disabled="ReadOnly" />
+            </div>
+        </div>
+        <div class="col-xs-12 divpadding">
+            <div class="col-xs-3">
+                Leagues
+            </div>
+            <div class="col-xs-9 removebootpadding">
+                <div class="col-xs-12 divpadding removebootpadding" ng-repeat="Team in Player.Teams">
+                    <input style="margin-left:15px; width:40px; text-align:center;" placeholder="#" ng-model="Team.Number" />
+                    <a style="cursor:pointer;" ng-click="GoToTeam(Team)">{{Team.LeagueName}} - {{Team.Name}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 divpadding" ng-hide="ReadOnly">
+            <div class="col-xs-12">
+                <img src="/SportsStats/assets/img/save.png" style="cursor: pointer;" ng-click="SavePlayer(Player)" />
+            </div>
+        </div>
+        <div class="col-xs-12 divpadding titlebar navbar navbar-inverse" ng-show="Player.HockeyStats.length">
+            <div>Hockey</div>
+        </div>
+        <div class="col-xs-12 divpadding" ng-touchmove="move($event)" ng-touchstart="start($event)" ng-touchend="end($event)"
+              ng-show="Player.HockeyStats.length">
+            <div class="col-xs-12" style="overflow-x:auto; width:100%;">
+                <div class="frozencolumn">
+                    <table class="table statsTable .table-striped">
+                        <thead>
+                            <tr>
+                                <td ng-click="SortStats('LeagueName')" class="headcol2b header firstcolumn">League</td>
+                                <td ng-click="SortStats(StatType.Name)" class="header" ng-repeat="StatType in Player.HockeyStatTypes">{{StatType.DisplayName}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="LeagueStats in Player.HockeyStats" ng-class="LeagueStats.IsCurrentLeague ? 'greenbackground' : ''">
+                                <td class="firstcolumn headcol2b" ng-class="LeagueStats.IsCurrentLeague ? 'greenbackground' : ''">{{LeagueStats.LeagueName}}</td>
+                                <td ng-repeat="Stats in LeagueStats.PlayerStats">{{Stats.Value | picker:Stats.Filter}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>            
+        </div>
+        <div class="col-xs-12 divpadding titlebar navbar navbar-inverse" ng-show="Player.BaseballStats.length">
+            <div>Baseball</div>
+        </div>
+        <div class="col-xs-12 divpadding" ng-touchmove="move($event)" ng-touchstart="start($event)" ng-touchend="end($event)"
+              ng-show="Player.BaseballStats.length">
+            <div class="col-xs-12" style="overflow-x:auto; width:100%;">
+                <div class="frozencolumn">
+                    <table class="table statsTable .table-striped">
+                        <thead>
+                            <tr>
+                                <td ng-click="SortStats('LeagueName')" class="headcol2b header firstcolumn">League</td>
+                                <td ng-click="SortStats(StatType.Name)" class="header" ng-repeat="StatType in Player.BaseballStatTypes">{{StatType.DisplayName}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="LeagueStats in Player.BaseballStats" ng-class="LeagueStats.IsCurrentLeague ? 'greenbackground' : ''">
+                                <td class="firstcolumn headcol2b" ng-class="LeagueStats.IsCurrentLeague ? 'greenbackground' : ''">{{LeagueStats.LeagueName}}</td>
+                                <td ng-repeat="Stats in LeagueStats.PlayerStats">{{Stats.Value | picker:Stats.Filter}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 divpadding titlebar navbar navbar-inverse" ng-show="Player.BasketballStats.length">
+            <div>Basketball</div>
+        </div>
+        <div class="col-xs-12 divpadding" ng-touchmove="move($event)" ng-touchstart="start($event)" 
+             ng-touchend="end($event)" ng-show="Player.BasketballStats.length">
+            <div class="col-xs-12" style="overflow-x:auto; width:100%;">
+                <div class="frozencolumn">
+                    <table class="table statsTable .table-striped">
+                        <thead>
+                            <tr>
+                                <td ng-click="SortStats('LeagueName')" class="headcol2b header firstcolumn">League</td>
+                                <td ng-click="SortStats(StatType.Name)" class="header" ng-repeat="StatType in Player.BasketballStatTypes">{{StatType.DisplayName}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="LeagueStats in Player.BasketballStats" ng-class="LeagueStats.IsCurrentLeague ? 'greenbackground' : ''">
+                                <td class="firstcolumn headcol2b" ng-class="LeagueStats.IsCurrentLeague ? 'greenbackground' : ''">{{LeagueStats.LeagueName}}</td>
+                                <td ng-repeat="Stats in LeagueStats.PlayerStats">{{Stats.Value | picker:Stats.Filter}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

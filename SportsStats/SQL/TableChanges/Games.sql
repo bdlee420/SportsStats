@@ -1,0 +1,1 @@
+﻿ALTER TABLE Games Add LeagueID int

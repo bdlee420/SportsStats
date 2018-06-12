@@ -1,0 +1,31 @@
+﻿<div ng-controller="gamesController">
+    <div class="row">
+        <div class="col-xs-12 divpadding" ng-repeat="Game in ListGames">
+            <div class="divLink" ng-click="GoToGame(Game)">
+                <div class="col-sm-12 col-md-3 divpadding">{{Game.GameDate | date:"MM/dd/yyyy"}}</div>
+                <div class="col-sm-12 col-md-3 divpadding">{{Game.Team1Name}}</div>
+                <div class="col-sm-12 col-md-3 divpadding">{{Game.Team2Name}}</div>
+                <div class="col-sm-12 col-md-3 divpadding">{{Game.Team1Score}}-{{Game.Team2Score}}</div>
+            </div>
+        </div>
+        <div class="col-xs-12" ng-hide="ReadOnly">
+            <div class="col-xs-12">
+                <img src="/SportsStats/assets/img/add.png" style="cursor: pointer; margin-right:7px;" ng-click="AddGame(NewGame)" />
+            </div>
+            <div class="col-xs-12">Game Date</div>
+            <div class="col-xs-12"><input type="date" ng-model="NewGame.GameDate" placeholder="game date" /></div>
+            <div class="col-xs-12">Team 1</div>
+            <div class="col-xs-12">
+                <select ng-model="NewGame.Team1ID">
+                    <option ng-repeat="Team in ListTeams" value="{{Team.ID}}">{{Team.Name}}</option>
+                </select>
+            </div>
+            <div class="col-xs-12">Team 2</div>
+            <div class="col-xs-12">
+                <select ng-model="NewGame.Team2ID">
+                    <option ng-repeat="Team in ListTeams" value="{{Team.ID}}">{{Team.Name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

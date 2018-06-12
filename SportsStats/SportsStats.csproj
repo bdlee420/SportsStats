@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{39CF2CA3-22BB-4D8E-B62E-5ABACF57F9EB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SportsStats</RootNamespace>
+    <AssemblyName>SportsStats</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\components\gamelog\gamelogController.js" />
+    <Content Include="app\components\games\game.html" />
+    <Content Include="app\components\gamelog\gamelog.html" />
+    <Content Include="app\components\games\games.html" />
+    <None Include="app\components\games\gamesController.js" />
+    <Content Include="app\components\games\gameState.html" />
+    <Content Include="app\components\login\login.html" />
+    <None Include="app\components\login\loginController.js" />
+    <Content Include="app\components\players\player.html" />
+    <Content Include="app\components\players\players.html" />
+    <None Include="app\components\players\playersController.js" />
+    <Content Include="app\components\players\playersList.html" />
+    <Content Include="app\components\sports\sports.html" />
+    <None Include="app\components\sports\sportsController.js" />
+    <Content Include="app\components\stats\stat.html" />
+    <None Include="app\components\stats\statsController.js" />
+    <Content Include="app\components\teams\team.html" />
+    <Content Include="app\components\teams\teams.html" />
+    <None Include="app\components\teams\teamsController.js" />
+    <None Include="app\sportsApp.js" />
+    <Content Include="assets\img\add.png" />
+    <Content Include="assets\img\refresh.png" />
+    <Content Include="assets\img\save.png" />
+    <None Include="assets\lib\angular-cookies.js" />
+    <Content Include="assets\lib\angular-cookies.min.js" />
+    <None Include="assets\lib\angular.js" />
+    <Content Include="dest\sportsstats.min.css" />
+    <Content Include="dest\sportsstats.min.js" />
+    <Content Include="Global.asax" />
+    <None Include="assets\lib\angular-route.min.js.map" />
+    <None Include="assets\lib\jquery-1.9.1.min.map" />
+    <Content Include="Library\Newtonsoft.Json.dll" />
+    <Content Include="Library\System.Net.Http.Formatting.dll" />
+    <Content Include="Library\System.Web.Http.dll" />
+    <Content Include="Library\System.Web.Http.WebHost.dll" />
+    <Content Include="NLog.config" />
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="assets\lib\angular-cookies.min.js.map" />
+    <None Include="assets\lib\angular.min.js.map" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\css\sportsstats.css" />
+    <None Include="assets\css\bootstrap-theme.css" />
+    <None Include="assets\css\bootstrap-theme.min.css" />
+    <None Include="assets\css\bootstrap.css" />
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\img\delete2_small.png" />
+    <Content Include="assets\img\spinner.gif" />
+    <None Include="assets\js\common.js" />
+    <None Include="assets\js\menu.js" />
+    <Content Include="assets\lib\angular-route.min.js" />
+    <Content Include="assets\lib\angular.min.js" />
+    <None Include="assets\lib\bootstrap.js" />
+    <Content Include="assets\lib\bootstrap.min.js" />
+    <None Include="assets\css\bootstrap-theme.css.map" />
+    <None Include="assets\css\bootstrap.css.map" />
+    <None Include="assets\lib\jquery-1.9.1.intellisense.js" />
+    <None Include="assets\lib\jquery-1.9.1.js" />
+    <Content Include="assets\lib\jquery-1.9.1.min.js" />
+    <None Include="Gruntfile.js" />
+    <Content Include="index.html" />
+    <None Include="SQL\Data\Leagues.sql" />
+    <None Include="SQL\Data\Sports.sql" />
+    <None Include="SQL\Data\States.sql" />
+    <None Include="SQL\Data\Users.sql" />
+    <None Include="SQL\Functions\SplitString.sql" />
+    <None Include="SQL\Procs\AddGame.sql" />
+    <None Include="SQL\Procs\AddPlayer.sql" />
+    <None Include="SQL\Procs\AddStat.sql" />
+    <None Include="SQL\Procs\AddTeam.sql" />
+    <None Include="SQL\Procs\GetBaseballGameState.sql" />
+    <None Include="SQL\Procs\GetBattingOrder.sql" />
+    <None Include="SQL\Procs\GetGames.sql" />
+    <None Include="SQL\Procs\GetLeagues.sql" />
+    <None Include="SQL\Procs\GetPlayers.sql" />
+    <None Include="SQL\Procs\GetSports.sql" />
+    <None Include="SQL\Procs\GetStatGroup.sql" />
+    <None Include="SQL\Procs\GetStatGroups.sql" />
+    <None Include="SQL\Procs\GetStats.sql" />
+    <None Include="SQL\Procs\GetStates.sql" />
+    <None Include="SQL\Procs\GetStatTypes.sql" />
+    <None Include="SQL\Procs\GetTeams.sql" />
+    <None Include="SQL\Procs\GetUser.sql" />
+    <None Include="SQL\Procs\SaveBaseballGameState.sql" />
+    <None Include="SQL\Procs\SavePlayer.sql" />
+    <None Include="SQL\Procs\SaveTeamPlayer.sql" />
+    <None Include="SQL\Procs\UpdateGame.sql" />
+    <None Include="SQL\Data\StatType.sql" />
+    <None Include="SQL\TableChanges\Stats.sql" />
+    <None Include="SQL\TableChanges\StatTypes.sql" />
+    <None Include="SQL\TableChanges\UserTeamAccess.sql" />
+    <None Include="SQL\Tables\BaseballGameState.sql" />
+    <None Include="SQL\Tables\Games.sql" />
+    <None Include="SQL\Tables\Leagues.sql" />
+    <None Include="SQL\Tables\Players.sql" />
+    <None Include="SQL\Tables\Sports.sql" />
+    <None Include="SQL\Tables\StatGroups.sql" />
+    <None Include="SQL\Tables\Stats.sql" />
+    <None Include="SQL\Tables\States.sql" />
+    <None Include="SQL\Tables\StatStates.sql" />
+    <None Include="SQL\Tables\StatTypes.sql" />
+    <None Include="SQL\Tables\TeamPlayers.sql" />
+    <None Include="SQL\Tables\Teams.sql" />
+    <None Include="SQL\Tables\Users.sql" />
+    <None Include="SQL\Tables\UserTeamAccess.sql" />
+    <Content Include="SQL\Data\UpdateTeamPlayersLeagueID.sql" />
+    <Content Include="SQL\Procs\AddLeagueTeam.sql" />
+    <Content Include="SQL\Procs\GetGameLog.sql" />
+    <Content Include="SQL\TableChanges\Games.sql" />
+    <Content Include="SQL\TableChanges\StatGroups.sql" />
+    <Content Include="SQL\TableChanges\StatStates.sql" />
+    <Content Include="SQL\TableChanges\TeamPlayers.sql" />
+    <Content Include="SQL\TableChanges\Teams.sql" />
+    <Content Include="SQL\Tables\LeagueTeams.sql" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="package.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\GamesController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PlayersController.cs" />
+    <Compile Include="Controllers\SportsController.cs" />
+    <Compile Include="Controllers\StatsController.cs" />
+    <Compile Include="Controllers\TeamsController.cs" />
+    <Compile Include="DataProviders\DataAccess.cs" />
+    <Compile Include="Common\DataCache.cs" />
+    <Compile Include="DataProviders\GameDataProvider.cs" />
+    <Compile Include="DataProviders\LeagueDataProvider.cs" />
+    <Compile Include="DataProviders\PlayerDataProvider.cs" />
+    <Compile Include="DataProviders\SportsDataProvider.cs" />
+    <Compile Include="DataProviders\TeamDataProvider.cs" />
+    <Compile Include="DataProviders\UserDataProvider.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ConvertObjects.cs" />
+    <Compile Include="Helpers\Enums.cs" />
+    <Compile Include="Helpers\UserHelper.cs" />
+    <Compile Include="Models\ControllerObjects\BaseballGameState.cs" />
+    <Compile Include="Models\ControllerObjects\GameLogResult.cs" />
+    <Compile Include="Models\ControllerObjects\League.cs" />
+    <Compile Include="Models\ControllerObjects\Sport.cs" />
+    <Compile Include="Models\ControllerObjects\StatGroupResult.cs" />
+    <Compile Include="Models\ControllerObjects\Stats.cs" />
+    <Compile Include="Models\ControllerObjects\State.cs" />
+    <Compile Include="Models\ControllerObjects\User.cs" />
+    <Compile Include="Models\DTOObjects\DTOBaseballGameState.cs" />
+    <Compile Include="Models\DTOObjects\DTOBattingOrder.cs" />
+    <Compile Include="Models\DTOObjects\DTOGameLog.cs" />
+    <Compile Include="Models\DTOObjects\DTOLeagues.cs" />
+    <Compile Include="Models\DTOObjects\DTOSports.cs" />
+    <Compile Include="Models\DTOObjects\DTOState.cs" />
+    <Compile Include="Models\DTOObjects\DTOStatType.cs" />
+    <Compile Include="Models\DTOObjects\DTOTeamPlayer.cs" />
+    <Compile Include="Models\DTOObjects\DTOGame.cs" />
+    <Compile Include="Models\DTOObjects\DTOPlayer.cs" />
+    <Compile Include="Models\DTOObjects\DTOStat.cs" />
+    <Compile Include="Models\DTOObjects\DTOTeam.cs" />
+    <Compile Include="Models\ControllerObjects\Game.cs" />
+    <Compile Include="Models\ControllerObjects\Player.cs" />
+    <Compile Include="Models\ControllerObjects\Team.cs" />
+    <Compile Include="Models\DTOObjects\DTOUser.cs" />
+    <Compile Include="Models\ServiceObjects\BaseballGameState.cs" />
+    <Compile Include="Models\ServiceObjects\Game.cs" />
+    <Compile Include="Models\ServiceObjects\GameLog.cs" />
+    <Compile Include="Models\ServiceObjects\League.cs" />
+    <Compile Include="Models\ServiceObjects\Player.cs" />
+    <Compile Include="Models\ServiceObjects\Sport.cs" />
+    <Compile Include="Models\ServiceObjects\Stat.cs" />
+    <Compile Include="Models\ServiceObjects\State.cs" />
+    <Compile Include="Models\ServiceObjects\StatType.cs" />
+    <Compile Include="Models\ServiceObjects\Team.cs" />
+    <Compile Include="Models\ServiceObjects\TeamPlayer.cs" />
+    <Compile Include="Models\ServiceObjects\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BaseballService.cs" />
+    <Compile Include="Services\GamesService.cs" />
+    <Compile Include="Services\LeaguesService.cs" />
+    <Compile Include="Services\PlayersService.cs" />
+    <Compile Include="Services\SportsService.cs" />
+    <Compile Include="Services\StatsCalculations.cs" />
+    <Compile Include="Services\StatsService.cs" />
+    <Compile Include="Services\TeamsService.cs" />
+    <Compile Include="Services\UserService.cs" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>grunt</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

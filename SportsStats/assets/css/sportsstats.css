@@ -1,0 +1,253 @@
+﻿html, body, form {
+    height: 100%;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-size: 12pt;
+}
+
+select, input {
+    height: 38px;
+    width: 185px;
+}
+
+#btnGameData {
+    margin-left: 15px;
+}
+
+.statbox {
+    width: 100%;
+    min-width: 100px;
+    max-width: 200px;
+    height: 80px;
+    border: solid 1px #000000;
+    border-radius: 15px;
+    -webkit-tap-highlight-color: #ccc;
+    font-size: 12pt;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+    .statbox div {
+        align-self: center;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .statbox:hover {
+        cursor: pointer;
+    }
+
+    .statbox:active {
+        background-color: #CCC;
+    }
+
+.selectionrow:hover {
+    background-color: #cccccc;
+    cursor: pointer;
+}
+
+.removebootpadding {
+    margin-left: -15px;
+}
+
+.titlebar {
+    color: #9d9d9d;
+    margin-bottom: 15px !important;
+}
+
+    .titlebar div {
+        padding-top: 12px;
+    }
+
+.divpadding {
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+    display: none !important;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.messagegreen {
+    font-weight: bold;
+    color: #5cb85c;
+}
+
+.messagered {
+    font-weight: bold;
+    color: #d9534f;
+}
+
+.checkbox {
+    width: 55px;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+    display: inline;
+}
+
+.divLink {
+    cursor: pointer;
+    border-bottom: 1px solid #CCC;
+}
+
+#btnCloseStats {
+    margin-left: 27px;
+    margin-top: 7px;
+}
+
+.largecontrol {
+    width: 300px;
+}
+
+.statsTable .firstcolumn {
+    text-align: left;
+}
+
+.statsTable thead {
+    font-weight: bold;
+}
+
+.statsTable td, th {
+    padding: 5px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.statsTable tr:hover {
+    cursor: pointer;
+}
+
+.quickcell button {
+    color: white;
+    width: 65px;
+    height: 40px;
+    border: 2px solid;
+    border-radius: 15px;
+}
+
+.positivecell button {
+    background-color: #5cb85c;
+}
+
+.negativecell button {
+    background-color: #d9534f;
+}
+
+.spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white url(/SportsStats/assets/img/spinner.gif) center center no-repeat;
+    opacity: .5;
+}
+
+.greenbackground {
+    background-color: #5cb85c;
+    color: white;
+}
+
+    .greenbackground:focus {
+        background-color: #5cb85c;
+    }
+
+    .greenbackground:hover {
+        background-color: #5cb85c;
+    }
+
+.redbackground {
+    background-color: #d9534f;
+    color: white;
+}
+
+    .redbackground:focus {
+        background-color: #d9534f;
+    }
+
+    .redbackground:hover {
+        background-color: #d9534f;
+    }
+
+.statTable td {
+    padding: 3px !important;
+}
+
+.modal .btn {
+    margin-left: 3px;
+    width: 50px;
+}
+
+.modal table tr td {
+    padding: 2px;
+    height: 35px;
+}
+
+.bluebackground {
+    background-color: #5bc0de;
+    color: white;
+}
+
+.frozencolumn {
+    width: calc(100% - 180px);
+    overflow-x: scroll;
+    margin-left: 170px;
+    overflow-y: visible;
+    padding: 0;
+}
+
+.headcol1 {
+    position: absolute;
+    width: 60px;
+    left: 0;
+    top: auto;
+}
+
+.headcol2 {
+    position: absolute;
+    width: 130px;
+    left: 60px;
+    top: auto;
+}
+
+.headcol2b {
+    position: absolute;
+    width: 190px;
+    left: 0px;
+    top: auto;
+}
+
+.navbar {
+    margin-bottom: 2px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.order {
+    font-size: 16pt;
+    padding: 4px 4px;
+    margin-top: -5px;
+}
+
+.header {
+    cursor: pointer;
+    color: blue;
+}
+
+.currentleague {
+    font-weight: bold;
+}

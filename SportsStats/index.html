@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="sportsApp">
+<head>
+    <title></title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/SportsStats/assets/css/bootstrap.min.css?rel=1520284625196" rel="stylesheet" />
+    <link href="/SportsStats/dest/sportsstats.min.css?rel=1520284625196" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li ng-hide="HasOneLeague"><a href="/SportsStats/index.html" data-toggle="collapse" data-target=".navbar-collapse" class="active">League</a></li>
+                        <li><a href="/SportsStats/Teams" data-toggle="collapse" data-target=".navbar-collapse">Team Stats</a></li>
+                        <li><a href="/SportsStats/Players" data-toggle="collapse" data-target=".navbar-collapse">Players</a></li>
+                        <li><a href="/SportsStats/Games" data-toggle="collapse" data-target=".navbar-collapse">Games</a></li>
+                        <li><a href="/SportsStats/Login" data-toggle="collapse" data-target=".navbar-collapse">{{LoginText}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="row">
+            <div class="col-xs-12">
+                <div ng-view></div>
+                <div class="spinner" ng-show="ShowSpinner">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/SportsStats/assets/lib/jquery-1.9.1.min.js?rel=1520284625196"></script>
+    <script src="/SportsStats/assets/lib/bootstrap.min.js?rel=1520284625196"></script>
+    <script src="/SportsStats/assets/lib/angular.min.js?rel=1520284625196"></script>
+    <script src="/SportsStats/assets/lib/angular-route.min.js?rel=1520284625196"></script>
+    <script src="/SportsStats/assets/lib/angular-cookies.min.js"></script>
+    <script src="/SportsStats/dest/sportsstats.min.js?rel=1520284625196"></script>
+</body>
+</html>
