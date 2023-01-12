@@ -27,7 +27,7 @@ namespace SportsStats.Services
                 case CalculatedStatTypes.FTAttempt:
                     return GetValueFunc(CalculatedStatTypes.FTMade) + GetValueFunc(CalculatedStatTypes.FTMiss);
                 case CalculatedStatTypes.ThreeAttempt:
-                    return GetValueFunc(CalculatedStatTypes.FGMade) + GetValueFunc(CalculatedStatTypes.FGMiss) + GetValueFunc(CalculatedStatTypes.ThreeMade) + GetValueFunc(CalculatedStatTypes.ThreeMiss);
+                    return GetValueFunc(CalculatedStatTypes.ThreeMade) + GetValueFunc(CalculatedStatTypes.ThreeMiss);
                 case CalculatedStatTypes.FGPercent:
                     {
                         decimal total = GetValueFunc(CalculatedStatTypes.FGAttempt);
