@@ -57,10 +57,11 @@ namespace SportsStats.Services
 			int teamscore = 0;
 			if (game.SportID == (int)SportsList.Basketball)
 			{
-				var fgMadeTeam = teamGameStats.Where(s => s.StatType.ID == (int)CalculatedStatTypes.FGMade).Sum(s => s.Value);
+				var fgMadeTeam = teamGameStats.Where(s => s.StatType.ID == (int)CalculatedStatTypes.Points).Sum(s => s.Value);
 				var ftMadeTeam = teamGameStats.Where(s => s.StatType.ID == (int)CalculatedStatTypes.FTMade).Sum(s => s.Value);
+				var threeMadeTeam = teamGameStats.Where(s => s.StatType.ID == (int)CalculatedStatTypes.ThreeMade).Sum(s => s.Value);
 
-				teamscore = fgMadeTeam * 2 + ftMadeTeam;
+				teamscore = (fgMadeTeam * 2) + (threeMadeTeam * 3) + ftMadeTeam;
 			}
 			else if (game.SportID == (int)SportsList.Baseball)
 			{
