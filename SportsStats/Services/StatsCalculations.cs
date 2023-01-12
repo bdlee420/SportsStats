@@ -1,7 +1,7 @@
-﻿using SportsStats.Models.ServiceObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SportsStats.Models.ServiceObjects;
 using static SportsStats.Helpers.Enums;
 
 namespace SportsStats.Services
@@ -11,25 +11,32 @@ namespace SportsStats.Services
         public static decimal GetValue(CalculatedStatTypes statTypeID, List<GameStat> stats, List<StatStates> filterStatStates = null)
         {
             Func<CalculatedStatTypes, decimal> GetValueFunc = (x) => GetValue(x, stats, filterStatStates);
-            decimal games = 0;
-            switch ((CalculatedStatTypes)statTypeID)
+            decimal games;
+            switch (statTypeID)
             {
                 case CalculatedStatTypes.PPG:
                     games = GetValueFunc(CalculatedStatTypes.Games);
-                    return games == 0 ? 0 : (GetValueFunc(CalculatedStatTypes.Points)) / GetValueFunc(CalculatedStatTypes.Games);
+                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Points) / GetValueFunc(CalculatedStatTypes.Games);
                 case CalculatedStatTypes.RPG:
                     games = GetValueFunc(CalculatedStatTypes.Games);
-                    return games == 0 ? 0 : (GetValueFunc(CalculatedStatTypes.Rebounds)) / GetValueFunc(CalculatedStatTypes.Games);
+                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Rebounds) / GetValueFunc(CalculatedStatTypes.Games);
                 case CalculatedStatTypes.Points:
-                    return (GetValueFunc(CalculatedStatTypes.FGMade) * 2) + GetValueFunc(CalculatedStatTypes.FTMade);
+                    return (GetValueFunc(CalculatedStatTypes.FGMade) * 2) + GetValueFunc(CalculatedStatTypes.FTMade) + (GetValueFunc(CalculatedStatTypes.ThreeMade) * 3);
                 case CalculatedStatTypes.FGAttempt:
-                    return GetValueFunc(CalculatedStatTypes.FGMade) + GetValueFunc(CalculatedStatTypes.FGMiss);
+                    return GetValueFunc(CalculatedStatTypes.FGMade) + GetValueFunc(CalculatedStatTypes.FGMiss) + GetValueFunc(CalculatedStatTypes.ThreeMade) + GetValueFunc(CalculatedStatTypes.ThreeMiss);
                 case CalculatedStatTypes.FTAttempt:
                     return GetValueFunc(CalculatedStatTypes.FTMade) + GetValueFunc(CalculatedStatTypes.FTMiss);
+                case CalculatedStatTypes.ThreeAttempt:
+                    return GetValueFunc(CalculatedStatTypes.FGMade) + GetValueFunc(CalculatedStatTypes.FGMiss) + GetValueFunc(CalculatedStatTypes.ThreeMade) + GetValueFunc(CalculatedStatTypes.ThreeMiss);
                 case CalculatedStatTypes.FGPercent:
                     {
                         decimal total = GetValueFunc(CalculatedStatTypes.FGAttempt);
                         return total == 0 ? 0 : GetValueFunc(CalculatedStatTypes.FGMade) / total;
+                    }
+                case CalculatedStatTypes.ThreePercent:
+                    {
+                        decimal total = GetValueFunc(CalculatedStatTypes.ThreeAttempt);
+                        return total == 0 ? 0 : GetValueFunc(CalculatedStatTypes.ThreeMade) / total;
                     }
                 case CalculatedStatTypes.FTPercent:
                     {
@@ -87,9 +94,9 @@ namespace SportsStats.Services
                     }
                 case CalculatedStatTypes.Contact:
                     {
-                        decimal contact = GetValueFunc(CalculatedStatTypes.Hits) + 
-                            GetValueFunc(CalculatedStatTypes.GroundOut) + 
-                            GetValueFunc(CalculatedStatTypes.FlyOut) + 
+                        decimal contact = GetValueFunc(CalculatedStatTypes.Hits) +
+                            GetValueFunc(CalculatedStatTypes.GroundOut) +
+                            GetValueFunc(CalculatedStatTypes.FlyOut) +
                             GetValueFunc(CalculatedStatTypes.Foul) +
                             GetValueFunc(CalculatedStatTypes.FC) +
                             GetValueFunc(CalculatedStatTypes.SF);

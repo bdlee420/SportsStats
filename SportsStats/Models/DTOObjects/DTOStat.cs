@@ -27,7 +27,6 @@ namespace SportsStats.Models.DTOObjects
         public int TeamID { get; set; }
         public int GameID { get; set; }
         public int LeagueID { get; set; }
-        public int SportID { get; set; }
         public int? GroupID { get; set; }
         public List<int> States { get; set; }
     }

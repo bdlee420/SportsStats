@@ -18,3 +18,5 @@ Web.config
 Web.Debug.config
 packages
 *.suo
+/.vs/VSWorkspaceState.json
+/.vs/SportsStats/FileContentIndex
