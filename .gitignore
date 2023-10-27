@@ -20,3 +20,5 @@ packages
 *.suo
 /.vs/VSWorkspaceState.json
 /.vs/SportsStats/FileContentIndex
+/.vs/SportsStatsDev2/v17/.wsuo
+/.vs/*
