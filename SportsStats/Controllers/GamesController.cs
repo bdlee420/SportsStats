@@ -1,6 +1,7 @@
 ﻿using SportsStats.Common;
 using SportsStats.Helpers;
 using SportsStats.Models.ControllerObjects;
+using SportsStats.Models.ServiceObjects;
 using SportsStats.Services;
 using System;
 using System.Collections.Generic;
@@ -50,21 +51,21 @@ namespace SportsStats.Controllers
         }
 
         [HttpPost]
-        public GamesResult AddGame([FromBody]GameResultBase game)
+        public GamesResult AddGame([FromBody] GameResultBase game)
         {
             GamesService.GetInstance().AddGame(ConvertObjects.ConvertType(game));
             return GetGamesResult(game.LeagueID);
         }
 
         [HttpPost]
-        public GameResult UpdateGame([FromBody]GameResultBase game)
+        public GameResult UpdateGame([FromBody] GameResultBase game)
         {
             GamesService.GetInstance().UpdateGame(ConvertObjects.ConvertType(game));
             return GetGameResult(game.LeagueID, game.ID);
         }
 
         [ActionName("AddPlayer")]
-        public int AddPlayer([FromBody]TeamPlayerSaveRequest saveRequest)
+        public int AddPlayer([FromBody] TeamPlayerSaveRequest saveRequest)
         {
             try
             {
@@ -115,6 +116,16 @@ namespace SportsStats.Controllers
                 var statTypes = GamesService.GetInstance().GetStatTypes(game.SportID, dataCache: dataCache).OrderBy(s => s.GridDisplayOrder);
                 var gameState = BaseballService.GetInstance().GetExistingGameState(gameID, leagueID, dataCache: dataCache);
 
+                var statTypesHash = statTypes
+                    .Where(st => st.ShowGame)
+                    .Select(s => s.ID)
+                    .ToHashSet();
+
+                foreach (var playerStat in game.PlayerStats)
+                {
+                    playerStat.Stats = playerStat.Stats.Where(s => statTypesHash.Contains(s.StatType.ID)).ToList();
+                }
+
                 int? playerAtBat = gameState.TopOfInning ? gameState.Team1Player?.ID : gameState.Team2Player?.ID;
 
                 var gameResult = new GameResult()
@@ -151,7 +162,8 @@ namespace SportsStats.Controllers
                                                          StatTypeID = s.StatType.ID,
                                                          Name = s.StatType.Name,
                                                          DefaultShow = s.StatType.DefaultShow,
-                                                         Value = s.Value
+                                                         Value = s.Value,
+                                                         ShowGame = s.StatType.ShowGame
                                                      }).ToList()
                             };
                         })
@@ -174,7 +186,8 @@ namespace SportsStats.Controllers
                                                          StatTypeID = s.StatType.ID,
                                                          Name = s.StatType.Name,
                                                          DefaultShow = s.StatType.DefaultShow,
-                                                         Value = s.Value
+                                                         Value = s.Value,
+                                                         ShowGame = s.StatType.ShowGame
                                                      }).ToList()
                             };
                         })

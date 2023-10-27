@@ -3,6 +3,7 @@ using SportsStats.Helpers;
 using SportsStats.Models.ControllerObjects;
 using SportsStats.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
@@ -35,7 +36,7 @@ namespace SportsStats.Controllers
         }
 
         [ActionName("AddTeam")]
-        public GetTeamsResult AddTeam([FromBody]TeamsResult team)
+        public GetTeamsResult AddTeam([FromBody] TeamsResult team)
         {
             try
             {
@@ -56,7 +57,7 @@ namespace SportsStats.Controllers
         }
 
         [ActionName("AddPlayer")]
-        public TeamResult AddPlayer([FromBody]TeamPlayerSaveRequest saveRequest)
+        public TeamResult AddPlayer([FromBody] TeamPlayerSaveRequest saveRequest)
         {
             try
             {
@@ -70,7 +71,7 @@ namespace SportsStats.Controllers
         }
 
         [ActionName("AddGame")]
-        public TeamResult AddGame([FromBody]GameResultBase game)
+        public TeamResult AddGame([FromBody] GameResultBase game)
         {
             try
             {
@@ -97,7 +98,7 @@ namespace SportsStats.Controllers
 
             result.AvailableTeams = allTeams
                 .Where(t => !teams.Any(t1 => t1.ID == t.ID))
-                .GroupBy(t => new { t.ID, t.Name })                
+                .GroupBy(t => new { t.ID, t.Name })
                 .Select(t => new TeamsResult()
                 {
                     ID = t.Key.ID,
@@ -113,8 +114,22 @@ namespace SportsStats.Controllers
             var team = TeamsService.GetInstance().GetTeam(teamID, leagueID, dataCache: dataCache);
             var teams = TeamsService.GetInstance().GetTeams(leagueID: team.LeagueID, showAll: true, dataCache: dataCache);
             var players = PlayersService.GetInstance().GetPlayers(dataCache: dataCache);
+            var statTypes = GamesService
+                .GetInstance()
+                .GetStatTypes(team.SportID)
+                .Where(st => st.ShowTeam)
+                .OrderBy(s => s.GridDisplayOrder);
             var playerStats = StatsService.GetInstance().GetAllStats(teamID, team.SportID, leagueID, dataCache: dataCache);
-            var statTypes = GamesService.GetInstance().GetStatTypes(team.SportID).OrderBy(s => s.GridDisplayOrder);
+
+            var statTypesHash = statTypes
+                     .Where(st => st.ShowTeam)
+                     .Select(s => s.ID)
+                     .ToHashSet();
+
+            foreach (var playerStat in playerStats)
+            {
+                playerStat.Stats = playerStat.Stats.Where(s => statTypesHash.Contains(s.StatType.ID)).ToList();
+            }
 
             var teamResult = new TeamResult()
             {
@@ -154,6 +169,15 @@ namespace SportsStats.Controllers
             else if (team1score < team2score && !isTeam1)
                 return true;
             else return false;
+        }
+    }
+    public static class Extensions
+    {
+        public static HashSet<T> ToHashSet<T>(
+            this IEnumerable<T> source,
+            IEqualityComparer<T> comparer = null)
+        {
+            return new HashSet<T>(source, comparer);
         }
     }
 }

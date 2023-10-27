@@ -55,8 +55,8 @@
         <div ng-include="'/SportsStats/app/components/games/gameState.html'"></div>
     </div>
     <div style="padding-top:15px;" ng-touchmove="move($event)" ng-touchstart="start($event)" ng-touchend="end($event)">
-        <div class="col-xs-12 divpadding titlebar navbar navbar-inverse">
-            <div>{{Game.Team1Name}} - {{Game.Team1Score}}</div>
+        <div class="col-xs-12 divpadding titlebar navbar navbar-inverse" style="margin-top:5px; text-decoration:underline">
+            <div><a ng-href="/SportsStats/Teams/{{Game.Team1ID}}">{{Game.Team1Name}} - {{Game.Team1Score}}</a></div>
         </div>
         <div class="col-xs-12">
             <div class="frozencolumn">
@@ -66,7 +66,7 @@
                             <td class="headcol1 firstcolumn" ng-show="ShowOrder">Order</td>
                             <td class="headcol2 firstcolumn" ng-class="ShowOrder ? 'headcol2' : 'headcol2b'">Name</td>
                             <td ng-hide="ReadOnly" ng-repeat="QuickStatTypes in Game.QuickStatTypes"></td>
-                            <td ng-repeat="StatType in Game.StatTypes">{{StatType.DisplayName}}</td>
+                            <td ng-repeat="StatType in Game.StatTypes | filter:{ ShowGame: true }">{{StatType.DisplayName}}</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,8 +88,8 @@
             <input type="number" min="0" ng-model="NewPlayer1.Number2" placeholder="#" style="width:45px;" />
             <img src="/SportsStats/assets/img/add.png" style="cursor: pointer; margin-right:3px;" ng-click="AddPlayer(NewPlayer1, Game.Team1ID)" />
         </div>
-        <div class="col-xs-12 divpadding titlebar navbar navbar-inverse" style="margin-top:5px">
-            <div>{{Game.Team2Name}} - {{Game.Team2Score}}</div>
+        <div class="col-xs-12 divpadding titlebar navbar navbar-inverse" style="margin-top:5px; text-decoration:underline">
+            <div><a ng-href="/SportsStats/Teams/{{Game.Team2ID}}">{{Game.Team2Name}} - {{Game.Team2Score}}</a></div>
         </div>
         <div class="col-xs-12">
             <div class="frozencolumn">
@@ -99,7 +99,7 @@
                             <td class="headcol1 firstcolumn" ng-show="ShowOrder">Order</td>
                             <td class="headcol2 firstcolumn" ng-class="ShowOrder ? 'headcol2' : 'headcol2b'">Name</td>
                             <td ng-hide="ReadOnly" ng-repeat="QuickStatTypes in Game.QuickStatTypes"></td>
-                            <td ng-repeat="StatType in Game.StatTypes">{{StatType.DisplayName}}</td>
+                            <td ng-repeat="StatType in Game.StatTypes | filter:{ ShowGame: true }">{{StatType.DisplayName}}</td>
                         </tr>
                     </thead>
                     <tbody>

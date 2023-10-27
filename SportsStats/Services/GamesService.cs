@@ -56,7 +56,7 @@ namespace SportsStats.Services
 			int teamscore = 0;
 			if (game.SportID == (int)SportsList.Basketball)
 			{
-				var fgMadeTeam = teamGameStats.Where(s => s.StatType.ID == (int)CalculatedStatTypes.FGMade).Sum(s => s.Value);
+				var fgMadeTeam = teamGameStats.Where(s => s.StatType.ID == (int)CalculatedStatTypes.TwoMade).Sum(s => s.Value);
 				var ftMadeTeam = teamGameStats.Where(s => s.StatType.ID == (int)CalculatedStatTypes.FTMade).Sum(s => s.Value);
 				var threeMadeTeam = teamGameStats.Where(s => s.StatType.ID == (int)CalculatedStatTypes.ThreeMade).Sum(s => s.Value);
 

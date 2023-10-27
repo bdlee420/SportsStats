@@ -20,14 +20,30 @@ namespace SportsStats.Services
                 case CalculatedStatTypes.RPG:
                     games = GetValueFunc(CalculatedStatTypes.Games);
                     return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Rebounds) / GetValueFunc(CalculatedStatTypes.Games);
+                case CalculatedStatTypes.APG:
+                    games = GetValueFunc(CalculatedStatTypes.Games);
+                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Assists) / GetValueFunc(CalculatedStatTypes.Games);
+                case CalculatedStatTypes.SPG:
+                    games = GetValueFunc(CalculatedStatTypes.Games);
+                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Steals) / GetValueFunc(CalculatedStatTypes.Games);
+                case CalculatedStatTypes.BPG:
+                    games = GetValueFunc(CalculatedStatTypes.Games);
+                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Blocks) / GetValueFunc(CalculatedStatTypes.Games);
+                case CalculatedStatTypes.TPG:
+                    games = GetValueFunc(CalculatedStatTypes.Games);
+                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Turnovers) / GetValueFunc(CalculatedStatTypes.Games);
                 case CalculatedStatTypes.Points:
-                    return (GetValueFunc(CalculatedStatTypes.FGMade) * 2) + GetValueFunc(CalculatedStatTypes.FTMade) + (GetValueFunc(CalculatedStatTypes.ThreeMade) * 3);
+                    return (GetValueFunc(CalculatedStatTypes.TwoMade) * 2) + GetValueFunc(CalculatedStatTypes.FTMade) + (GetValueFunc(CalculatedStatTypes.ThreeMade) * 3);
                 case CalculatedStatTypes.FGAttempt:
-                    return GetValueFunc(CalculatedStatTypes.FGMade) + GetValueFunc(CalculatedStatTypes.FGMiss) + GetValueFunc(CalculatedStatTypes.ThreeMade) + GetValueFunc(CalculatedStatTypes.ThreeMiss);
+                    return GetValueFunc(CalculatedStatTypes.TwoMade) + GetValueFunc(CalculatedStatTypes.TwoMiss) + GetValueFunc(CalculatedStatTypes.ThreeMade) + GetValueFunc(CalculatedStatTypes.ThreeMiss);
                 case CalculatedStatTypes.FTAttempt:
                     return GetValueFunc(CalculatedStatTypes.FTMade) + GetValueFunc(CalculatedStatTypes.FTMiss);
                 case CalculatedStatTypes.ThreeAttempt:
                     return GetValueFunc(CalculatedStatTypes.ThreeMade) + GetValueFunc(CalculatedStatTypes.ThreeMiss);
+                case CalculatedStatTypes.FGMade:
+                    {
+                        return GetValueFunc(CalculatedStatTypes.TwoMade) + GetValueFunc(CalculatedStatTypes.ThreeMade);
+                    }
                 case CalculatedStatTypes.FGPercent:
                     {
                         decimal total = GetValueFunc(CalculatedStatTypes.FGAttempt);

@@ -11,6 +11,11 @@ function FilterStats(playerStats, statType, x, numberFormat) {
     var stat = playerStats.filter(function (el) {
         return el.Name === statType;
     });
+
+    if (stat === undefined || stat.length === 0) {
+        return null;
+    }
+
     stat[0].Filter = numberFormat;
     return stat[0];
 }
@@ -32,9 +37,11 @@ function UpdateStatsObject(statTypes, playerStats, teamID, gameID, leagueID) {
             }
             var statType2 = currentStatType.Name;
             var statValue2 = new FilterStats(stats.PlayerStats, statType2, x, numberFormat, leagueID);
-            stats[statType2] = statValue2.Value;            
-            stats.GameID = gameID;
-            stats.TeamID = teamID;
+            if (statValue2 != null) {
+                stats[statType2] = statValue2.Value;
+                stats.GameID = gameID;
+                stats.TeamID = teamID;
+            }
         }
     }
 }
