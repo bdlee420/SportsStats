@@ -92,7 +92,7 @@
 
                         $scope.ReadOnly = user.data.RoleID !== 1;
                         $http.get("/SportsStats/api/Games/GetGame?leagueID=" + currentState.SelectedLeagueID + "&gameID=" + $routeParams.gameID).then(function (success) {
-                        	var data = success.data;
+                            var data = success.data;
                             $scope.LoadGridData(data);
                             $rootScope.ShowSpinner = false;
                             $scope.IsGamePage = true;
@@ -123,6 +123,10 @@
                 }
             };
 
+            $scope.HideShowButtons = function () {
+                $scope.HideButtons = !$scope.HideButtons;                
+            };            
+
             $scope.GetInningText = function (state) {
                 return (state.TopOfInning ? "Top" : "Bottom") + " " + state.Inning;
             };
@@ -133,7 +137,11 @@
                 }
             };
 
-            $scope.AddStat = function (player, statID) {
+            $scope.AddStat = function (player, statID, value) {
+                if (value == null || value === undefined) {
+                    value = 1;
+                }
+
                 var newStat = {
                 	PlayerID: player.PlayerID,
 					LeagueID: currentState.SelectedLeagueID,
@@ -141,6 +149,25 @@
                     TeamID: player.TeamID,
                     StatTypeID: statID,
                     Value: 1,
+                    IsBaseball: $scope.IsBaseball
+                };
+                $rootScope.ShowSpinner = true;
+                $http.post('/SportsStats/api/Stats/AddStat', newStat).then(function (success) {
+                    $scope.LoadData(true);
+                    $rootScope.ShowSpinner = false;
+                }, function (error) {
+                });
+            };
+
+            $scope.SetActive = function (player, isActive) {               
+
+                var newStat = {
+                    PlayerID: player.PlayerID,
+                    LeagueID: currentState.SelectedLeagueID,
+                    GameID: player.GameID,
+                    TeamID: player.TeamID,
+                    StatTypeID: 200,
+                    Value: isActive ? 1 : -1,
                     IsBaseball: $scope.IsBaseball
                 };
                 $rootScope.ShowSpinner = true;
@@ -175,6 +202,26 @@
             $scope.GetQuickButtonClass = function (isPositive) {
                 return isPositive ? "quickcell positivecell" : "quickcell negativecell";
             };
+
+            $scope.GetQuickButtonClass2 = function (isPositive) {
+                return isPositive ? "quickcell2 positivecell" : "quickcell2 negativecell";
+            };
+
+            $scope.GetActivePlayerClass = function (isActivePlayer, showOrder) {
+                var className = "firstcolumn ";
+                if (isActivePlayer) {
+                    className += " activePlayer ";
+                }
+                if (showOrder) {
+                    className += " headcol2 ";
+                }
+                else {
+                    className += " headcol2b ";
+                }
+                return className;
+
+            };
+            //ng - class="Player.IsActivePlayer ? 'activePlayer' : ''" ng - click="GoToStats(Player)" class="headcol2 firstcolumn" ng - class="ShowOrder ? 'headcol2' : 'headcol2b'"
 
             $scope.start = function () {
                 $scope.touched = true;

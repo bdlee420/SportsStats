@@ -156,6 +156,7 @@ namespace SportsStats.Controllers
                                 PlayerNumber = players.FirstOrDefault(p => p.ID == g.PlayerID)?.Number ?? 0,
                                 Order = order == 0 ? (int?)null : order,
                                 AtBat = game.SportID == (int)SportsList.Baseball && g.PlayerID == playerAtBat,
+                                IsActivePlayer = g.IsActivePlayer,
                                 PlayerStats = g.Stats.OrderBy(s => s.StatType.GridDisplayOrder)
                                                      .Select(s => new StatResult()
                                                      {
@@ -167,6 +168,7 @@ namespace SportsStats.Controllers
                                                      }).ToList()
                             };
                         })
+                        .OrderByDescending(p => p.IsActivePlayer)
                         .ToList(),
                     Team2PlayerStats = game.PlayerStats
                         .Where(p => p.TeamID == game.Team2ID)
@@ -180,6 +182,7 @@ namespace SportsStats.Controllers
                                 PlayerNumber = players.FirstOrDefault(p => p.ID == g.PlayerID)?.Number ?? 0,
                                 Order = order == 0 ? (int?)null : order,
                                 AtBat = game.SportID == (int)SportsList.Baseball && g.PlayerID == playerAtBat,
+                                IsActivePlayer = g.IsActivePlayer,
                                 PlayerStats = g.Stats.OrderBy(s => s.StatType.GridDisplayOrder)
                                                      .Select(s => new StatResult()
                                                      {
@@ -191,6 +194,7 @@ namespace SportsStats.Controllers
                                                      }).ToList()
                             };
                         })
+                        .OrderByDescending(p => p.IsActivePlayer)
                         .ToList(),
                     Teams = allTeams.Select(t => new TeamsResult()
                     {

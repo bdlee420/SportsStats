@@ -43,6 +43,7 @@ namespace SportsStats.Models.ControllerObjects
         public int LeagueID { get; set; }
         public int TeamID { get; set; }
         public bool IsCurrentLeague { get; set; }
+        public bool IsActivePlayer { get; set; }
     }
     public class StatResult
     {

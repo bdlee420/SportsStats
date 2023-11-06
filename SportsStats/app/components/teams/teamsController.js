@@ -213,11 +213,35 @@
         		newGame.Team2ID = parseInt(newGame.Team2ID);
         		newGame.LeagueID = currentState.SelectedLeagueID;
         		$rootScope.ShowSpinner = true;
-        		$http.post('/SportsStats/api/Teams/AddGame', newGame).then(function (success) {
-        			var data = success.data;
-        			$scope.Team = data;
-        			game.GameDate = null;
-        			game.Team2ID = null;
+                $http.post('/SportsStats/api/Teams/AddGame', newGame).then(function (success) {
+                    var data = success.data;
+                    $scope.Team = data;
+                    $scope.ListTeams = data.Teams;
+                    $scope.ListAvailablePlayers = data.AvailablePlayers;
+
+                    for (var i = 0; i < data.Games.length; i++) {
+                        var game = data.Games[i];
+                        if (game.HighScore === 0 && game.LowScore === 0) {
+                            jQuery.extend(game, { GameResult: 0, GameResultText: "" });
+                        }
+                        else {
+                            if (game.DidWin) {
+                                jQuery.extend(game, { GameResult: 1, GameResultText: "WON" });
+                            }
+                            else if (game.DidWin == null) {
+                                jQuery.extend(game, { GameResult: 3, GameResultText: "TIE" });
+                            }
+                            else if (!game.DidWin) {
+                                jQuery.extend(game, { GameResult: 2, GameResultText: "LOSS" });
+                            }
+                            else {
+                                jQuery.extend(game, { GameResult: 0, GameResultText: "" });
+                            }
+                        }
+                    }
+
+                    new UpdateStatsObject(data.StatTypes, data.TeamPlayerStats, data.Team1ID, data.ID);
+        			
         			$rootScope.ShowSpinner = false;
         		}, function (error) {
         		});

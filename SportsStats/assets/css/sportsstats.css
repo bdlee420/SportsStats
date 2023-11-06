@@ -17,6 +17,10 @@ select, input {
     margin-left: 15px;
 }
 
+.activePlayer {
+    background-color: #d4f4ff
+}
+
 .statbox {
     width: 100%;
     min-width: 100px;
@@ -111,6 +115,7 @@ select, input {
 
 .statsTable .firstcolumn {
     text-align: left;
+    height: 57px;
 }
 
 .statsTable thead {
@@ -130,6 +135,14 @@ select, input {
 .quickcell button {
     color: white;
     width: 65px;
+    height: 40px;
+    border: 2px solid;
+    border-radius: 15px;
+}
+
+.quickcell2 button {
+    color: white;
+    width: 80px;
     height: 40px;
     border: 2px solid;
     border-radius: 15px;
