@@ -137,11 +137,17 @@
                 }
             };
 
-            $scope.AddStat = function (player, statID, value) {
-                if (value == null || value === undefined) {
-                    value = 1;
+            $scope.ShowMessage = function (player, statText, teamNumber) {
+                var message = player.PlayerName + ": " + statText;
+                if (teamNumber === 1) {
+                    $rootScope.LastStatTeam1 = message;
                 }
+                else {
+                    $rootScope.LastStatTeam2 = message;
+                }
+            };
 
+            $scope.AddStat = function (player, statID, teamNumber, statText) {    
                 var newStat = {
                 	PlayerID: player.PlayerID,
 					LeagueID: currentState.SelectedLeagueID,
@@ -155,11 +161,12 @@
                 $http.post('/SportsStats/api/Stats/AddStat', newStat).then(function (success) {
                     $scope.LoadData(true);
                     $rootScope.ShowSpinner = false;
+                    $scope.ShowMessage(player, statText, teamNumber);
                 }, function (error) {
                 });
             };
 
-            $scope.SetActive = function (player, isActive) {               
+            $scope.SetActive = function (player, isActive, teamNumber) {               
 
                 var newStat = {
                     PlayerID: player.PlayerID,
@@ -174,6 +181,8 @@
                 $http.post('/SportsStats/api/Stats/AddStat', newStat).then(function (success) {
                     $scope.LoadData(true);
                     $rootScope.ShowSpinner = false;
+                    var statText = isActive ? "Into the game" : "Out of the game";
+                    $scope.ShowMessage(player, statText, teamNumber);
                 }, function (error) {
                 });
             };

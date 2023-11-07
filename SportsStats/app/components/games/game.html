@@ -58,8 +58,8 @@
         <div ng-include="'/SportsStats/app/components/games/gameState.html'"></div>
     </div>
     <div style="padding-top:15px;" ng-touchmove="move($event)" ng-touchstart="start($event)" ng-touchend="end($event)">
-        <div class="col-xs-12 divpadding titlebar navbar navbar-inverse" style="margin-top:5px; text-decoration:underline">
-            <div><a ng-href="/SportsStats/Teams/{{Game.Team1ID}}">{{Game.Team1Name}} - {{Game.Team1Score}}</a></div>
+        <div class="col-xs-12 divpadding titlebar navbar navbar-inverse" style="margin-top:5px;">
+            <div style="float: left; margin-right: 15px"><a ng-href="/SportsStats/Teams/{{Game.Team1ID}}">{{Game.Team1Name}} - {{Game.Team1Score}}</a></div><div>{{LastStatTeam1}}</div>
         </div>
         <div class="col-xs-12">
             <div class="frozencolumn">
@@ -80,11 +80,11 @@
                                 #{{Player.PlayerNumber}} {{Player.PlayerName}}
                             </td>
                             <td ng-hide="ReadOnly || HideButtons" ng-class="GetQuickButtonClass(Player.IsActivePlayer)">
-                                <img ng-show="!Player.IsActivePlayer" src="/SportsStats/assets/img/add.png" style="width: 40px; cursor: pointer; margin-right: 7px;" ng-click="SetActive(Player, true)" />
-                                <img ng-show="Player.IsActivePlayer" src="/SportsStats/assets/img/minus-small.png" style="width:40px; cursor: pointer; margin-right:7px;" ng-click="SetActive(Player, false)" />
+                                <img ng-show="!Player.IsActivePlayer" src="/SportsStats/assets/img/add.png" style="width: 40px; cursor: pointer; margin-right: 7px;" ng-click="SetActive(Player, true, 1)" />
+                                <img ng-show="Player.IsActivePlayer" src="/SportsStats/assets/img/minus-small.png" style="width:40px; cursor: pointer; margin-right:7px;" ng-click="SetActive(Player, false, 1)" />
                             </td>
                             <td ng-hide="ReadOnly || HideButtons" ng-repeat="QuickStatTypes in Game.QuickStatTypes" ng-class="GetQuickButtonClass(QuickStatTypes.IsPositive)">
-                                <button ng-click="AddStat(Player, QuickStatTypes.StatTypeID)">{{QuickStatTypes.QuickButtonText}}</button>
+                                <button ng-click="AddStat(Player, QuickStatTypes.StatTypeID, 1, QuickStatTypes.QuickButtonText)">{{QuickStatTypes.QuickButtonText}}</button>
                             </td>
                             <td ng-click="GoToStats(Player)" ng-repeat="Stats in Player.PlayerStats">{{Stats.Value | picker:Stats.Filter}}</td>
                         </tr>
@@ -98,8 +98,8 @@
             <input type="number" min="0" ng-model="NewPlayer1.Number2" placeholder="#" style="width:45px;" />
             <img src="/SportsStats/assets/img/add.png" style="cursor: pointer; margin-right:3px;" ng-click="AddPlayer(NewPlayer1, Game.Team1ID)" />
         </div>
-        <div class="col-xs-12 divpadding titlebar navbar navbar-inverse" style="margin-top:5px; text-decoration:underline">
-            <div><a ng-href="/SportsStats/Teams/{{Game.Team2ID}}">{{Game.Team2Name}} - {{Game.Team2Score}}</a></div>
+        <div class="col-xs-12 divpadding titlebar navbar navbar-inverse" style="margin-top:5px;">
+            <div style="float: left; margin-right: 15px"><a ng-href="/SportsStats/Teams/{{Game.Team2ID}}">{{Game.Team2Name}} - {{Game.Team2Score}}</a></div><div>{{LastStatTeam2}}</div>
         </div>
         <div class="col-xs-12">
             <div class="frozencolumn">
@@ -118,10 +118,11 @@
                             <td ng-show="ShowOrder" class="headcol1 firstcolumn"><input maxlength="2" type="number" class="form-control input-xs order" ng-model="Player.Order" ng-change="SaveOrder(Player, Game.Team2ID, false)" /></td>
                             <td ng-click="GoToStats(Player)" class="headcol2 firstcolumn" ng-class="ShowOrder ? 'headcol2' : 'headcol2b'">#{{Player.PlayerNumber}} {{Player.PlayerName}}</td>
                             <td ng-hide="ReadOnly || HideButtons" ng-class="GetQuickButtonClass(Player.IsActivePlayer)">
-                                <button ng-click="SetActive(Player, !Player.IsActivePlayer)">{{ Player.IsActivePlayer ? '+' : '-' }}</button>
+                                <img ng-show="!Player.IsActivePlayer" src="/SportsStats/assets/img/add.png" style="width: 40px; cursor: pointer; margin-right: 7px;" ng-click="SetActive(Player, true, 2)" />
+                                <img ng-show="Player.IsActivePlayer" src="/SportsStats/assets/img/minus-small.png" style="width:40px; cursor: pointer; margin-right:7px;" ng-click="SetActive(Player, false, 2)" />
                             </td>
                             <td ng-hide="ReadOnly || HideButtons" ng-repeat="QuickStatTypes in Game.QuickStatTypes" ng-class="GetQuickButtonClass(QuickStatTypes.IsPositive)">
-                                <button ng-click="AddStat(Player, QuickStatTypes.StatTypeID)">{{QuickStatTypes.QuickButtonText}}</button>
+                                <button ng-click="AddStat(Player, QuickStatTypes.StatTypeID, 2, QuickStatTypes.QuickButtonText)">{{QuickStatTypes.QuickButtonText}}</button>
                             </td>
                             <td ng-click="GoToStats(Player)" ng-repeat="Stats in Player.PlayerStats">{{Stats.Value | picker:Stats.Filter}}</td>
                         </tr>
