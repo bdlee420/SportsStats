@@ -201,6 +201,7 @@
             };
 
             $scope.AddStat = function (statType, statStates) {
+                $rootScope.ShowSpinner = true;
                 var newStat = jQuery.extend(statType,
                     {
                         PlayerID: $routeParams.playerID,
@@ -211,11 +212,9 @@
                         Value: $scope.IsNegative ? -1 : 1,
                         StatStates: statStates,
                         IsLatestGroup: $scope.Stats.LatestGroupID === $scope.Stats.GroupID
-                    });
-                $rootScope.ShowSpinner = true;
+                    });                
                 $http.post('/SportsStats/api/Stats/AddStat', newStat).then(function (success) {
-                    var data = success.data;
-                    $rootScope.ShowSpinner = false;
+                    var data = success.data;                    
 
                     if ($scope.IsBaseball) {
                         $scope.DataSaved = true;
@@ -261,6 +260,7 @@
                             $location.url("/SportsStats/Games/" + $routeParams.gameID);
                         }
                     }    
+                    $rootScope.ShowSpinner = false;
                 }, function (error) {
                 });
             };

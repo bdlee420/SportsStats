@@ -79,8 +79,9 @@
                             <td ng-class="GetActivePlayerClass(Player.IsActivePlayer, ShowOrder)" ng-click="GoToStats(Player)">
                                 #{{Player.PlayerNumber}} {{Player.PlayerName}}
                             </td>
-                            <td ng-hide="ReadOnly || HideButtons" ng-class="GetQuickButtonClass2(Player.IsActivePlayer)">
-                                <button ng-click="SetActive(Player, !Player.IsActivePlayer)">{{ Player.IsActivePlayer ? 'Active' : 'Inactive' }}</button>
+                            <td ng-hide="ReadOnly || HideButtons" ng-class="GetQuickButtonClass(Player.IsActivePlayer)">
+                                <img ng-show="!Player.IsActivePlayer" src="/SportsStats/assets/img/add.png" style="width: 40px; cursor: pointer; margin-right: 7px;" ng-click="SetActive(Player, true)" />
+                                <img ng-show="Player.IsActivePlayer" src="/SportsStats/assets/img/minus-small.png" style="width:40px; cursor: pointer; margin-right:7px;" ng-click="SetActive(Player, false)" />
                             </td>
                             <td ng-hide="ReadOnly || HideButtons" ng-repeat="QuickStatTypes in Game.QuickStatTypes" ng-class="GetQuickButtonClass(QuickStatTypes.IsPositive)">
                                 <button ng-click="AddStat(Player, QuickStatTypes.StatTypeID)">{{QuickStatTypes.QuickButtonText}}</button>
@@ -116,8 +117,8 @@
                         <tr ng-class="{success: Player.AtBat}" ng-repeat="Player in Game.Team2PlayerStats" ng-show="ShowAll || Player.Order > 0">
                             <td ng-show="ShowOrder" class="headcol1 firstcolumn"><input maxlength="2" type="number" class="form-control input-xs order" ng-model="Player.Order" ng-change="SaveOrder(Player, Game.Team2ID, false)" /></td>
                             <td ng-click="GoToStats(Player)" class="headcol2 firstcolumn" ng-class="ShowOrder ? 'headcol2' : 'headcol2b'">#{{Player.PlayerNumber}} {{Player.PlayerName}}</td>
-                            <td ng-hide="ReadOnly || HideButtons" ng-class="GetQuickButtonClass2(Player.IsActivePlayer)">
-                                <button ng-click="SetActive(Player, !Player.IsActivePlayer)">{{ Player.IsActivePlayer ? 'Active' : 'Inactive' }}</button>
+                            <td ng-hide="ReadOnly || HideButtons" ng-class="GetQuickButtonClass(Player.IsActivePlayer)">
+                                <button ng-click="SetActive(Player, !Player.IsActivePlayer)">{{ Player.IsActivePlayer ? '+' : '-' }}</button>
                             </td>
                             <td ng-hide="ReadOnly || HideButtons" ng-repeat="QuickStatTypes in Game.QuickStatTypes" ng-class="GetQuickButtonClass(QuickStatTypes.IsPositive)">
                                 <button ng-click="AddStat(Player, QuickStatTypes.StatTypeID)">{{QuickStatTypes.QuickButtonText}}</button>
