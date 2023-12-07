@@ -218,6 +218,17 @@ namespace SportsStats.Helpers
                 StatType = o.StatType
             };
         }
+
+        public static GameStat ConvertType2(Stat o)
+        {
+            return new GameStat()
+            {
+                Value = Convert.ToInt32(o.Value),
+                StatType = o.StatType,
+                TeamID = o.TeamID                
+            };
+        }
+
         public static StatResult ConvertType(Stat o)
         {
             return new StatResult()

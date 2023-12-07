@@ -15,7 +15,7 @@ namespace SportsStats.Models.ServiceObjects
         public int LeagueID { get; set; }
         public int SportID { get; set; }
         public bool IsActivePlayer { get; set; }
-        public List<Stat> Stats { get; set; }
+        public List<Stat> Stats { get; set; }        
     }
 
     public class GameStat
@@ -39,6 +39,11 @@ namespace SportsStats.Models.ServiceObjects
         public decimal Value { get; set; }
         public int? GroupID { get; set; }
         public List<StatStates> StatStates { get; set; }
+
+        public override string ToString()
+        {
+            return StatType.DisplayName;
+        }
     }
 
     public class PlayerGameStat

@@ -27,6 +27,8 @@ namespace SportsStats.Models.ControllerObjects
         public List<StatTypeResult> StatTypes { get; set; }
         public List<PlayerStatsResult> Team1PlayerStats { get; set; }
         public List<PlayerStatsResult> Team2PlayerStats { get; set; }
+        public List<PlayerStatsResult> TotalTeam1Stats { get; set; }
+        public List<PlayerStatsResult> TotalTeam2Stats { get; set; }
         public List<TeamsResult> Teams { get; set; }
         public BaseballGameStateResult BaseballGameStateResult { get; set; }
     }

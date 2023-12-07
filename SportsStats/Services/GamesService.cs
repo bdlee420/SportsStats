@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using SportsStats.Common;
 using SportsStats.DataProviders;
 using SportsStats.Helpers;
@@ -103,10 +104,25 @@ namespace SportsStats.Services
                 var statTypes = GameDataProvider.GetInstance().GetStatTypes(game.SportID, dataCache: dataCache);
                 var players = PlayersService.GetInstance().GetPlayers(gameID: gameID, leagueID: game.LeagueID, dataCache: dataCache);
                 var gameStats = stats.Select(s => ConvertObjects.ConvertType2(s)).ToList();
-
+                var gameTotalStats = new List<PlayerStats>();
                 var playerStats = new List<PlayerStats>();
+
                 foreach (var player in players)
                 {
+                    var teamTotalStats = gameTotalStats.FirstOrDefault(ts => ts.TeamID == player.TeamID);
+                    if (teamTotalStats == null)
+                    {
+                        teamTotalStats = new PlayerStats
+                        {
+                            TeamID = player.TeamID,
+                            PlayerName = "TOTAL",
+                            GameID = gameID,
+                            PlayerID = -1,
+                            Stats = new List<Stat>()
+                        };
+                        gameTotalStats.Add(teamTotalStats);
+                    }
+
                     var playerStat = new PlayerStats()
                     {
                         GameID = gameID,
@@ -123,6 +139,19 @@ namespace SportsStats.Services
                             s.PlayerID == player.ID &&
                             s.TeamID == player.TeamID);
 
+                        var existingTeamTotalStat = teamTotalStats.Stats.FirstOrDefault(s => s.StatType.ID == statType.StatTypeID);
+                        if (existingTeamTotalStat == null)
+                        {
+                            existingTeamTotalStat = new Stat()
+                            {
+                                GameID = gameID,
+                                TeamID = teamTotalStats.TeamID,
+                                Value = 0,
+                                StatType = ConvertObjects.ConvertType(statType)
+                            };
+                            teamTotalStats.Stats.Add(existingTeamTotalStat);
+                        }
+
                         var stat = new GameStat()
                         {
                             GameID = gameID,
@@ -138,7 +167,10 @@ namespace SportsStats.Services
                                 s.StatType.ID == statType.StatTypeID &&
                                 s.PlayerID == player.ID &&
                                 s.TeamID == player.TeamID).Sum(s => s.Value);
+
+                            existingTeamTotalStat.Value += stat.Value;
                         }
+
                         stat.StatType.GridDisplayOrder = statType.GridDisplayOrder;
                         stat.StatType.SelectionDisplayOrder = statType.SelectionDisplayOrder;
                         playerStat.Stats.Add(ConvertObjects.ConvertType(stat));
@@ -151,7 +183,6 @@ namespace SportsStats.Services
                             .Where(s => s.StatType.ID == (int)CalculatedStatTypes.IsActive)
                             .Sum(s => s.Value) > 0;
                     }
-
 
                     playerStats.Add(playerStat);
                 }
@@ -173,6 +204,7 @@ namespace SportsStats.Services
                     Team2Score = team2score,
                     Team2Name = teams.First(t => t.ID == game.Team2ID).Name,
                     PlayerStats = playerStats,
+                    TotalStats = gameTotalStats,
                     SportID = game.SportID
                 };
 
@@ -185,6 +217,29 @@ namespace SportsStats.Services
                         {
                             StatType = ConvertObjects.ConvertType(calcStat),
                             Value = StatsCalculations.GetValue((CalculatedStatTypes)calcStat.StatTypeID, playerGameStats)
+                        });
+                    }
+                }
+
+                //Handle Total Stats
+
+                var totalGameStats = gameTotalStats
+                    .SelectMany(g => g.Stats)
+                    .Select(s => ConvertObjects.ConvertType2(s))
+                    .ToList();
+
+                foreach (var ts in selectedGame.TotalStats)
+                {
+                    var teamGameStats = totalGameStats
+                        .Where(tgs => tgs.TeamID == ts.TeamID)
+                        .ToList();
+
+                    foreach (var calcStat in statTypes.Where(st => st.IsCalculated))
+                    {
+                        ts.Stats.Add(new Stat()
+                        {
+                            StatType = ConvertObjects.ConvertType(calcStat),
+                            Value = StatsCalculations.GetValue((CalculatedStatTypes)calcStat.StatTypeID, teamGameStats)
                         });
                     }
                 }

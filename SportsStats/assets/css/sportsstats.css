@@ -114,8 +114,16 @@ select, input {
 }
 
 .statsTable .firstcolumn {
-    text-align: left;
+    text-align: left;    
+}
+
+.statsTable tbody > tr > td  {
     height: 57px;
+}
+
+.totalRow > td {
+    background-color: #454d5c;
+    color: white;    
 }
 
 .statsTable thead {

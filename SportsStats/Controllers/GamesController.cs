@@ -126,6 +126,11 @@ namespace SportsStats.Controllers
                     playerStat.Stats = playerStat.Stats.Where(s => statTypesHash.Contains(s.StatType.ID)).ToList();
                 }
 
+                foreach (var totalStat in game.TotalStats)
+                {
+                    totalStat.Stats = totalStat.Stats.Where(s => statTypesHash.Contains(s.StatType.ID)).ToList();
+                }
+
                 int? playerAtBat = gameState.TopOfInning ? gameState.Team1Player?.ID : gameState.Team2Player?.ID;
 
                 var gameResult = new GameResult()
@@ -195,6 +200,48 @@ namespace SportsStats.Controllers
                             };
                         })
                         .OrderByDescending(p => p.IsActivePlayer)
+                        .ToList(),
+                    TotalTeam1Stats = game.TotalStats
+                        .Where(ts => ts.TeamID == game.Team1ID)
+                        .Select(g =>
+                        {
+                            return new PlayerStatsResult()
+                            {
+                                PlayerID = -1,
+                                PlayerName = "Total",
+                                PlayerNumber = 0,
+                                PlayerStats = g.Stats.OrderBy(s => s.StatType.GridDisplayOrder)
+                                                     .Select(s => new StatResult()
+                                                     {
+                                                         StatTypeID = s.StatType.ID,
+                                                         Name = s.StatType.Name,
+                                                         DefaultShow = s.StatType.DefaultShow,
+                                                         Value = s.Value,
+                                                         ShowGame = s.StatType.ShowGame
+                                                     }).ToList()
+                            };
+                        })
+                        .ToList(),
+                    TotalTeam2Stats = game.TotalStats
+                        .Where(ts => ts.TeamID == game.Team2ID)
+                        .Select(g =>
+                        {
+                            return new PlayerStatsResult()
+                            {
+                                PlayerID = -1,
+                                PlayerName = "Total",
+                                PlayerNumber = 0,
+                                PlayerStats = g.Stats.OrderBy(s => s.StatType.GridDisplayOrder)
+                                                     .Select(s => new StatResult()
+                                                     {
+                                                         StatTypeID = s.StatType.ID,
+                                                         Name = s.StatType.Name,
+                                                         DefaultShow = s.StatType.DefaultShow,
+                                                         Value = s.Value,
+                                                         ShowGame = s.StatType.ShowGame
+                                                     }).ToList()
+                            };
+                        })
                         .ToList(),
                     Teams = allTeams.Select(t => new TeamsResult()
                     {

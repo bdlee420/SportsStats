@@ -274,6 +274,10 @@
                 new UpdateStatsObject(data.StatTypes, data.Team1PlayerStats, data.Team1ID, data.ID);
 
                 new UpdateStatsObject(data.StatTypes, data.Team2PlayerStats, data.Team2ID, data.ID);
+
+                new UpdateStatsObject(data.StatTypes, data.TotalTeam1Stats, data.Team1ID, data.ID);
+
+                new UpdateStatsObject(data.StatTypes, data.TotalTeam2Stats, data.Team2ID, data.ID);
             };
 
             $scope.GoToLog = function () {

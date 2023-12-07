@@ -13,6 +13,7 @@ namespace SportsStats.Models.ServiceObjects
         public string Team2Name { get; set; }
         public int Team2Score { get; set; }
         public List<PlayerStats> PlayerStats { get; set; }
+        public List<PlayerStats> TotalStats { get; set; }
         public DateTime GameDate { get; set; }
         public int SportID { get; set; }
 		public int LeagueID { get; set; }
