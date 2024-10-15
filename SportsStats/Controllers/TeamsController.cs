@@ -75,6 +75,10 @@ namespace SportsStats.Controllers
         {
             try
             {
+                if(game.Team1ID == 0 || game.Team2ID == 0)
+                {
+                    throw new Exception("Invalid Team");
+                }
                 GamesService.GetInstance().AddGame(ConvertObjects.ConvertType(game));
                 return GetTeamResult(game.Team1ID, game.LeagueID);
             }
