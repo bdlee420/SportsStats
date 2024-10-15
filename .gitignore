@@ -12,10 +12,10 @@ logs
 node_modules
 obj
 PublishProfiles
-Data
-Web.Release.config
-Web.config
-Web.Debug.config
+#Data
+#Web.Release.config
+#Web.config
+#Web.Debug.config
 packages
 *.suo
 /.vs/VSWorkspaceState.json
