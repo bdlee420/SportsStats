@@ -4,7 +4,6 @@
 
 *.min.css
 *.map
-*.min.js
 *.intellisense.js
 *.dll
 bin
@@ -17,6 +16,7 @@ Web.Release.config
 Web.config
 Web.Debug.config
 packages
+dest
 *.suo
 /.vs/VSWorkspaceState.json
 /.vs/SportsStats/FileContentIndex
