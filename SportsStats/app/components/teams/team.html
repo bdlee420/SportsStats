@@ -25,7 +25,9 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="Player in Team.TeamPlayerStats">
-                            <td ng-click="GoToPlayer(Player.PlayerID)" class="firstcolumn headcol2b">#{{Player.PlayerNumber}} {{Player.PlayerName}}</td>
+                            <td ng-click="GoToPlayer(Player.PlayerID)" class="firstcolumn headcol2b">
+                                <img src="/SportsStats/assets/img/view.png" style="cursor: pointer; margin-right: 10px; margin-bottom: 3px;" />#{{Player.PlayerNumber}} {{Player.PlayerName}}
+                            </td>
                             <td ng-click="GoToPlayer(Player.PlayerID)" ng-repeat="Stats in Player.PlayerStats">{{Stats.Value | picker:Stats.Filter}}</td>
                         </tr>
                     </tbody>
@@ -49,11 +51,10 @@
         <div>Games</div>
     </div>
     <div class="col-xs-12 divpadding removebootpadding">
-        <div class="col-xs-12 divpadding removebootpadding selectionrow" ng-click="GoToGame(Game.ID)" ng-repeat="Game in Team.Games">
-            <div class="col-xs-6 col-sm-4">{{Game.GameDate | date:"MM/dd/yyyy"}}</div>
-            <div class="col-xs-6 col-sm-2" ng-class="GetResultClass(Game.DidWin)">{{Game.GameResultText}}</div>
-            <div class="col-xs-6 col-sm-4">{{Game.OtherTeamName}}</div>
-            <div class="col-xs-6 col-sm-2">{{Game.HighScore}}-{{Game.LowScore}}</div>
+        <div class="row divpadding removebootpadding selectionrow" ng-click="GoToGame(Game.ID)" ng-repeat="Game in Team.Games">
+            <div class="col-xs-12 col-sm-4"><img src="/SportsStats/assets/img/view.png" style="cursor: pointer; margin-right:5px" />{{Game.GameDate | date:"MM/dd/yyyy"}}&nbsp;&nbsp;&nbsp;{{Game.OtherTeamName}}</div>
+            <div class="col-xs-3 col-sm-2" ng-class="GetResultClass(Game.DidWin)">{{Game.GameResultText}}</div>
+            <div class="col-xs-9 col-sm-2">{{Game.HighScore}}-{{Game.LowScore}}</div>
         </div>
         <div class="col-xs-12 removebootpadding" ng-hide="ReadOnly">
             <div class="col-xs-12"><img src="/SportsStats/assets/img/add.png" style="cursor: pointer; margin-right:7px;" ng-click="AddGame(NewGame, Team)" /></div>

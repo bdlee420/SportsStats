@@ -68,8 +68,10 @@ select, input {
     }
 
 .divpadding {
-    padding-bottom: 5px;
-    margin-bottom: 5px;
+    padding-bottom: 2px;
+    margin-bottom: 2px;
+    padding-top: 2px;
+    margin-top: 2px;
 }
 
 [ng\:cloak], [ng-cloak], .ng-cloak {

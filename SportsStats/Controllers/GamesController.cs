@@ -1,12 +1,11 @@
-﻿using SportsStats.Common;
-using SportsStats.Helpers;
-using SportsStats.Models.ControllerObjects;
-using SportsStats.Models.ServiceObjects;
-using SportsStats.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using SportsStats.Common;
+using SportsStats.Helpers;
+using SportsStats.Models.ControllerObjects;
+using SportsStats.Services;
 using static SportsStats.Helpers.Enums;
 
 namespace SportsStats.Controllers
@@ -123,7 +122,7 @@ namespace SportsStats.Controllers
 
                 foreach (var playerStat in game.PlayerStats)
                 {
-                    playerStat.Stats = playerStat.Stats.Where(s => statTypesHash.Contains(s.StatType.ID)).ToList();
+                    playerStat.Stats = playerStat.Stats.Where(s => statTypesHash.Contains(s.StatType.ID)).ToList();                    
                 }
 
                 foreach (var totalStat in game.TotalStats)
@@ -157,7 +156,7 @@ namespace SportsStats.Controllers
                             return new PlayerStatsResult()
                             {
                                 PlayerID = g.PlayerID,
-                                PlayerName = players.FirstOrDefault(p => p.ID == g.PlayerID)?.Name,
+                                PlayerName = CommonFunctions.TrimPlayerName(players.FirstOrDefault(p => p.ID == g.PlayerID)?.Name),
                                 PlayerNumber = players.FirstOrDefault(p => p.ID == g.PlayerID)?.Number ?? 0,
                                 Order = order == 0 ? (int?)null : order,
                                 AtBat = game.SportID == (int)SportsList.Baseball && g.PlayerID == playerAtBat,
@@ -183,7 +182,7 @@ namespace SportsStats.Controllers
                             return new PlayerStatsResult()
                             {
                                 PlayerID = g.PlayerID,
-                                PlayerName = players.FirstOrDefault(p => p.ID == g.PlayerID)?.Name,
+                                PlayerName = CommonFunctions.TrimPlayerName(players.FirstOrDefault(p => p.ID == g.PlayerID)?.Name),
                                 PlayerNumber = players.FirstOrDefault(p => p.ID == g.PlayerID)?.Number ?? 0,
                                 Order = order == 0 ? (int?)null : order,
                                 AtBat = game.SportID == (int)SportsList.Baseball && g.PlayerID == playerAtBat,

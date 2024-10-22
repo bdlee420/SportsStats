@@ -38,7 +38,7 @@ namespace SportsStats.Controllers
                     Team1Score = g.Team1Score,
                     Team2Score = g.Team2Score
                 }).ToList(),
-                Teams = player.Teams?.Select(t =>
+                Teams = player.Teams?.Where(t => leagues.Exists(x => x.ID == t.LeagueID)).Select(t =>
                 {
                     var league = leagues.First(l => l.ID == t.LeagueID);
                     var sport = sports.First(s => s.ID == league.SportID);
@@ -92,14 +92,14 @@ namespace SportsStats.Controllers
         }
 
         [HttpPost]
-        public List<PlayersResult> AddPlayer([FromBody]PlayersResult player)
+        public List<PlayersResult> AddPlayer([FromBody] PlayersResult player)
         {
             PlayersService.GetInstance().AddPlayer(ConvertObjects.ConvertType(player));
             return GetPlayers();
         }
 
         [HttpPost]
-        public List<PlayersResult> SavePlayer([FromBody]PlayerResult player)
+        public List<PlayersResult> SavePlayer([FromBody] PlayerResult player)
         {
             PlayersService.GetInstance().SavePlayer(ConvertObjects.ConvertType(player));
             return GetPlayers();

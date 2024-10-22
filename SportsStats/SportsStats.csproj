@@ -110,6 +110,8 @@
     <Content Include="assets\img\refresh.png" />
     <Content Include="assets\img\save.png" />
     <None Include="assets\lib\angular-cookies.js" />
+    <Content Include="assets\img\view-big.png" />
+    <Content Include="assets\img\view.png" />
     <Content Include="assets\lib\angular-cookies.min.js" />
     <None Include="assets\lib\angular.js" />
     <Content Include="dest\sportsstats.min.css" />
@@ -236,6 +238,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CommonFunctions.cs" />
     <Compile Include="Helpers\ConvertObjects.cs" />
     <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Helpers\UserHelper.cs" />

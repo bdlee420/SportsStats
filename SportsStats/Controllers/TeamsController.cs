@@ -75,7 +75,7 @@ namespace SportsStats.Controllers
         {
             try
             {
-                if(game.Team1ID == 0 || game.Team2ID == 0)
+                if (game.Team1ID == 0 || game.Team2ID == 0)
                 {
                     throw new Exception("Invalid Team");
                 }
@@ -133,6 +133,7 @@ namespace SportsStats.Controllers
             foreach (var playerStat in playerStats)
             {
                 playerStat.Stats = playerStat.Stats.Where(s => statTypesHash.Contains(s.StatType.ID)).ToList();
+                playerStat.PlayerName = CommonFunctions.TrimPlayerName(playerStat.PlayerName);
             }
 
             var teamResult = new TeamResult()
