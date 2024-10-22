@@ -14,3 +14,8 @@ INSERT INTO Leagues(Name, SportID, StartDate, EndDate, SeasonID)VALUES('Heat 14U
 INSERT INTO Leagues(Name, SportID, StartDate, EndDate, SeasonID)VALUES('Heat 16U', 1, '10/26/2023', '5/1/2023', 1)
 INSERT INTO Leagues(Name, SportID, StartDate, EndDate, SeasonID)VALUES('Heat 18U Red', 1, '10/26/2023', '5/1/2023', 1)
 INSERT INTO Leagues(Name, SportID, StartDate, EndDate, SeasonID)VALUES('Heat 18U Varsity', 1, '10/26/2023', '5/1/2023', 1)
+INSERT INTO Leagues(Name, SportID, StartDate, EndDate, SeasonID)VALUES('Heat 14U JV', 1, '10/22/2024', '5/1/2024', 1)
+INSERT INTO Leagues(Name, SportID, StartDate, EndDate, SeasonID)VALUES('Heat 14U Varsity', 1, '10/22/2024', '5/1/2024', 1)
+INSERT INTO Leagues(Name, SportID, StartDate, EndDate, SeasonID)VALUES('Heat 16U', 1, '10/22/2024', '5/1/2024', 1)
+INSERT INTO Leagues(Name, SportID, StartDate, EndDate, SeasonID)VALUES('Heat 18U MHAC', 1, '10/22/2024', '5/1/2024', 1)
+INSERT INTO Leagues(Name, SportID, StartDate, EndDate, SeasonID)VALUES('Heat 18U Varsity', 1, '10/22/2024', '5/1/2024', 1)

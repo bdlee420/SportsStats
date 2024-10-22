@@ -203,6 +203,7 @@
     <None Include="SQL\Tables\Teams.sql" />
     <None Include="SQL\Tables\Users.sql" />
     <None Include="SQL\Tables\UserTeamAccess.sql" />
+    <Content Include="SQL\Data\RemoveDuplicateTeam.sql" />
     <Content Include="SQL\Data\UpdateTeamPlayersLeagueID.sql" />
     <Content Include="SQL\Procs\AddLeagueTeam.sql" />
     <Content Include="SQL\Procs\GetGameLog.sql" />
@@ -285,6 +286,7 @@
     <Compile Include="Services\TeamsService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
