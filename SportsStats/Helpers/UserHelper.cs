@@ -1,5 +1,6 @@
 ﻿using SportsStats.Models.DTOObjects;
 using SportsStats.Models.ServiceObjects;
+using System.Linq;
 using System.Web;
 using static SportsStats.Helpers.Enums;
 
@@ -22,13 +23,16 @@ namespace SportsStats.Helpers
             }
         }
 
-        public static bool HasUpdatePermissions(int? teamID = null)
+        public static bool HasUpdatePermissions(int? teamID = null, int? leagueID = null)
         {
             if (CurrentUser == null)
                 return false;
 
             if (CurrentUser.Role == Roles.Admin)
-                return true;           
+                return true;
+
+            if (leagueID.HasValue && CurrentUser.AdminLeagueIDs.Contains(leagueID.Value))
+                return true;
 
             return false;
         }
@@ -65,6 +69,9 @@ namespace SportsStats.Helpers
         public static bool HasGetPermissions(Game game)
         {
             if (CurrentUser.Role == Roles.Admin)
+                return true;
+
+            if (CurrentUser.AdminLeagueIDs.Contains(game.LeagueID))
                 return true;
 
             if (CurrentUser.Role == Roles.User && (CurrentUser.Teams.Exists(t => t == game.Team1ID) || CurrentUser.Teams.Exists(t => t == game.Team2ID)))

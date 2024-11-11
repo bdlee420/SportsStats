@@ -17,7 +17,7 @@
     			if (!currentState) {
     				return;
     			}
-    			$scope.ReadOnly = user.data.RoleID !== 1;
+                $scope.ReadOnly = user.data.RoleID !== 1 && !user.data.AdminLeagueIDs.includes(currentState.SelectedLeagueID);
     			$http.get("/SportsStats/api/Teams/GetTeams?leagueID=" + currentState.SelectedLeagueID + "&sportID=" + currentState.SelectedSportID).then(function (success) {
     				var data = success.data;
     				$rootScope.ShowSpinner = false;
@@ -91,7 +91,7 @@
         					$scope.currentSort = $scope.hockeyCurrentSort;
         				}
 
-        				$scope.ReadOnly = user.data.RoleID !== 1;
+                        $scope.ReadOnly = user.data.RoleID !== 1 && !user.data.AdminLeagueIDs.includes(currentState.SelectedLeagueID);
         				$http.get("/SportsStats/api/Teams/GetTeam?teamID=" + $routeParams.teamID + "&leagueID=" + currentState.SelectedLeagueID).then(function (success) {
         					var data = success.data;
         					$scope.Team = data;

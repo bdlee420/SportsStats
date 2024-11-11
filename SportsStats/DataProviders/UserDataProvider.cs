@@ -25,7 +25,7 @@ namespace SportsStats.DataProviders
             if (!String.IsNullOrEmpty(user.Password))
                 parameters.Add(CreateSqlParameter("@Password", SqlDbType.VarChar, user.Password));
             var dataSet = SQLGetDataSet("GetUser", parameters);
-            if (dataSet.Tables.Count == 3)
+            if (dataSet.Tables.Count == 4)
             {
                 var userInfo = dataSet.Tables[0];
                 userObject.UserName = user.UserName;
@@ -34,7 +34,16 @@ namespace SportsStats.DataProviders
                 userObject.Leagues = new List<int>();
                 userObject.Players = new List<int>();
                 userObject.Sports = new List<int>();
-                var teams = dataSet.Tables[1];
+                userObject.AdminLeagueIDs = new List<int>();
+                var leagues = dataSet.Tables[1];
+                foreach (DataRow dr in leagues.Rows)
+                {
+                    var leagueID = (int)dr["LeagueID"];
+                    var roleID = (int)dr["RoleID"];
+                    if (!userObject.AdminLeagueIDs.Contains(leagueID) && roleID == 1)
+                        userObject.AdminLeagueIDs.Add(leagueID);
+                }
+                var teams = dataSet.Tables[2];
                 foreach (DataRow dr in teams.Rows)
                 {
                     var teamID = (int)dr["TeamID"];
@@ -47,7 +56,7 @@ namespace SportsStats.DataProviders
                     if (!userObject.Sports.Contains(sportID))
                         userObject.Sports.Add(sportID);
                 }
-                var players = dataSet.Tables[2];
+                var players = dataSet.Tables[3];
                 foreach (DataRow dr in players.Rows)
                 {
                     userObject.Players.Add((int)dr["PlayerID"]);

@@ -94,7 +94,7 @@ namespace SportsStats.Services
 
         public int AddPlayer(Player player, int? teamID = null, int? leagueID = null)
         {
-            if (UserHelper.HasUpdatePermissions())
+            if (UserHelper.HasUpdatePermissions(leagueID: leagueID))
             {
                 return PlayerDataProvider.GetInstance().AddPlayer(ConvertObjects.ConvertType(player), teamID, leagueID);
             }

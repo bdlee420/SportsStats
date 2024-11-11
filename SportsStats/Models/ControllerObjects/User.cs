@@ -10,6 +10,7 @@ namespace SportsStats.Models.ControllerObjects
         public List<int> Teams { get; set; }
         public List<int> Leagues { get; set; }
         public List<int> Sports { get; set; }
+        public List<int> AdminLeagueIDs { get; set; }
         public bool RememberMe { get; set; }
         public bool HasOneTeam { get; set; }
         public bool HasOneLeague { get; set; }

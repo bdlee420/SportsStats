@@ -207,6 +207,7 @@
                         PlayerID: $routeParams.playerID,
                         GameID: $routeParams.gameID,
                         TeamID: $routeParams.teamID,
+                        LeagueID: currentState.SelectedLeagueID,
                         GroupID: $scope.Stats.GroupID,
                         StatTypeID: statType.ID,
                         Value: $scope.IsNegative ? -1 : 1,

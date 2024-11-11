@@ -62,7 +62,7 @@ namespace SportsStats.Services
 
 		public void AddTeam(Team team)
 		{
-			if (UserHelper.HasUpdatePermissions(team.ID))
+			if (UserHelper.HasUpdatePermissions(team.ID, team.LeagueID))
 			{
 				TeamDataProvider.GetInstance().AddTeam(ConvertObjects.ConvertType(team));
 			}
@@ -70,7 +70,7 @@ namespace SportsStats.Services
 
 		public void AddLeagueTeam(int teamID, int leagueID)
 		{
-			if (UserHelper.HasUpdatePermissions(teamID))
+			if (UserHelper.HasUpdatePermissions(teamID, leagueID))
 			{
 				TeamDataProvider.GetInstance().AddLeagueTeam(leagueID, teamID);
 			}

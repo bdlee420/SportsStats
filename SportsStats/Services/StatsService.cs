@@ -45,19 +45,13 @@ namespace SportsStats.Services
 
         public StatGroup GetStatGroup(int sportID, int gameID, int? playerID, int teamID)
         {
-            if (UserHelper.HasUpdatePermissions())
+
+            var statGroup = new StatGroup();
+            if (sportID == (int)SportsList.Baseball && UserHelper.HasUpdatePermissions())
             {
-                var statGroup = new StatGroup();
-                if (sportID == (int)SportsList.Baseball)
-                {
-                    statGroup = ConvertObjects.ConvertType(GameDataProvider.GetInstance().GetStatGroup(gameID, playerID, teamID, false));
-                }
-                return statGroup;
+                statGroup = ConvertObjects.ConvertType(GameDataProvider.GetInstance().GetStatGroup(gameID, playerID, teamID, false));
             }
-            else
-            {
-                throw new UnauthorizedAccessException("nope");
-            }
+            return statGroup;
         }
 
         public bool CreateNewStatGroup(int sportID, int gameID, int? playerID, int teamID)
@@ -102,7 +96,8 @@ namespace SportsStats.Services
             List<Team> teamList = new List<Team>();
             if (teamID.HasValue)
             {
-                teamList.Add(new Team() {
+                teamList.Add(new Team()
+                {
                     ID = teamID.Value,
                     LeagueID = leagueID.Value,
                     SportID = sportID.Value

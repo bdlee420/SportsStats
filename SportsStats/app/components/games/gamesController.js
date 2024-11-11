@@ -18,7 +18,7 @@
                     if (!currentState) {
                         return;
                     }
-                    $scope.ReadOnly = user.data.RoleID !== 1;
+                    $scope.ReadOnly = user.data.RoleID !== 1 && !user.data.AdminLeagueIDs.includes(currentState.SelectedLeagueID);
                     $http.get("/SportsStats/api/Games/GetGames?leagueID=" + currentState.SelectedLeagueID).then(function (success) {
                         var data = success.data;
                         $scope.ListGames = data.Games;
@@ -90,7 +90,7 @@
                             }
                         }
 
-                        $scope.ReadOnly = user.data.RoleID !== 1;
+                        $scope.ReadOnly = user.data.RoleID !== 1 && !user.data.AdminLeagueIDs.includes(currentState.SelectedLeagueID);
                         $http.get("/SportsStats/api/Games/GetGame?leagueID=" + currentState.SelectedLeagueID + "&gameID=" + $routeParams.gameID).then(function (success) {
                             var data = success.data;
                             $scope.LoadGridData(data);

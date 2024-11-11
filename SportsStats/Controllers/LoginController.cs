@@ -29,7 +29,7 @@ namespace SportsStats.Controllers
         }
 
         [HttpGet]
-        public UserResult GetUser()
+        public UserResult GetUser(int? leagueID = null)
         {
             var loggedInUser = UserService.GetInstance().GetUser();
             if (loggedInUser == null)

@@ -28,6 +28,11 @@ BEGIN
 
 	SELECT  @RoleID as RoleID
 
+	SELECT	LeagueID,
+			RoleID
+	FROM	UserLeagueAccess
+	WHERE	UserID = @UserID
+
 	SELECT  TeamID, 
 			LeagueID,
 			SportID
@@ -35,6 +40,16 @@ BEGIN
 	JOIN	Leagues L
 	ON		L.ID = UTA.LeagueID
 	WHERE	UserID = @UserID
+	UNION
+	SELECT	LT.TeamID, 
+			LT.LeagueID,
+			L.SportID
+	FROM	LeagueTeams LT
+	JOIN	UserLeagueAccess ULA
+	ON		ULA.LeagueID = LT.LeagueID
+	JOIN	Leagues L
+	ON		L.ID = LT.LeagueID
+	WHERE	ULA.UserID = @UserID
 
 	SELECT	ID as PlayerID
 	FROM	Players P
@@ -43,5 +58,15 @@ BEGIN
 	JOIN	UserTeamAccess UTA
 	ON		UTA.TeamID = TP.TeamID
 	WHERE	UTA.UserID = @UserID
+	UNION
+	SELECT	ID as PlayerID
+	FROM	Players P
+	JOIN	TeamPlayers TP
+	ON		P.ID = TP.PlayerID
+	JOIN	LeagueTeams LT
+	ON		LT.TeamID = TP.TeamID
+	JOIN	UserLeagueAccess ULA
+	ON		ULA.LeagueID = LT.LeagueID
+	WHERE	ULA.UserID = @UserID
 
 END

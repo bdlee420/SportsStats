@@ -26,9 +26,9 @@
                     <tbody>
                         <tr ng-repeat="Player in Team.TeamPlayerStats">
                             <td ng-click="GoToPlayer(Player.PlayerID)" class="firstcolumn headcol2b">
-                                <img src="/SportsStats/assets/img/view.png" style="cursor: pointer; margin-right: 10px; margin-bottom: 3px;" />#{{Player.PlayerNumber}} {{Player.PlayerName}}
+                                <img src="/SportsStats/assets/img/view-big.png" style="cursor: pointer; margin-right: 10px; margin-bottom: 3px;" />#{{Player.PlayerNumber}} {{Player.PlayerName}}
                             </td>
-                            <td ng-click="GoToPlayer(Player.PlayerID)" ng-repeat="Stats in Player.PlayerStats">{{Stats.Value | picker:Stats.Filter}}</td>
+                            <td ng-click="GoToPlayer(Player.PlayerID)" ng-repeat="Stats in Player.PlayerStats" style="padding-top:14px;">{{Stats.Value | picker:Stats.Filter}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -52,7 +52,7 @@
     </div>
     <div class="col-xs-12 divpadding removebootpadding">
         <div class="row divpadding removebootpadding selectionrow" ng-click="GoToGame(Game.ID)" ng-repeat="Game in Team.Games">
-            <div class="col-xs-12 col-sm-4"><img src="/SportsStats/assets/img/view.png" style="cursor: pointer; margin-right:5px" />{{Game.GameDate | date:"MM/dd/yyyy"}}&nbsp;&nbsp;&nbsp;{{Game.OtherTeamName}}</div>
+            <div class="col-xs-12 col-sm-4"><img src="/SportsStats/assets/img/view-big.png" style="cursor: pointer; margin-right:5px" />{{Game.GameDate | date:"MM/dd/yyyy"}}&nbsp;&nbsp;&nbsp;{{Game.OtherTeamName}}</div>
             <div class="col-xs-3 col-sm-2" ng-class="GetResultClass(Game.DidWin)">{{Game.GameResultText}}</div>
             <div class="col-xs-9 col-sm-2">{{Game.HighScore}}-{{Game.LowScore}}</div>
         </div>

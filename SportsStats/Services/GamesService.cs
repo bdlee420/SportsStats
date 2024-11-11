@@ -260,7 +260,7 @@ namespace SportsStats.Services
 
         public void AddGame(Game game)
         {
-            if (UserHelper.HasUpdatePermissions())
+            if (UserHelper.HasUpdatePermissions(leagueID: game.LeagueID))
             {
                 GameDataProvider.GetInstance().AddGame(ConvertObjects.ConvertType(game));
             }
@@ -268,7 +268,7 @@ namespace SportsStats.Services
 
         public void UpdateGame(Game game)
         {
-            if (UserHelper.HasUpdatePermissions())
+            if (UserHelper.HasUpdatePermissions(leagueID: game.LeagueID))
             {
                 GameDataProvider.GetInstance().UpdateGame(ConvertObjects.ConvertType(game));
             }
@@ -276,7 +276,7 @@ namespace SportsStats.Services
 
         public void AddStat(PlayerGameStat stat, BaseballGameState state = null)
         {
-            if (UserHelper.HasUpdatePermissions())
+            if (UserHelper.HasUpdatePermissions(leagueID: stat.LeagueID))
             {
                 stat.States = new List<int>();
                 if (state != null)

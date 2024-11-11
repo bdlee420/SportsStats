@@ -12,9 +12,18 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-   INSERT INTO dbo.Teams (name)
-   SELECT @Name
+	DECLARE @ExistingTeamID int = null
+	SELECT @ExistingTeamID = ID FROM Teams WHERE Name = @Name
 
-   INSERT INTO dbo.LeagueTeams( leagueID, teamID )
-   SELECT  @LeagueID, @@identity
+	IF @ExistingTeamID IS NULL
+		BEGIN
+		   INSERT INTO dbo.Teams (name)
+		   SELECT @Name
+
+		   INSERT INTO dbo.LeagueTeams( leagueID, teamID )
+		   SELECT  @LeagueID, @@identity
+		END
+	ELSE
+		INSERT INTO dbo.LeagueTeams( leagueID, teamID )
+		SELECT @LeagueID, @ExistingTeamID
 END

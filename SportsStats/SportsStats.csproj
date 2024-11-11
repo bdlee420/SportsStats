@@ -215,6 +215,7 @@
     <Content Include="SQL\TableChanges\TeamPlayers.sql" />
     <Content Include="SQL\TableChanges\Teams.sql" />
     <Content Include="SQL\Tables\LeagueTeams.sql" />
+    <Content Include="SQL\Tables\UserLeagueAccess.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

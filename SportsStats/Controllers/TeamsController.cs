@@ -42,6 +42,7 @@ namespace SportsStats.Controllers
             {
                 if (team.ID == 0)
                 {
+                    team.Name = team.Name.Trim();
                     TeamsService.GetInstance().AddTeam(ConvertObjects.ConvertType(team));
                 }
                 else
@@ -90,10 +91,12 @@ namespace SportsStats.Controllers
 
         private GetTeamsResult GetTeamsResult(int leagueID, int sportID)
         {
+            var user = UserService.GetInstance().GetUser();
+            var isLeagueAdmin = user.AdminLeagueIDs.Contains(leagueID);
             var result = new GetTeamsResult();
             var dataCache = new DataCache();
-            var allTeams = TeamsService.GetInstance().GetTeams(sportID: sportID, dataCache: dataCache);
-            var teams = TeamsService.GetInstance().GetTeams(leagueID: leagueID, dataCache: dataCache);
+            var allTeams = TeamsService.GetInstance().GetTeams(sportID: sportID, leagueID: leagueID, dataCache: dataCache, showAll: isLeagueAdmin);
+            var teams = TeamsService.GetInstance().GetTeams(leagueID: leagueID, dataCache: dataCache, showAll: isLeagueAdmin);
             result.Teams = teams.Select(t => new TeamsResult()
             {
                 ID = t.ID,

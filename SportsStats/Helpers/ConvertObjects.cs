@@ -271,7 +271,8 @@ namespace SportsStats.Helpers
                 Teams = u.Teams,
                 Leagues = u.Leagues,
                 Players = u.Players,
-                Sports = u.Sports
+                Sports = u.Sports,
+                AdminLeagueIDs = u.AdminLeagueIDs
             };
         }
         public static User ConvertType(UserResult u)
@@ -295,7 +296,8 @@ namespace SportsStats.Helpers
                 HasOneTeam = u.HasOneTeam,
                 Teams = u.Teams,
                 Leagues = u.Leagues,
-                Sports = u.Sports
+                Sports = u.Sports,
+                AdminLeagueIDs = u.AdminLeagueIDs
             };
         }
         public static StatGroup ConvertType(DTOStatGroup o)

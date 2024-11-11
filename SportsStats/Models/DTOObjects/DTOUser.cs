@@ -7,6 +7,7 @@ namespace SportsStats.Models.DTOObjects
         public string UserName { get; set; }
         public string Password { get; set; }
         public int RoleID { get; set; }
+        public List<int> AdminLeagueIDs { get; set; }
         public List<int> Teams { get; set; }
         public List<int> Leagues { get; set; }
         public List<int> Players { get; set; }
