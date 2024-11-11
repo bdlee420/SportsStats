@@ -13,8 +13,11 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+	if @Team1ID = 0 OR @Team2ID = 0
+		BEGIN
+			return
+		END
+
    INSERT INTO dbo.Games (GameDate, Team1ID, Team2ID, LeagueID)
    SELECT @GameDate, @Team1ID, @Team2ID, @LeagueID
 END
-
-GO
