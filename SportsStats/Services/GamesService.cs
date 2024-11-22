@@ -177,10 +177,15 @@ namespace SportsStats.Services
                     }
 
                     playerStat.IsActivePlayer = false;
+                    playerStat.IsInGame = false;
                     if (playerStat.Stats.Any())
                     {
                         playerStat.IsActivePlayer = playerStat.Stats
                             .Where(s => s.StatType.ID == (int)CalculatedStatTypes.IsActive)
+                            .Sum(s => s.Value) > 0;
+
+                        playerStat.IsInGame = playerStat.Stats
+                            .Where(s => s.StatType.ID == (int)CalculatedStatTypes.IsInGame)
                             .Sum(s => s.Value) > 0;
                     }
 

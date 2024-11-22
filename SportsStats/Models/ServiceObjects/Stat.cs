@@ -15,6 +15,7 @@ namespace SportsStats.Models.ServiceObjects
         public int LeagueID { get; set; }
         public int SportID { get; set; }
         public bool IsActivePlayer { get; set; }
+        public bool IsInGame { get; set; }
         public List<Stat> Stats { get; set; }        
     }
 

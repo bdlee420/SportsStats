@@ -58,7 +58,8 @@
             HockeyAssist = 101,
             HockeyPoints = 102,
             HockeyShootOutGoal = 104,
-            IsActive = 200
+            IsActive = 200,
+            IsInGame = 201
         }
         public enum ValueTypes
         {

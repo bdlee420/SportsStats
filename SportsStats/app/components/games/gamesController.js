@@ -93,6 +93,7 @@
                         $scope.ReadOnly = user.data.RoleID !== 1 && !user.data.AdminLeagueIDs.includes(currentState.SelectedLeagueID);
                         $http.get("/SportsStats/api/Games/GetGame?leagueID=" + currentState.SelectedLeagueID + "&gameID=" + $routeParams.gameID).then(function (success) {
                             var data = success.data;
+                            console.log(data);
                             $scope.LoadGridData(data);
                             $rootScope.ShowSpinner = false;
                             $scope.IsGamePage = true;
@@ -122,9 +123,24 @@
                     }
                 }
             };
+            $scope.shouldShowPlayer = function (playerStats) {
+                return playerStats.IsPlayerInGame || $scope.ShowEditPlayers;
+            };
 
             $scope.HideShowButtons = function () {
                 $scope.HideButtons = !$scope.HideButtons;                
+            };      
+
+            $scope.ShowEditPlayer = function () {
+                $scope.ShowEditPlayers = !$scope.ShowEditPlayers;                            
+
+                if (!$scope.ShowEditPlayers) {
+                    $scope.HideButtons = $scope.HideButtonsPrevious;
+                }
+                else {
+                    $scope.HideButtonsPrevious = $scope.HideButtons;    
+                    $scope.HideButtons = true;
+                }
             };            
 
             $scope.GetInningText = function (state) {
@@ -182,6 +198,27 @@
                     $scope.LoadData(true);
                     $rootScope.ShowSpinner = false;
                     var statText = isActive ? "Into the game" : "Out of the game";
+                    $scope.ShowMessage(player, statText, teamNumber);
+                }, function (error) {
+                });
+            };
+
+            $scope.SetInGame = function (player, isInGame, teamNumber) {
+
+                var newStat = {
+                    PlayerID: player.PlayerID,
+                    LeagueID: currentState.SelectedLeagueID,
+                    GameID: player.GameID,
+                    TeamID: player.TeamID,
+                    StatTypeID: 201,
+                    Value: isInGame ? 1 : -1,
+                    IsBaseball: $scope.IsBaseball
+                };
+                $rootScope.ShowSpinner = true;
+                $http.post('/SportsStats/api/Stats/AddStat', newStat).then(function (success) {
+                    $scope.LoadData(true);
+                    $rootScope.ShowSpinner = false;
+                    var statText = isInGame ? "Added to the game" : "Removed from the game";
                     $scope.ShowMessage(player, statText, teamNumber);
                 }, function (error) {
                 });
@@ -269,7 +306,7 @@
                 $scope.Game.GameDate = new Date($scope.Game.GameDate);
                 $scope.Game.Team1ID = parseInt($scope.Game.Team1ID);
                 $scope.Game.Team2ID = parseInt($scope.Game.Team2ID);
-                $scope.ListTeams = data.Teams;
+                $scope.ListTeams = data.Teams;                
 
                 new UpdateStatsObject(data.StatTypes, data.Team1PlayerStats, data.Team1ID, data.ID);
 

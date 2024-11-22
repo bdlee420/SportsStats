@@ -161,6 +161,7 @@ namespace SportsStats.Controllers
                                 Order = order == 0 ? (int?)null : order,
                                 AtBat = game.SportID == (int)SportsList.Baseball && g.PlayerID == playerAtBat,
                                 IsActivePlayer = g.IsActivePlayer,
+                                IsPlayerInGame = g.IsInGame,
                                 PlayerStats = g.Stats.OrderBy(s => s.StatType.GridDisplayOrder)
                                                      .Select(s => new StatResult()
                                                      {
@@ -187,6 +188,8 @@ namespace SportsStats.Controllers
                                 Order = order == 0 ? (int?)null : order,
                                 AtBat = game.SportID == (int)SportsList.Baseball && g.PlayerID == playerAtBat,
                                 IsActivePlayer = g.IsActivePlayer,
+                                IsPlayerInGame = g.IsInGame,
+                                SomeNewVariable = g.IsInGame,
                                 PlayerStats = g.Stats.OrderBy(s => s.StatType.GridDisplayOrder)
                                                      .Select(s => new StatResult()
                                                      {

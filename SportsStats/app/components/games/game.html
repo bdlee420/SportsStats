@@ -14,6 +14,7 @@
                 <td ng-show="!ReadOnly && IsBaseball">
                     <button type="button" class="btn btn-info btn-md" ng-click="GoToLog()">Log</button>
                 </td>
+                <td></td>
             </tr>
         </table>
         <table class="statTable">
@@ -29,6 +30,9 @@
                 </td>
                 <td>
                     <button type="button" class="btn btn-info btn-md" ng-class="HideButtons ? 'greenbackground' : 'redbackground'" ng-click="HideShowButtons()">{{ HideButtons ? 'Show Buttons' : 'Hide Buttons' }}</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-info btn-md" ng-class="ShowEditPlayers ? 'redbackground' : 'greenbackground'" ng-click="ShowEditPlayer()">Edit Players in Game</button>
                 </td>
             </tr>
         </table>
@@ -68,22 +72,27 @@
                         <tr>
                             <td class="headcol1 firstcolumn" ng-show="ShowOrder">Order</td>
                             <td class="headcol2 firstcolumn" ng-class="ShowOrder ? 'headcol2' : 'headcol2b'">Name</td>
+                            <td ng-hide="ReadOnly || !ShowEditPlayers"></td>
                             <td ng-hide="ReadOnly || HideButtons"></td>
                             <td ng-hide="ReadOnly || HideButtons" ng-repeat="QuickStatTypes in Game.QuickStatTypes"></td>
                             <td ng-repeat="StatType in Game.StatTypes | filter:{ ShowGame: true }">{{StatType.DisplayName}}</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-class="Player.IsActivePlayer ? 'activePlayer' : ''" ng-repeat="Player in Game.Team1PlayerStats" ng-show="ShowAll || Player.Order > 0">
+                        <tr ng-class="Player.IsActivePlayer ? 'activePlayer' : ''" ng-repeat="Player in Game.Team1PlayerStats | filter: shouldShowPlayer" ng-show="ShowAll || Player.Order > 0">
                             <td ng-show="ShowOrder" class="headcol1 firstcolumn"><input maxlength="2" type="number" class="form-control input-xs order" ng-model="Player.Order" ng-change="SaveOrder(Player, Game.Team1ID, false)" /></td>
                             <td ng-class="GetActivePlayerClass(Player.IsActivePlayer, ShowOrder)" ng-click="GoToStats(Player)">
                                 #{{Player.PlayerNumber}} {{Player.PlayerName}}
+                            </td>
+                            <td ng-hide="ReadOnly || !ShowEditPlayers" ng-class="GetQuickButtonClass(Player.IsPlayerInGame)" ng-click="SetInGame(Player, !Player.IsPlayerInGame, 1)">
+                                <img ng-show="!Player.IsPlayerInGame" src="/SportsStats/assets/img/add.png" style="width: 40px; cursor: pointer; margin-right: 7px;" />
+                                <img ng-show="Player.IsPlayerInGame" src="/SportsStats/assets/img/minus-small.png" style="width:40px; cursor: pointer; margin-right:7px;" />
                             </td>
                             <td ng-hide="ReadOnly || HideButtons" ng-class="GetQuickButtonClass(Player.IsActivePlayer)" ng-click="SetActive(Player, !Player.IsActivePlayer, 1)">
                                 <img ng-show="!Player.IsActivePlayer" src="/SportsStats/assets/img/add.png" style="width: 40px; cursor: pointer; margin-right: 7px;" />
                                 <img ng-show="Player.IsActivePlayer" src="/SportsStats/assets/img/minus-small.png" style="width:40px; cursor: pointer; margin-right:7px;" />
                             </td>
-                            <td ng-hide="ReadOnly || HideButtons" ng-repeat="QuickStatTypes in Game.QuickStatTypes" ng-class="GetQuickButtonClass(QuickStatTypes.IsPositive)" 
+                            <td ng-hide="ReadOnly || HideButtons" ng-repeat="QuickStatTypes in Game.QuickStatTypes" ng-class="GetQuickButtonClass(QuickStatTypes.IsPositive)"
                                 ng-click="AddStat(Player, QuickStatTypes.StatTypeID, 1, QuickStatTypes.QuickButtonText)">
                                 <button>{{QuickStatTypes.QuickButtonText}}</button>
                             </td>
