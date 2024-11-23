@@ -13,6 +13,10 @@ select, input {
     width: 185px;
 }
 
+.container {
+    width: 100%;
+}
+
 #btnGameData {
     margin-left: 15px;
 }
