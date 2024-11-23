@@ -15,9 +15,9 @@ select 6, '2pt Made', '2pt Made',           0,			0,				10,						99,				1,		1,   
 UNION
 select 7, '2pt Miss', '2pt Missed',			0,			0,				15,						99,				1,		1,          2,					'2FG',		0,				0,				0,			0,			1
 UNION
-select 8, 'FTM', 'FTM',						1,			0,				50,						12,				1,		1,          null,				null,		null,			0,				1,			1,			1
+select 8, 'FT Made', 'FTM',					1,			0,				50,						12,				1,		1,          10,					'FT',			1,				0,				1,			1,			1
 UNION
-select 9, 'FT Miss', 'Free Throws Missed',  0,			0,				55,						99,				1,		1,          null,				null,		null,			0,				0,			0,			1
+select 9, 'FT Miss', 'Free Throws Missed',  0,			0,				55,						99,				1,		1,          11,					'FT',			0,				0,				0,			0,			1
 UNION
 select 10, 'PP', 'Periods Played',          0,			0,				100,					99,				1,		1,          null,				null,		null,			0,				0,			0,			1
 UNION
@@ -50,7 +50,7 @@ select 23, 'BPG', 'Blocks Per Game',		1,			1,				0,						55,				4,			1,      nul
 UNION
 select 24, 'TPG', 'Turnovers Per Game',		1,			1,				0,						60,				4,			1,      null,				null,		null,			1,				0,			1,			1
 UNION
-select 31, '3PM', '3pt Made',				1,			0,				20,						9,				1,			1,      3,					'3FG',		1,				0,				1,			1,			1
+select 31, '3pt Made', '3pt Made',			1,			0,				20,						9,				1,			1,      3,					'3FG',		1,				0,				1,			1,			1
 UNION
 select 32, '3pt Miss', '3pt Miss',			0,			0,				25,						99,				1,			1,      4,					'3FG',		0,				0,				0,			0,			1
 UNION

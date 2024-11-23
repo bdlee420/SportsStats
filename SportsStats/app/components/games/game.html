@@ -93,7 +93,7 @@
                                 <img ng-show="Player.IsActivePlayer" src="/SportsStats/assets/img/minus-small.png" style="width:40px; cursor: pointer; margin-right:7px;" />
                             </td>
                             <td ng-hide="ReadOnly || HideButtons" ng-repeat="QuickStatTypes in Game.QuickStatTypes" ng-class="GetQuickButtonClass(QuickStatTypes.IsPositive)"
-                                ng-click="AddStat(Player, QuickStatTypes.StatTypeID, 1, QuickStatTypes.QuickButtonText)">
+                                ng-click="AddStat(Player, QuickStatTypes.StatTypeID, 1, QuickStatTypes.DisplayName)">
                                 <button>{{QuickStatTypes.QuickButtonText}}</button>
                             </td>
                             <td ng-click="GoToStats(Player)" ng-repeat="Stats in Player.PlayerStats">{{Stats.Value | picker:Stats.Filter}}</td>
