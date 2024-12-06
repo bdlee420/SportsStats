@@ -22,3 +22,4 @@ dest
 /.vs/*
 /SportsStats/SportsStats.csproj.user
 /SportsStats/Web.config
+/SportsStats/.vs/SportsStats.csproj.dtbcache.json
