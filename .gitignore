@@ -4,7 +4,6 @@
 
 *.map
 *.intellisense.js
-*.dll
 bin
 logs
 node_modules
