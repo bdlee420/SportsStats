@@ -3,15 +3,15 @@
 (function () {
     "use strict";
 
-    sportsApp.controller('gamesController', ['$scope', '$http', '$location', '$rootScope', 'CurrentStateFactory',
-        function gamesController($scope, $http, $location, $rootScope, CurrentStateFactory) {
+    sportsApp.controller('gamesController', ['$scope', '$http', '$location', '$routeParams', '$rootScope', 'CurrentStateFactory',
+        function gamesController($scope, $http, $location, $routeParams, $rootScope, CurrentStateFactory) {
             $rootScope.RedirectURL = "Games";
             var currentState;
             $rootScope.ShowSpinner = true;
             CurrentStateFactory.getUser().then(function (user) {
-                if (user.data == null) {
+                if (user.data == null || $routeParams.user != null) {
                     $rootScope.ShowSpinner = false;
-                    $location.url("/SportsStats/Login?redirect=Games");
+                    $location.url("/SportsStats/Login?user=" + $routeParams.user + "&redirect=Games");
                 }
                 else {
                     currentState = CurrentStateFactory.getState(true, user.data.UserName);
@@ -68,9 +68,9 @@
             $scope.LoadData = function (partial) {
                 $rootScope.ShowSpinner = true;
                 CurrentStateFactory.getUser().then(function (user) {
-                    if (user.data == null) {
+                    if (user.data == null || $routeParams.user != null) {
                         $rootScope.ShowSpinner = false;
-                        $location.url("/SportsStats/Login");
+                        $location.url("/SportsStats/Login?user=" + $routeParams.user);
                     }
                     else {
                         currentState = CurrentStateFactory.getState(true, user.data.UserName);
@@ -93,7 +93,6 @@
                         $scope.ReadOnly = user.data.RoleID !== 1 && !user.data.AdminLeagueIDs.includes(currentState.SelectedLeagueID);
                         $http.get("/SportsStats/api/Games/GetGame?leagueID=" + currentState.SelectedLeagueID + "&gameID=" + $routeParams.gameID).then(function (success) {
                             var data = success.data;
-                            console.log(data);
                             $scope.LoadGridData(data);
                             $rootScope.ShowSpinner = false;
                             $scope.IsGamePage = true;

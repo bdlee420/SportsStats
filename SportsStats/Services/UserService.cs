@@ -1,5 +1,6 @@
 ﻿using SportsStats.DataProviders;
 using SportsStats.Helpers;
+using SportsStats.Models.ControllerObjects;
 using SportsStats.Models.ServiceObjects;
 using System;
 using System.Configuration;
@@ -26,7 +27,11 @@ namespace SportsStats.Services
                 return null;
 
             var result = UserDataProvider.GetInstance().GetUser(ConvertObjects.ConvertType(user));
-            UserHelper.CurrentUser = ConvertObjects.ConvertType(result);
+            if (result.RoleID > 0)
+                UserHelper.CurrentUser = ConvertObjects.ConvertType(result);
+            else
+                UserHelper.CurrentUser = null;
+
             return UserHelper.CurrentUser;
         }
 

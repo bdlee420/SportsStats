@@ -1,16 +1,16 @@
 ﻿(function () {
 	"use strict";
 
-	sportsApp.controller('teamsController', ['$scope', '$http', '$rootScope', '$location', 'CurrentStateFactory',
-    function teamsController($scope, $http, $rootScope, $location, CurrentStateFactory) {
+    sportsApp.controller('teamsController', ['$scope', '$http', '$routeParams', '$rootScope', '$location', 'CurrentStateFactory',
+        function teamsController($scope, $http, $routeParams, $rootScope, $location, CurrentStateFactory) {
     	$rootScope.RedirectURL = "Teams";
     	var currentState;
     	$rootScope.ShowSpinner = true;
 
     	CurrentStateFactory.getUser().then(function (user) {
-    		if (user.data == null) {
+            if (user.data == null || $routeParams.user != null) {
     			$rootScope.ShowSpinner = false;
-    			$location.url("/SportsStats/Login");
+                $location.url("/SportsStats/Login?user=" + $routeParams.user);
     		}
     		else {
     			currentState = CurrentStateFactory.getState(true, user.data.UserName);
@@ -72,9 +72,9 @@
 
         	$scope.LoadData = function () {
         		CurrentStateFactory.getUser().then(function (user) {
-        			if (user.data == null) {
+                    if (user.data == null || $routeParams.user != null) {
         				$rootScope.ShowSpinner = false;
-        				$location.url("/SportsStats/Login");
+                        $location.url("/SportsStats/Login?user=" + $routeParams.user);
         			}
         			else {
         				currentState = CurrentStateFactory.getState(true, user.data.UserName);

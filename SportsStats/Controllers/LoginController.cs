@@ -13,10 +13,13 @@ namespace SportsStats.Controllers
     {
         private const string _cookieName = "username";
         [HttpPost]
-        public bool LoginUser([FromBody]UserResult user)
+        public bool LoginUser([FromBody] UserResult user)
         {
             var userResult = UserService.GetInstance().GetUser(ConvertObjects.ConvertType(user), true);
             bool validLogin = false;
+            if (userResult == null)
+                return false;
+
             if (userResult.Role > 0)
             {
                 validLogin = true;
@@ -44,13 +47,13 @@ namespace SportsStats.Controllers
                         {
                             UserName = username
                         };
-                        loggedInUser = UserService.GetInstance().GetUser(ConvertObjects.ConvertType(user), false);                        
+                        loggedInUser = UserService.GetInstance().GetUser(ConvertObjects.ConvertType(user), false);
                     }
                     catch
                     {
                         return null;
                     }
-                }                                
+                }
             }
             if (loggedInUser != null)
             {
@@ -72,6 +75,6 @@ namespace SportsStats.Controllers
             HttpCookie myCookie = new HttpCookie(_cookieName, encryptedString);
             myCookie.Expires = DateTime.Now.AddDays(30);
             HttpContext.Current.Response.Cookies.Add(myCookie);
-        }        
+        }
     }
 }

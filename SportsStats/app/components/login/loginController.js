@@ -5,13 +5,10 @@
         function playersController($scope, $http, $rootScope, $location, $routeParams, $cookies) {
             $rootScope.LoginText = "Login";
             $scope.InvalidLogin = false;
-
-            $cookies.remove("username");
-            $rootScope.CurrentState = null;
-
-            $http.get("/SportsStats/api/Login/Logout").then(function (success) {                
-            }, function (error) {
-            });
+            var user2 = {
+                UserName: $routeParams.user,
+                Password: "nopassword"
+            };          
 
             $scope.Login = function (user) {
                 $rootScope.ShowSpinner = true;
@@ -20,8 +17,8 @@
                     if (success.data) {
                         $rootScope.LoginText = "Logout";
                         $scope.InvalidLogin = false;
-                        if (typeof $routeParams.redirect !== 'undefined' && $routeParams.redirect.length > 0) {
-                            $location.url("/SportsStats/" + $routeParams.redirect);
+                        if ($rootScope.RedirectURL != null) {
+                            $location.url("/SportsStats/" + $rootScope.RedirectURL);
                         }
                         else {
                             $location.url("/SportsStats/Sports");
@@ -34,6 +31,17 @@
                 }, function (error) {
                 });                   
             };
+
+            if ($routeParams.user != null) {
+                $scope.Login(user2);
+            }
+            else {
+                $rootScope.CurrentState = null;        
+                $cookies.remove("username");
+                $http.get("/SportsStats/api/Login/Logout").then(function (success) {
+                }, function (error) {
+                });
+            }
         }
     ]);
     

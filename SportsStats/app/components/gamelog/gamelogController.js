@@ -7,7 +7,7 @@
             $rootScope.ShowSpinner = true;
             CurrentStateFactory.getUser().then(function (user) {
                 if (user.data == null) {
-                    $rootScope.ShowSpinner = false;                    
+                    $rootScope.ShowSpinner = false;             
                     $location.url("/SportsStats/Login");
                 }
                 else {

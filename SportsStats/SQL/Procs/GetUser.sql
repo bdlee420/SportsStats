@@ -17,9 +17,10 @@ BEGIN
 
 	SELECT  @UserID = UserID, 
 			@RoleID = RoleID
-	FROM	Users
+	FROM	Users u
 	WHERE	UserName = @UserName
-	AND		(@Password is null OR Password = @Password)
+	AND		((@Password is null OR Password = @Password) 
+	OR NOT EXISTS (select u2.userID from users u2 where u2.userID = u.userId and roleID = 1 UNION select ula.userID from UserLeagueAccess ula where ula.userID = u.userId and roleID = 1))
 
 	IF @UserID is not null
 		BEGIN

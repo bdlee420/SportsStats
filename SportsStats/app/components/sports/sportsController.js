@@ -1,15 +1,15 @@
 ﻿(function () {
     "use strict";
 
-    sportsApp.controller('sportsController', ['$scope', '$rootScope', '$http', '$cookies', '$location', 'CurrentStateFactory',
-        function sportsController($scope, $rootScope, $http, $cookies, $location, CurrentStateFactory) {
+    sportsApp.controller('sportsController', ['$scope', '$routeParams', '$rootScope', '$http', '$cookies', '$location', 'CurrentStateFactory',
+        function sportsController($scope, $routeParams, $rootScope, $http, $cookies, $location, CurrentStateFactory) {
             var currentState;
             $rootScope.ShowSpinner = true;
 
             CurrentStateFactory.getUser().then(function (user) {
-                if (user.data == null) {
+                if (user.data == null || $routeParams.user != null) {
                     $rootScope.ShowSpinner = false;
-                    $location.url("/SportsStats/Login");
+                    $location.url("/SportsStats/Login?user=" + $routeParams.user);
                 }
                 else {                    
                     $scope.UserName = user.data.UserName;

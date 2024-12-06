@@ -20,6 +20,11 @@ namespace SportsStats
             }
         }
 
+        protected void Session_Start()
+        {
+            Session.Timeout = 1000;
+        }
+
         private bool IsWebApiRequest()
         {
             return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith("~/api");

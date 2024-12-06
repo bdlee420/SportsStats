@@ -11,7 +11,7 @@
                 <td ng-show="!ReadOnly && IsBaseball">
                     <button type="button" class="btn btn-info btn-md" ng-class="ShowAll ? 'greenbackground' : ''" ng-click="ShowAll = !ShowAll">All</button>
                 </td>
-                <td ng-show="!ReadOnly && IsBaseball">
+                <td ng-show="!ReadOnly">
                     <button type="button" class="btn btn-info btn-md" ng-click="GoToLog()">Log</button>
                 </td>
                 <td></td>
@@ -28,10 +28,10 @@
                 <td>
                     <img src="/SportsStats/assets/img/refresh.png" ng-click="LoadData()" style="cursor: pointer;" />
                 </td>
-                <td>
+                <td ng-hide="ReadOnly">
                     <button type="button" class="btn btn-info btn-md" ng-class="HideButtons ? 'greenbackground' : 'redbackground'" ng-click="HideShowButtons()">{{ HideButtons ? 'Show Buttons' : 'Hide Buttons' }}</button>
                 </td>
-                <td>
+                <td ng-hide="ReadOnly">
                     <button type="button" class="btn btn-info btn-md" ng-class="ShowEditPlayers ? 'redbackground' : 'greenbackground'" ng-click="ShowEditPlayer()">Edit Players in Game</button>
                 </td>
             </tr>
