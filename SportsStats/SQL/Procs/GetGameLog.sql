@@ -14,7 +14,8 @@ BEGIN
     SELECT      T.name as TeamName, 
                 P.name as PlayerName, 
                 ST.DisplayName, 
-                S.Value
+                S.Value,
+                S.Timestamp
     FROM        Stats s 
     JOIN        Players P
     ON          S.PlayerID = P.ID

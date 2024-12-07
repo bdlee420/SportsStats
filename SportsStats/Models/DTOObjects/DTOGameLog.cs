@@ -1,4 +1,6 @@
-﻿namespace SportsStats.Models.DTOObjects
+﻿using System;
+
+namespace SportsStats.Models.DTOObjects
 {
     public class DTOGameLog
     {
@@ -6,5 +8,6 @@
         public string PlayerName { get; set; }
         public string DisplayName { get; set; }
         public int Value { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 }

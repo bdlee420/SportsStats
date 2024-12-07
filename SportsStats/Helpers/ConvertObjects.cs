@@ -280,7 +280,8 @@ namespace SportsStats.Helpers
             return new User()
             {
                 UserName = u.UserName,
-                Password = u.Password
+                Password = u.Password,
+                RequestedLeagueID = u.RequestedLeagueID
             };
         }
         public static UserResult ConvertType2(User u)
@@ -434,7 +435,8 @@ namespace SportsStats.Helpers
                 TeamName = o.TeamName,
                 PlayerName = o.PlayerName,
                 DisplayName = o.DisplayName,
-                Value = o.Value
+                Value = o.Value,
+                Timestamp = o.Timestamp
             };
         }
         public static GameLogResult ConvertType(GameLog o)
@@ -444,7 +446,8 @@ namespace SportsStats.Helpers
                 TeamName = o.TeamName,
                 PlayerName = o.PlayerName,
                 DisplayName = o.DisplayName,
-                Value = o.Value
+                Value = o.Value,
+                Timestamp = o.Timestamp
             };
         }
     }

@@ -7,14 +7,32 @@
             $scope.InvalidLogin = false;
             var user2 = {
                 UserName: $routeParams.user,
-                Password: "nopassword"
-            };          
+                Password: "nopassword",
+                RequestedGameID: $routeParams.gameId
+            };       
+
+            $scope.UpdateLeagueSelection = function (selection) {
+                $rootScope.CurrentState =
+                {
+                    SelectedSportID: selection.SportID,
+                    SelectedLeagueID: selection.LeagueID
+                };
+
+                var expiration = new Date();
+                expiration.setDate(expiration.getDate() + 30);
+                $cookies.put('sportsstats.com:' + $scope.UserName + ':SelectedSportID', selection.SportID, { expires: expiration });
+                $cookies.put('sportsstats.com:' + $scope.UserName + ':SelectedLeagueID', selection.LeagueID, { expires: expiration });
+            };
 
             $scope.Login = function (user) {
                 $rootScope.ShowSpinner = true;
                 $http.post('/SportsStats/api/Login/LoginUser', user).then(function (success) {
                     $rootScope.ShowSpinner = false;
-                    if (success.data) {
+                    var loginRes = success.data;
+                    if (loginRes > -1) {            
+                        if (loginRes > 0) {
+                            $scope.UpdateLeagueSelection({ SportID: 1, LeagueID: loginRes });
+                        }
                         $rootScope.LoginText = "Logout";
                         $scope.InvalidLogin = false;
                         if ($rootScope.RedirectURL != null) {

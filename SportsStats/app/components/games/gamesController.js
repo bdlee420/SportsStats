@@ -70,7 +70,7 @@
                 CurrentStateFactory.getUser().then(function (user) {
                     if (user.data == null || $routeParams.user != null) {
                         $rootScope.ShowSpinner = false;
-                        $location.url("/SportsStats/Login?user=" + $routeParams.user);
+                        $location.url("/SportsStats/Login?user=" + $routeParams.user + "&gameId=" + $routeParams.gameID);
                     }
                     else {
                         currentState = CurrentStateFactory.getState(true, user.data.UserName);

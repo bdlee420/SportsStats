@@ -202,6 +202,7 @@ namespace SportsStats.DataProviders
                     PlayerName = dr["PlayerName"].ToString(),
                     DisplayName = dr["DisplayName"].ToString(),
                     Value = (int)dr["Value"],
+                    Timestamp = (DateTime)dr["Timestamp"]
                 });
             }
 

@@ -5,7 +5,6 @@
         function sportsController($scope, $routeParams, $rootScope, $http, $cookies, $location, CurrentStateFactory) {
             var currentState;
             $rootScope.ShowSpinner = true;
-
             CurrentStateFactory.getUser().then(function (user) {
                 if (user.data == null || $routeParams.user != null) {
                     $rootScope.ShowSpinner = false;

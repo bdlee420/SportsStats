@@ -208,6 +208,7 @@
     <Content Include="SQL\Data\BackupDB.sql" />
     <Content Include="SQL\Data\RemoveDuplicateTeam.sql" />
     <Content Include="SQL\Data\UpdateTeamPlayersLeagueID.sql" />
+    <Content Include="SQL\Procs\GetLeagueID.sql" />
     <Content Include="SQL\Procs\AddLeagueTeam.sql" />
     <Content Include="SQL\Procs\GetGameLog.sql" />
     <Content Include="SQL\TableChanges\Games.sql" />

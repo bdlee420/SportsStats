@@ -40,5 +40,19 @@ namespace SportsStats.DataProviders
             }
             return leagues;
         }
+        public int GetLeagueId(int gameID)
+        {
+            var parameters = new List<SqlParameter>
+            {
+                CreateSqlParameter("@GameID", SqlDbType.Int, gameID)
+            };
+
+            var result = SQLGetDataTable("GetLeagueID", parameters);
+            foreach (DataRow dr in result.Rows)
+            {
+                return (int)dr["ID"];
+            }
+            return 0;
+        }
     }
 }

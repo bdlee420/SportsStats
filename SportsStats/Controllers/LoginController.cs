@@ -13,22 +13,20 @@ namespace SportsStats.Controllers
     {
         private const string _cookieName = "username";
         [HttpPost]
-        public bool LoginUser([FromBody] UserResult user)
+        public int LoginUser([FromBody] UserResult user)
         {
             var userResult = UserService.GetInstance().GetUser(ConvertObjects.ConvertType(user), true);
-            bool validLogin = false;
             if (userResult == null)
-                return false;
+                return -1;
+
+            if (user.RequestedGameID.HasValue)
+                userResult.RequestedLeagueID = LeaguesService.GetInstance().GetLeagueID(user.RequestedGameID.Value);
 
             if (userResult.Role > 0)
-            {
-                validLogin = true;
-                if (user.RememberMe)
-                {
-                    CreateUserCookie(user.UserName);
-                }
+            {                         
+                CreateUserCookie(user.UserName);                
             }
-            return validLogin;
+            return userResult.RequestedLeagueID;
         }
 
         [HttpGet]

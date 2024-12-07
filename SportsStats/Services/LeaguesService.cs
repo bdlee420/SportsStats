@@ -36,5 +36,10 @@ namespace SportsStats.Services
                 })
                 .ToList();
         }
+
+        public int GetLeagueID(int gameID)
+        {
+            return LeagueDataProvider.GetInstance().GetLeagueId(gameID);
+        }
     }
 }
