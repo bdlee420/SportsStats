@@ -25,6 +25,6 @@ BEGIN
     ON          T.ID = s.TeamID
     WHERE       s.gameID = @GameID 
     AND         s.StatTypeID <> 72
-    ORDER BY    s.ID
+    ORDER BY    s.ID desc
 END
 

@@ -66,7 +66,7 @@
         	$scope.lastMove = null;
         	$scope.baseballCurrentSort = "AVG";
         	$scope.hockeyCurrentSort = "Points";
-        	$scope.basketballCurrentSort = "Points";
+            $scope.basketballCurrentSort = "Points Per Game";
         	$scope.currentSort = "";
         	$scope.currentSortAsc = true;
 
