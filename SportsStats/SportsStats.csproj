@@ -205,7 +205,8 @@
     <None Include="SQL\Tables\Teams.sql" />
     <None Include="SQL\Tables\Users.sql" />
     <None Include="SQL\Tables\UserTeamAccess.sql" />
-    <Content Include="SQL\Data\BackupDB.sql" />
+    <Content Include="SQL\Data\DB-Restore.sql" />
+    <Content Include="SQL\Data\DB-Backup.sql" />
     <Content Include="SQL\Data\RemoveDuplicateTeam.sql" />
     <Content Include="SQL\Data\UpdateTeamPlayersLeagueID.sql" />
     <Content Include="SQL\Procs\GetLeagueID.sql" />

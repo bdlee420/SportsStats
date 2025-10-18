@@ -34,7 +34,10 @@ namespace SportsStats.Controllers
                 var leagues = LeaguesService.GetInstance().GetLeagues(sport.ID);
                 foreach (var league in leagues)
                 {
-                    string name = string.Format("{0} - {1} {2} - {3}", sport.Name, league.StartDate.Year, league.Season.ToString(), league.Name);
+                    int endYear = league.EndDate.Year % 100;
+                    string year = league.StartDate.Year == league.EndDate.Year ? league.StartDate.Year.ToString() : $"{league.StartDate.Year}-{endYear}";
+                    string name = $"{sport.Name}: {year} {league.Season} - {league.Name}";
+                    //string name = string.Format("{0} - {1}-{2} - {3}", sport.Name, league.StartDate.Year, league.Season.ToString(), league.Name);
                     bool isCurrent = league.StartDate <= DateTime.Now && league.EndDate >= DateTime.Now;
                     if (isCurrent)
                     {
