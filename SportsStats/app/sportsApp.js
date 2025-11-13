@@ -15,7 +15,7 @@ sportsApp.config(['$routeProvider', '$locationProvider',
               templateUrl: '/SportsStats/app/components/teams/teams.html',
           }).
           when('/SportsStats/Teams/:teamID', {
-              templateUrl: '/SportsStats/app/components/teams/team.html',
+              templateUrl: '/SportsStats/app/components/teams/team.html?version=1',
           }).
           when('/SportsStats/Games', {
               templateUrl: '/SportsStats/app/components/games/games.html',
@@ -30,7 +30,7 @@ sportsApp.config(['$routeProvider', '$locationProvider',
               templateUrl: '/SportsStats/app/components/players/players.html',
           }).
           when('/SportsStats/Players/:playerID', {
-              templateUrl: '/SportsStats/app/components/players/player.html',
+              templateUrl: '/SportsStats/app/components/players/player.html?version=1',
           }).
           when('/SportsStats/Stats/:gameID/:teamID/:playerID', {
               templateUrl: '/SportsStats/app/components/stats/stat.html',
