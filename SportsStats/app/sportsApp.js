@@ -30,7 +30,7 @@ sportsApp.config(['$routeProvider', '$locationProvider',
               templateUrl: '/SportsStats/app/components/players/players.html',
           }).
           when('/SportsStats/Players/:playerID', {
-              templateUrl: '/SportsStats/app/components/players/player.html?version=1',
+              templateUrl: '/SportsStats/app/components/players/player.html?version=2',
           }).
           when('/SportsStats/Stats/:gameID/:teamID/:playerID', {
               templateUrl: '/SportsStats/app/components/stats/stat.html',
