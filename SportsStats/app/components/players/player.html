@@ -78,7 +78,7 @@
         <div class="col-xs-12 divpadding" ng-touchmove="move($event)" ng-touchstart="start($event)" 
              ng-touchend="end($event)" ng-show="Player.BasketballStats.length">
             <div class="col-xs-12" style="overflow-x:auto; width:100%;">
-                <div class="frozencolumn">
+                <div class="frozencolumnlong">
                     <table class="table statsTable .table-striped">
                         <thead>
                             <tr>
@@ -88,7 +88,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="LeagueStats in Player.BasketballStats" ng-class="LeagueStats.IsCurrentLeague ? 'greenbackground' : ''">
-                                <td class="firstcolumn headcol3b" ng-class="LeagueStats.IsCurrentLeague ? 'greenbackground' : ''">{{LeagueStats.LeagueName}}</td>
+                                <td class="firstcolumn headcol3b" title="{{LeagueStats.LeagueNameFull}}" ng-class="LeagueStats.IsCurrentLeague ? 'greenbackground' : ''">{{LeagueStats.LeagueName}}</td>
                                 <td ng-repeat="Stats in LeagueStats.PlayerStats">{{Stats.Value | picker:Stats.Filter}}</td>
                             </tr>
                             <tr class="totalRow" ng-repeat="Total in Player.TotalBasketballStats">

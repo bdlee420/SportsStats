@@ -115,7 +115,8 @@ namespace SportsStats.Controllers
                 string year = league.StartDate.Year == league.EndDate.Year ? league.StartDate.Year.ToString() : $"{league.StartDate.Year}-{endYear}";
                 string name = $"{year} {league.Season} - {league.Name}";
 
-                stat.LeagueName = name;
+                stat.LeagueNameFull = name;
+                stat.LeagueName = CommonFunctions.TrimLeagueName(name);
                 if (league.StartDate <= DateTime.Now && league.EndDate >= DateTime.Now)
                     stat.IsCurrentLeague = true;
             }

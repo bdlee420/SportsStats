@@ -16,5 +16,20 @@
                 return name;
             }
         }
+
+        public static string TrimLeagueName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return string.Empty;
+
+            if (name.Length > 35)
+            {
+                return name.Substring(0, 35) + "...";
+            }
+            else
+            {
+                return name;
+            }
+        }
     }
 }

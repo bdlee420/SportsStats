@@ -233,6 +233,14 @@ select, input {
     padding: 0;
 }
 
+.frozencolumnlong {
+    width: calc(100% - 300px);
+    overflow-x: scroll;
+    margin-left: 300px;
+    overflow-y: visible;
+    padding: 0;
+}
+
 .headcol1 {
     position: absolute;
     width: 60px;
@@ -255,7 +263,8 @@ select, input {
 }
 
 .headcol3b {
-    width: 250px;
+    position: absolute;
+    width: 320px;
     left: 0px;
     top: auto;
 }

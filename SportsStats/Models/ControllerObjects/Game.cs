@@ -35,6 +35,7 @@ namespace SportsStats.Models.ControllerObjects
     public class PlayerStatsResult
     {
         public string LeagueName { get; set; }
+        public string LeagueNameFull { get; set; }
         public int? PlayerID { get; set; }
         public string PlayerName { get; set; }
         public int PlayerNumber { get; set; }
