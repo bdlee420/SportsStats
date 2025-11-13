@@ -60,6 +60,7 @@
                         new UpdateStatsObject(data.HockeyStatTypes, data.HockeyStats, data.ID, data.ID);
                         new UpdateStatsObject(data.BaseballStatTypes, data.BaseballStats, data.ID, data.ID);
                         new UpdateStatsObject(data.BasketballStatTypes, data.BasketballStats, data.ID, data.ID);
+                        new UpdateStatsObject(data.BasketballStatTypes, data.TotalBasketballStats, data.ID, data.ID);
                         $rootScope.ShowSpinner = false;
                     }, function (error) {
                     });  

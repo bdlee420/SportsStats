@@ -1,6 +1,7 @@
 ﻿using SportsStats.Common;
 using SportsStats.DataProviders;
 using SportsStats.Helpers;
+using SportsStats.Models.DTOObjects;
 using SportsStats.Models.ServiceObjects;
 using System;
 using System.Collections.Generic;
@@ -89,7 +90,7 @@ namespace SportsStats.Services
             }
         }
 
-        public List<PlayerStats> GetAllStats(int? teamID = null, int? sportID = null, int? leagueID = null, int? playerID = null, DataCache dataCache = null)
+        public List<PlayerStats> GetAllStats2(int? teamID = null, int? sportID = null, int? leagueID = null, int? playerID = null, DataCache dataCache = null)
         {
             var stats = GameDataProvider.GetInstance().GetStats(teamID: teamID, leagueID: leagueID, playerID: playerID, dataCache: dataCache);
             var players = PlayerDataProvider.GetInstance().GetPlayers(teamID: teamID, leagueID: leagueID, playerID: playerID, dataCache: dataCache);
@@ -150,6 +151,108 @@ namespace SportsStats.Services
                     {
                         StatType = ConvertObjects.ConvertType(calcStat),
                         Value = StatsCalculations.GetValue((CalculatedStatTypes)calcStat.StatTypeID, playerGameStats)
+                    });
+                }
+            }
+            return playerStats;
+        }
+
+        public List<PlayerStats> GetAllStats(List<DTOPlayer> players, int? teamID = null, int? sportID = null, int? leagueID = null, int? playerID = null, DataCache dataCache = null)
+        {
+            var stats = GameDataProvider.GetInstance().GetStats(teamID: teamID, leagueID: leagueID, playerID: playerID, dataCache: dataCache);
+            var isTotal = players != null;
+
+            if (!isTotal)
+            {
+                players = PlayerDataProvider.GetInstance().GetPlayers(teamID: teamID, leagueID: leagueID, playerID: playerID, dataCache: dataCache);
+            }
+            else
+            {
+                foreach (var stat in stats)
+                {
+                    stat.PlayerID = -1;
+                    stat.LeagueID = leagueID.HasValue ? leagueID.Value : 0;
+                }
+            }
+
+            List<Team> teamList = new List<Team>();
+            if (teamID.HasValue)
+            {
+                teamList.Add(new Team()
+                {
+                    ID = teamID.Value,
+                    LeagueID = leagueID.Value,
+                    SportID = sportID.Value
+                });
+            }
+            else if (isTotal)
+            {
+                teamList = new List<Team> { new Team { ID = -1, Name = "Total", SportID = sportID.HasValue ? sportID.Value : 0 } };
+            }
+            else
+            {
+                teamList = TeamsService.GetInstance().GetTeams(leagueID: leagueID, playerID: playerID, showAll: true, dataCache: dataCache);
+            }
+
+            var statTypes = GameDataProvider.GetInstance().GetStatTypes(sportID, dataCache: dataCache);
+            var gameStats = stats.Select(s => ConvertObjects.ConvertType2(s)).ToList();
+
+            //need to figure out how many games the team has played
+            int? gameCountOverride = null;
+            if (isTotal && teamID.HasValue && !playerID.HasValue)
+            {
+                gameCountOverride = GameDataProvider.GetInstance().GetGameCount(teamID.Value, leagueID.Value);
+            }
+
+            var playerStats = new List<PlayerStats>();
+            foreach (var player in players)
+            {
+                foreach (var team in teamList)
+                {
+                    var playerStat = new PlayerStats()
+                    {
+                        TeamID = team.ID,
+                        LeagueID = team.LeagueID,
+                        SportID = team.SportID,
+                        PlayerName = player.Name,
+                        PlayerNumber = teamID.HasValue ? player.Number : team.PlayerNumber,
+                        GameID = 0,
+                        PlayerID = player.ID,
+                        Stats = new List<Stat>()
+                    };
+
+                    foreach (var statType in statTypes.Where(st => !st.IsCalculated && st.SportID == team.SportID))
+                    {
+                        int stat;
+                        if (gameCountOverride.HasValue && statType.StatTypeID == Constants.StatTypeGames)
+                        {
+                            stat = gameCountOverride.Value;
+                        }
+                        else
+                        {
+                            stat = stats.Where(s => s.StatTypeID == statType.StatTypeID && s.PlayerID == player.ID && s.LeagueID == team.LeagueID).Sum(s => s.Value);
+                        }
+                        playerStat.Stats.Add(new Stat()
+                        {
+                            Value = stat,
+                            StatType = ConvertObjects.ConvertType(statType)
+                        });
+                    }
+
+                    playerStats.Add(playerStat);
+                }
+            }
+            
+            foreach (var playerStat in playerStats)
+            {
+                var playerGameStats = gameStats.Where(g => g.PlayerID == playerStat.PlayerID && g.LeagueID == playerStat.LeagueID).ToList();
+                foreach (var calcStat in statTypes.Where(st => st.IsCalculated && st.SportID == playerStat.SportID))
+                {
+                    var val = StatsCalculations.GetValue((CalculatedStatTypes)calcStat.StatTypeID, playerGameStats, gamesOverride: gameCountOverride);
+                    playerStat.Stats.Add(new Stat()
+                    {
+                        StatType = ConvertObjects.ConvertType(calcStat),
+                        Value = val
                     });
                 }
             }

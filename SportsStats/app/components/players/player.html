@@ -82,14 +82,20 @@
                     <table class="table statsTable .table-striped">
                         <thead>
                             <tr>
-                                <td ng-click="SortStats('LeagueName')" class="headcol2b header firstcolumn">League</td>
+                                <td ng-click="SortStats('LeagueName')" class="headcol3b header firstcolumn">League</td>
                                 <td ng-click="SortStats(StatType.Name)" class="header" ng-repeat="StatType in Player.BasketballStatTypes">{{StatType.DisplayName}}</td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="LeagueStats in Player.BasketballStats" ng-class="LeagueStats.IsCurrentLeague ? 'greenbackground' : ''">
-                                <td class="firstcolumn headcol2b" ng-class="LeagueStats.IsCurrentLeague ? 'greenbackground' : ''">{{LeagueStats.LeagueName}}</td>
+                                <td class="firstcolumn headcol3b" ng-class="LeagueStats.IsCurrentLeague ? 'greenbackground' : ''">{{LeagueStats.LeagueName}}</td>
                                 <td ng-repeat="Stats in LeagueStats.PlayerStats">{{Stats.Value | picker:Stats.Filter}}</td>
+                            </tr>
+                            <tr class="totalRow" ng-repeat="Total in Player.TotalBasketballStats">
+                                <td class="firstcolumn headcol3b">
+                                    Total
+                                </td>
+                                <td ng-repeat="Stats in Total.PlayerStats" style="padding-top:14px;">{{Stats.Value | picker:Stats.Filter}}</td>
                             </tr>
                         </tbody>
                     </table>

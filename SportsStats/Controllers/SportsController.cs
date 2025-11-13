@@ -1,10 +1,8 @@
-﻿using SportsStats.Helpers;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Http;
 using SportsStats.Models.ControllerObjects;
 using SportsStats.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
 
 namespace SportsStats.Controllers
 {

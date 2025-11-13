@@ -1,12 +1,13 @@
-﻿using SportsStats.Common;
-using SportsStats.Helpers;
-using SportsStats.Models.ControllerObjects;
-using SportsStats.Models.ServiceObjects;
-using SportsStats.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using SportsStats.Common;
+using SportsStats.Helpers;
+using SportsStats.Models.ControllerObjects;
+using SportsStats.Models.DTOObjects;
+using SportsStats.Models.ServiceObjects;
+using SportsStats.Services;
 using static SportsStats.Helpers.Enums;
 
 namespace SportsStats.Controllers
@@ -24,8 +25,27 @@ namespace SportsStats.Controllers
             var player = PlayersService.GetInstance().GetPlayer(id, dataCache);
             var sports = SportsService.GetInstance().GetSports();
             var leagues = LeaguesService.GetInstance().GetLeagues();
-            var stats = StatsService.GetInstance().GetAllStats(playerID: id, dataCache: dataCache);
-            var statTypes = GamesService.GetInstance().GetStatTypes().OrderBy(s => s.GridDisplayOrder);
+            var playerStatsByLeague = StatsService.GetInstance().GetAllStats(null, playerID: id, dataCache: dataCache);
+            var totalPlayer = new List<DTOPlayer> { new DTOPlayer { ID = -1, Name = "Total" } };
+            var totalBasketballStats = StatsService.GetInstance().GetAllStats(totalPlayer, playerID: id, sportID: (int)SportsList.Basketball, dataCache: dataCache);
+            var statTypes = GamesService.GetInstance().GetStatTypes().Where(st => st.ShowTeam).OrderBy(s => s.GridDisplayOrder);
+
+            var statTypesHash = statTypes
+                     .Where(st => st.ShowTeam)
+                     .Select(s => s.ID)
+                     .ToHashSet();
+
+            foreach (var playerStat in playerStatsByLeague)
+            {
+                playerStat.Stats = playerStat.Stats.Where(s => statTypesHash.Contains(s.StatType.ID)).ToList();
+                playerStat.PlayerName = CommonFunctions.TrimPlayerName(playerStat.PlayerName);
+            }
+
+            foreach (var basketballStat in totalBasketballStats)
+            {
+                basketballStat.Stats = basketballStat.Stats.Where(s => statTypesHash.Contains(s.StatType.ID)).ToList();
+                basketballStat.PlayerName = CommonFunctions.TrimPlayerName(basketballStat.PlayerName);
+            }
 
             var playerResult = new PlayerResult()
             {
@@ -52,20 +72,24 @@ namespace SportsStats.Controllers
                         LeagueName = string.Format("{0} - {1} {2} - {3}", sport.Name, league.StartDate.Year, league.Season.ToString(), league.Name)
                     };
                 }).OrderBy(t => t.LeagueName).ToList(),
-                HockeyStats = stats
+                HockeyStats = playerStatsByLeague
                     .Select(s => ConvertObjects.ConvertType(s))
                     .Where(s => s.Sport == SportsList.Hockey && leagues.Exists(l => l.ID == s.LeagueID))
                     .OrderBy(s => leagues.First(l => l.ID == s.LeagueID).StartDate)
                     .ToList(),
-                BaseballStats = stats
+                BaseballStats = playerStatsByLeague
                     .Select(s => ConvertObjects.ConvertType(s))
                     .Where(s => s.Sport == SportsList.Baseball && leagues.Exists(l => l.ID == s.LeagueID))
                     .OrderBy(s => leagues.First(l => l.ID == s.LeagueID).StartDate)
                     .ToList(),
-                BasketballStats = stats
+                BasketballStats = playerStatsByLeague
                     .Select(s => ConvertObjects.ConvertType(s))
                     .Where(s => s.Sport == SportsList.Basketball && leagues.Exists(l => l.ID == s.LeagueID))
                     .OrderBy(s => leagues.First(l => l.ID == s.LeagueID).StartDate)
+                    .ToList(),
+                TotalBasketballStats = totalBasketballStats
+                    .Select(s => ConvertObjects.ConvertType(s))
+                    .Where(s => s.Sport == SportsList.Basketball && (s.LeagueID == 0 || leagues.Exists(l => l.ID == s.LeagueID)))
                     .ToList(),
                 HockeyStatTypes = statTypes.Select(s => ConvertObjects.ConvertType(s)).Where(st => st.Sport == SportsList.Hockey).ToList(),
                 BaseballStatTypes = statTypes.Select(s => ConvertObjects.ConvertType(s)).Where(st => st.Sport == SportsList.Baseball).ToList(),
@@ -83,9 +107,15 @@ namespace SportsStats.Controllers
         {
             foreach (var stat in stats)
             {
+
                 var team = player.Teams.First(t => t.ID == stat.TeamID);
                 var league = leagues.First(l => l.ID == stat.LeagueID);
-                stat.LeagueName = string.Format("{0} {1} - {2}", league.StartDate.Year, league.Season.ToString(), team.Name);
+
+                int endYear = league.EndDate.Year % 100;
+                string year = league.StartDate.Year == league.EndDate.Year ? league.StartDate.Year.ToString() : $"{league.StartDate.Year}-{endYear}";
+                string name = $"{year} {league.Season} - {league.Name}";
+
+                stat.LeagueName = name;
                 if (league.StartDate <= DateTime.Now && league.EndDate >= DateTime.Now)
                     stat.IsCurrentLeague = true;
             }

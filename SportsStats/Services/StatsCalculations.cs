@@ -8,11 +8,12 @@ namespace SportsStats.Services
 {
     public class StatsCalculations
     {
-        public static decimal GetValue(CalculatedStatTypes statTypeID, List<GameStat> stats, List<StatStates> filterStatStates = null)
+        public static decimal GetValue(CalculatedStatTypes statType, List<GameStat> stats, List<StatStates> filterStatStates = null, decimal? gamesOverride = null)
         {
-            Func<CalculatedStatTypes, decimal> GetValueFunc = (x) => GetValue(x, stats, filterStatStates);
+            Func<CalculatedStatTypes, decimal> GetValueFunc = (x) => GetValue(x, stats, filterStatStates, gamesOverride);
+            Func<CalculatedStatTypes, List<GameStat>, decimal> GetValueFunc2 = (x, y) => GetValue(x, y, filterStatStates, gamesOverride);
             decimal games;
-            switch (statTypeID)
+            switch (statType)
             {
                 case CalculatedStatTypes.PPG:
                     games = GetValueFunc(CalculatedStatTypes.Games);
@@ -40,6 +41,16 @@ namespace SportsStats.Services
                     return GetValueFunc(CalculatedStatTypes.FTMade) + GetValueFunc(CalculatedStatTypes.FTMiss);
                 case CalculatedStatTypes.ThreeAttempt:
                     return GetValueFunc(CalculatedStatTypes.ThreeMade) + GetValueFunc(CalculatedStatTypes.ThreeMiss);
+                case CalculatedStatTypes.MaxPoints:
+                    {
+                        decimal maxPoints = 0;
+                        foreach(var gameStats in stats.GroupBy(s=>s.GameID))
+                        {
+                            var points = GetValueFunc2(CalculatedStatTypes.Points, gameStats.ToList());
+                            maxPoints = points > maxPoints ? points : maxPoints;
+                        }
+                        return maxPoints;
+                    }
                 case CalculatedStatTypes.FGMade:
                     {
                         return GetValueFunc(CalculatedStatTypes.TwoMade) + GetValueFunc(CalculatedStatTypes.ThreeMade);
@@ -53,6 +64,11 @@ namespace SportsStats.Services
                     {
                         decimal total = GetValueFunc(CalculatedStatTypes.ThreeAttempt);
                         return total == 0 ? 0 : GetValueFunc(CalculatedStatTypes.ThreeMade) / total;
+                    }
+                case CalculatedStatTypes.TwoPercent:
+                    {
+                        decimal total = GetValueFunc(CalculatedStatTypes.TwoMade) + GetValueFunc(CalculatedStatTypes.TwoMiss);
+                        return total == 0 ? 0 : GetValueFunc(CalculatedStatTypes.TwoMade) / total;
                     }
                 case CalculatedStatTypes.FTPercent:
                     {
@@ -133,8 +149,12 @@ namespace SportsStats.Services
                            GetValueFunc(CalculatedStatTypes.HockeyAssist);
                         return total;
                     }
+                case CalculatedStatTypes.Games:
+                    {
+                        return gamesOverride.HasValue ? gamesOverride.Value : GetNonCalculatedValue(statType, stats, filterStatStates);
+                    }
                 default:
-                    return GetNonCalculatedValue((CalculatedStatTypes)statTypeID, stats, filterStatStates);
+                    return GetNonCalculatedValue(statType, stats, filterStatStates);
             }
         }
 

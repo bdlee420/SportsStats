@@ -117,9 +117,11 @@
         								jQuery.extend(game, { GameResult: 0, GameResultText: "" });
         							}
         						}
-        					}
-
-        					new UpdateStatsObject(data.StatTypes, data.TeamPlayerStats, data.Team1ID, data.ID);
+                            }
+                            console.log(data.TeamPlayerStats);
+                            console.log(data.TeamTotalStats);
+                            new UpdateStatsObject(data.StatTypes, data.TeamPlayerStats, data.Team1ID, data.ID);
+                            new UpdateStatsObject(data.StatTypes, data.TeamTotalStats, data.Team1ID, data.ID);
 
         					$scope.SortStats($scope.currentSort);
 

@@ -30,6 +30,12 @@
                             </td>
                             <td ng-click="GoToPlayer(Player.PlayerID)" ng-repeat="Stats in Player.PlayerStats" style="padding-top:14px;">{{Stats.Value | picker:Stats.Filter}}</td>
                         </tr>
+                        <tr class="totalRow" ng-repeat="Player in Team.TeamTotalStats">
+                            <td class="firstcolumn headcol2b">
+                                Total
+                            </td>                            
+                            <td ng-repeat="Stats in Player.PlayerStats" style="padding-top:14px;">{{Stats.Value | picker:Stats.Filter}}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

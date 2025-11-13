@@ -254,6 +254,12 @@ select, input {
     top: auto;
 }
 
+.headcol3b {
+    width: 250px;
+    left: 0px;
+    top: auto;
+}
+
 .navbar {
     margin-bottom: 2px;
 }

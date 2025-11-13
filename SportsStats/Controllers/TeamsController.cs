@@ -1,11 +1,14 @@
 ﻿using SportsStats.Common;
 using SportsStats.Helpers;
 using SportsStats.Models.ControllerObjects;
+using SportsStats.Models.DTOObjects;
+using SportsStats.Models.ServiceObjects;
 using SportsStats.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using static SportsStats.Helpers.Enums;
 
 namespace SportsStats.Controllers
 {
@@ -126,7 +129,9 @@ namespace SportsStats.Controllers
                 .GetStatTypes(team.SportID)
                 .Where(st => st.ShowTeam)
                 .OrderBy(s => s.GridDisplayOrder);
-            var playerStats = StatsService.GetInstance().GetAllStats(teamID, team.SportID, leagueID, dataCache: dataCache);
+            var playerStats = StatsService.GetInstance().GetAllStats(null, teamID, team.SportID, leagueID, dataCache: dataCache);
+            var totalPlayer = new List<DTOPlayer> { new DTOPlayer { ID = -1, Name = "Total" } };
+            var totalStats = StatsService.GetInstance().GetAllStats(totalPlayer, teamID, team.SportID, leagueID, dataCache: dataCache);
 
             var statTypesHash = statTypes
                      .Where(st => st.ShowTeam)
@@ -137,6 +142,12 @@ namespace SportsStats.Controllers
             {
                 playerStat.Stats = playerStat.Stats.Where(s => statTypesHash.Contains(s.StatType.ID)).ToList();
                 playerStat.PlayerName = CommonFunctions.TrimPlayerName(playerStat.PlayerName);
+            }
+
+            foreach (var totalStat in totalStats)
+            {
+                totalStat.Stats = totalStat.Stats.Where(s => statTypesHash.Contains(s.StatType.ID)).ToList();
+                totalStat.PlayerName = CommonFunctions.TrimPlayerName(totalStat.PlayerName);
             }
 
             var teamResult = new TeamResult()
@@ -162,7 +173,8 @@ namespace SportsStats.Controllers
                     ID = p.ID,
                     Name = p.Name,
                 }).ToList(),
-                TeamPlayerStats = playerStats.Select(s => ConvertObjects.ConvertType(s)).ToList(),
+                TeamPlayerStats = playerStats.Where(p=>p.PlayerID != -1).Select(s => ConvertObjects.ConvertType(s)).ToList(),
+                TeamTotalStats = totalStats.Where(p => p.PlayerID == -1).Select(s => ConvertObjects.ConvertType(s)).ToList(),
                 StatTypes = statTypes.Select(s => ConvertObjects.ConvertType(s)).ToList(),
             };
             return teamResult;

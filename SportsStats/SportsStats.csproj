@@ -209,6 +209,7 @@
     <Content Include="SQL\Data\DB-Backup.sql" />
     <Content Include="SQL\Data\RemoveDuplicateTeam.sql" />
     <Content Include="SQL\Data\UpdateTeamPlayersLeagueID.sql" />
+    <Content Include="SQL\Procs\GetGameCount.sql" />
     <Content Include="SQL\Procs\GetLeagueID.sql" />
     <Content Include="SQL\Procs\AddLeagueTeam.sql" />
     <Content Include="SQL\Procs\GetGameLog.sql" />
@@ -243,6 +244,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CommonFunctions.cs" />
+    <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\ConvertObjects.cs" />
     <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Helpers\UserHelper.cs" />

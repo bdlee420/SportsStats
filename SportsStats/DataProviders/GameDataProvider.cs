@@ -105,6 +105,22 @@ namespace SportsStats.DataProviders
             return games;
         }
 
+        public int GetGameCount(int teamID, int leagueID)
+        {
+            var parameters = new List<SqlParameter>
+            {
+                CreateSqlParameter("@TeamID", SqlDbType.Int, teamID),
+                CreateSqlParameter("@LeagueID", SqlDbType.Int, leagueID)
+            };
+
+            var result = SQLGetDataTable("GetGameCount", parameters);
+            foreach (DataRow dr in result.Rows)
+            {
+                return (int)dr["GameCount"];
+            }
+            return 0;
+        }
+
         public List<DTOStatExtended> GetStats(int? gameID = null, int? playerID = null, int? teamID = null, int? leagueID = null, DataCache dataCache = null)
         {
             var stats = new List<DTOStatExtended>();
