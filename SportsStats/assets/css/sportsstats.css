@@ -234,9 +234,9 @@ select, input {
 }
 
 .frozencolumnlong {
-    width: calc(100% - 300px);
+    width: calc(100% - 220px);
     overflow-x: scroll;
-    margin-left: 300px;
+    margin-left: 190px;
     overflow-y: visible;
     padding: 0;
 }
@@ -264,9 +264,10 @@ select, input {
 
 .headcol3b {
     position: absolute;
-    width: 320px;
+    width: 220px;
     left: 0px;
     top: auto;
+    text-wrap: auto !important;
 }
 
 .navbar {
