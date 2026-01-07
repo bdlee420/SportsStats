@@ -142,3 +142,5 @@ UNION
 select 104, 'Shootout Goals', 'Shootout Goals', 0,				0,				5,						25,					1,			3,			4,					'SG',				1,				0,				1
 UNION
 select 105, 'Max Points', 'Max Points',         0,				1,				0,						200,				1,			1,          null,				null,				null,			0,				1
+UNION
+select 106, 'Max Rebs', 'Max Rebs',         0,				1,				0,						201,				1,			1,          null,				null,				null,			0,				1

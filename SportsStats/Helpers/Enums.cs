@@ -59,6 +59,7 @@
             HockeyPoints = 102,
             HockeyShootOutGoal = 104,
             MaxPoints = 105,
+            MaxRebs = 106,
             IsActive = 200,
             IsInGame = 201,
             TwoPercent = 205,
