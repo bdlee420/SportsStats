@@ -279,6 +279,15 @@ namespace SportsStats.Services
             }
         }
 
+        public void DeleteGame(int gameID, int leagueID)
+        {
+            // ensure user has permissions for the league before deleting
+            if (UserHelper.HasUpdatePermissions(leagueID: leagueID))
+            {
+                GameDataProvider.GetInstance().DeleteGame(gameID);
+            }
+        }
+
         public void AddStat(PlayerGameStat stat, BaseballGameState state = null)
         {
             if (UserHelper.HasUpdatePermissions(leagueID: stat.LeagueID))

@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using SportsStats.Common;
 using SportsStats.Helpers;
 using SportsStats.Models.ControllerObjects;
 using SportsStats.Services;
+using SportsStats.Models.ServiceObjects;
+using System.Net;
+using System.Net.Http;
 using static SportsStats.Helpers.Enums;
 
 namespace SportsStats.Controllers
@@ -53,6 +58,20 @@ namespace SportsStats.Controllers
         public GamesResult AddGame([FromBody] GameResultBase game)
         {
             GamesService.GetInstance().AddGame(ConvertObjects.ConvertType(game));
+            return GetGamesResult(game.LeagueID);
+        }
+
+        [HttpPost]
+        public GamesResult DeleteGame([FromBody] GameResultBase game)
+        {
+            var user = UserService.GetInstance().GetUser();
+            // Only global admins may delete games via this endpoint
+            if (user == null || user.Role != Enums.Roles.Admin)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+            }
+
+            GamesService.GetInstance().DeleteGame(game.ID, game.LeagueID);
             return GetGamesResult(game.LeagueID);
         }
 

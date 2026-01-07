@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Configuration;
 
 namespace SportsStats.DataProviders
 {
@@ -372,6 +373,36 @@ namespace SportsStats.DataProviders
             parameters.Add(CreateSqlParameter("@Team1PlayerID", SqlDbType.Int, state.Team1PlayerID));
             parameters.Add(CreateSqlParameter("@Team2PlayerID", SqlDbType.Int, state.Team2PlayerID));
             SQLExecuteCommandParam("SaveBaseballGameState", parameters);
+        }
+
+        public void DeleteGame(int gameID)
+        {
+            var connString = ConfigurationManager.AppSettings["ConnectionString_MSSQL"];
+            using (var conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                using (var tran = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        using (var cmd = conn.CreateCommand())
+                        {
+                            cmd.Transaction = tran;
+                            cmd.CommandType = CommandType.Text;
+                            cmd.CommandText = "UPDATE Games SET Deleted = 1 WHERE ID = @GameID;";
+                            var p = new SqlParameter("@GameID", SqlDbType.Int) { Value = gameID };
+                            cmd.Parameters.Add(p);
+                            cmd.ExecuteNonQuery();
+                        }
+                        tran.Commit();
+                    }
+                    catch
+                    {
+                        tran.Rollback();
+                        throw;
+                    }
+                }
+            }
         }
     }
 }

@@ -106,6 +106,7 @@
     <None Include="app\components\teams\teamsController.js" />
     <None Include="app\sportsApp.js" />
     <Content Include="assets\img\add.png" />
+    <Content Include="assets\img\delete.png" />
     <Content Include="assets\img\minus-small.png" />
     <Content Include="assets\img\refresh.png" />
     <Content Include="assets\img\save.png" />

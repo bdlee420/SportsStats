@@ -62,10 +62,14 @@
         <div>Games</div>
     </div>
     <div class="col-xs-12 divpadding removebootpadding">
-        <div class="row divpadding removebootpadding selectionrow" ng-click="GoToGame(Game.ID)" ng-repeat="Game in Team.Games">
-            <div class="col-xs-12 col-sm-4"><img src="/SportsStats/assets/img/view-big.png" style="cursor: pointer; margin-right:5px" />{{Game.GameDate | date:"MM/dd/yyyy"}}&nbsp;&nbsp;&nbsp;{{Game.OtherTeamName}}</div>
-            <div class="col-xs-3 col-sm-2" ng-class="GetResultClass(Game.DidWin)">{{Game.GameResultText}}</div>
-            <div class="col-xs-9 col-sm-2">{{Game.HighScore}}-{{Game.LowScore}}</div>
+        <div class="row divpadding removebootpadding selectionrow" ng-repeat="Game in Team.Games">
+            <div class="col-xs-8 col-sm-5" ng-click="GoToGame(Game.ID)" style="padding-left:20px;">
+                <img ng-hide="ReadOnly" src="/SportsStats/assets/img/delete.png" style="cursor:pointer; width:32px; margin-right:2px; vertical-align:middle; display:inline-block;" ng-click="DeleteGame(Game, $event)" title="Delete game" />
+                <img src="/SportsStats/assets/img/view-big.png" style="cursor: pointer; margin-right:6px; vertical-align:middle; display:inline-block;" />
+                <span style="vertical-align:middle">{{Game.GameDate | date:"MM/dd/yyyy"}}&nbsp;&nbsp;{{Game.OtherTeamName}}</span>
+            </div>
+            <div class="col-xs-2 col-sm-2" ng-class="GetResultClass(Game.DidWin)">{{Game.GameResultText}}</div>
+            <div class="col-xs-2 col-sm-2">{{Game.HighScore}}-{{Game.LowScore}}</div>
         </div>
         <div class="col-xs-12 removebootpadding" ng-hide="ReadOnly">
             <div class="col-xs-12"><img src="/SportsStats/assets/img/add.png" style="cursor: pointer; margin-right:7px;" ng-click="AddGame(NewGame, Team)" /></div>
