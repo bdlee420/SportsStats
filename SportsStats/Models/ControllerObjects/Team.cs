@@ -25,6 +25,12 @@ namespace SportsStats.Models.ControllerObjects
         public List<StatTypeResult> StatTypes { get; set; }
         public List<PlayerStatsResult> TeamPlayerStats { get; set; }
         public List<PlayerStatsResult> TeamTotalStats { get; set; }
+
+        // Win/loss record fields
+        public int Wins { get; set; }
+        public int Losses { get; set; }
+        public int Ties { get; set; }
+        public string Record { get; set; }
     }
     public class TeamPlayerResult
     {

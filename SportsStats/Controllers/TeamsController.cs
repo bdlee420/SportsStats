@@ -177,6 +177,18 @@ namespace SportsStats.Controllers
                 TeamTotalStats = totalStats.Where(p => p.PlayerID == -1).Select(s => ConvertObjects.ConvertType(s)).ToList(),
                 StatTypes = statTypes.Select(s => ConvertObjects.ConvertType(s)).ToList(),
             };
+
+            // Calculate win/loss/tie record
+            if (teamResult.Games != null)
+            {
+                teamResult.Wins = teamResult.Games.Count(g => g.DidWin == true);
+                teamResult.Losses = teamResult.Games.Count(g => g.DidWin == false);
+                teamResult.Ties = teamResult.Games.Count(g => g.DidWin == null);
+                // Format record as W-L or W-L-T when ties exist
+                teamResult.Record = teamResult.Ties > 0
+                    ? string.Format("{0}-{1}-{2}", teamResult.Wins, teamResult.Losses, teamResult.Ties)
+                    : string.Format("{0}-{1}", teamResult.Wins, teamResult.Losses);
+            }
             return teamResult;
         }
 

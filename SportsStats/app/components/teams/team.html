@@ -1,6 +1,11 @@
 ﻿<div ng-controller="teamController">
     <div class="col-xs-12 divpadding titlebar navbar navbar-inverse">
-        <div>Team Name</div>
+        <div class="row">
+            <div class="col-xs-8" style="font-size:18px; font-weight:bold;">{{Team.Name}}</div>
+            <div class="col-xs-4 text-right" style="font-size:16px;">
+                <span ng-show="Team.Record">Record: <span style="font-weight:bold">{{Team.Record}}</span></span>
+            </div>
+        </div>
     </div>
     <div class="col-xs-12 divpadding">
         <div class="col-xs-8 removebootpadding">
