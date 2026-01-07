@@ -5,7 +5,7 @@
         public enum CalculatedStatTypes
         {
             Points = 1,
-            Rebounds = 2,
+            DREB = 2,
             Steals = 3,
             Assists = 4,
             TwoMade = 6,
@@ -61,7 +61,10 @@
             MaxPoints = 105,
             IsActive = 200,
             IsInGame = 201,
-            TwoPercent = 205
+            TwoPercent = 205,
+            OREB = 210,
+            TotalRebound = 215,
+            OREBPercent = 220,
         }
         public enum ValueTypes
         {

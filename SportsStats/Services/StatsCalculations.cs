@@ -17,22 +17,30 @@ namespace SportsStats.Services
             {
                 case CalculatedStatTypes.PPG:
                     games = GetValueFunc(CalculatedStatTypes.Games);
-                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Points) / GetValueFunc(CalculatedStatTypes.Games);
+                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Points) / games;
                 case CalculatedStatTypes.RPG:
                     games = GetValueFunc(CalculatedStatTypes.Games);
-                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Rebounds) / GetValueFunc(CalculatedStatTypes.Games);
+                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.TotalRebound) / games;
+                case CalculatedStatTypes.OREBPercent:
+                    games = GetValueFunc(CalculatedStatTypes.Games);
+                    var oreb = GetValueFunc(CalculatedStatTypes.OREB);
+                    return games == 0 ? 0 : oreb / games;
+                case CalculatedStatTypes.TotalRebound:
+                    oreb = GetValueFunc(CalculatedStatTypes.OREB);
+                    var dreb = GetValueFunc(CalculatedStatTypes.DREB);
+                    return dreb + oreb;
                 case CalculatedStatTypes.APG:
                     games = GetValueFunc(CalculatedStatTypes.Games);
-                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Assists) / GetValueFunc(CalculatedStatTypes.Games);
+                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Assists) / games;
                 case CalculatedStatTypes.SPG:
                     games = GetValueFunc(CalculatedStatTypes.Games);
-                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Steals) / GetValueFunc(CalculatedStatTypes.Games);
+                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Steals) / games;
                 case CalculatedStatTypes.BPG:
                     games = GetValueFunc(CalculatedStatTypes.Games);
-                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Blocks) / GetValueFunc(CalculatedStatTypes.Games);
+                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Blocks) / games;
                 case CalculatedStatTypes.TPG:
                     games = GetValueFunc(CalculatedStatTypes.Games);
-                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Turnovers) / GetValueFunc(CalculatedStatTypes.Games);
+                    return games == 0 ? 0 : GetValueFunc(CalculatedStatTypes.Turnovers) / games;
                 case CalculatedStatTypes.Points:
                     return (GetValueFunc(CalculatedStatTypes.TwoMade) * 2) + GetValueFunc(CalculatedStatTypes.FTMade) + (GetValueFunc(CalculatedStatTypes.ThreeMade) * 3);
                 case CalculatedStatTypes.FGAttempt:
