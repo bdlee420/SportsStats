@@ -69,6 +69,16 @@ namespace SportsStats.Services
                         }
                         return maxRebs;
                     }
+                case CalculatedStatTypes.MaxAssists:
+                    {
+                        decimal maxAssists = 0;
+                        foreach (var gameStats in stats.GroupBy(s => s.GameID))
+                        {
+                            var assists = GetValueFunc2(CalculatedStatTypes.Assists, gameStats.ToList());
+                            maxAssists = assists > maxAssists ? assists : maxAssists;
+                        }
+                        return maxAssists;
+                    }
                 case CalculatedStatTypes.FGMade:
                     {
                         return GetValueFunc(CalculatedStatTypes.TwoMade) + GetValueFunc(CalculatedStatTypes.ThreeMade);
