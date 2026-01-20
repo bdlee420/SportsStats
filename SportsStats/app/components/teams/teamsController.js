@@ -198,7 +198,24 @@
             };
 
             $scope.SaveTeam = function (team) {
-
+                if (!team || !team.ID) { return; }
+                 var payload = {
+                     ID: team.ID,
+                     Name: team.Name,
+                     LeagueID: currentState.SelectedLeagueID,
+                     SportID: currentState.SelectedSportID
+                 };
+                 $rootScope.ShowSpinner = true;
+                 $http.post('/SportsStats/api/Teams/UpdateTeam', payload).then(function (success) {
+                     var data = success.data;
+                     // Replace team data on page with refreshed result
+                     if (data) {
+                         $scope.Team = data;
+                     }
+                     $rootScope.ShowSpinner = false;
+                 }, function (error) {
+                     $rootScope.ShowSpinner = false;
+                 });
             };
 
             $scope.GoToGame = function (id) {

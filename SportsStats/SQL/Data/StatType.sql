@@ -146,3 +146,7 @@ UNION
 select 106, 'Max Rebs', 'Max Rebs',         0,				1,				0,						201,				1,			1,          null,				null,				null,			0,				1
 UNION
 select 107, 'Max Assists', 'Max Assists',         0,                1,                0,                        202,                1,            1,          null,                null,                null,            0,                1
+UNION
+select 108, 'Max Steals', 'Max Steals',         0,                1,                0,                        203,                1,            1,          null,                null,                null,            0,                1
+UNION
+select 109, 'Max Blocks', 'Max Blocks',         0,                1,                0,                        204,                1,            1,          null,                null,                null,            0,                1

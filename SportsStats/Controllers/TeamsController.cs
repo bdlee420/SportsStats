@@ -1,14 +1,14 @@
-﻿using SportsStats.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using SportsStats.Common;
 using SportsStats.Helpers;
 using SportsStats.Models.ControllerObjects;
 using SportsStats.Models.DTOObjects;
-using SportsStats.Models.ServiceObjects;
 using SportsStats.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
-using static SportsStats.Helpers.Enums;
 
 namespace SportsStats.Controllers
 {
@@ -53,6 +53,29 @@ namespace SportsStats.Controllers
                     TeamsService.GetInstance().AddLeagueTeam(team.ID, team.LeagueID);
                 }
                 return GetTeamsResult(team.LeagueID, team.SportID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [ActionName("UpdateTeam")]
+        [HttpPost]
+        public TeamResult UpdateTeam([FromBody] TeamsResult team)
+        {
+            try
+            {
+                // Validate
+                if (team.ID == 0)
+                    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
+
+                TeamsService.GetInstance().UpdateTeam(ConvertObjects.ConvertType(team));
+                return GetTeamResult(team.ID, team.LeagueID);
+            }
+            catch (HttpResponseException)
+            {
+                throw;
             }
             catch (Exception ex)
             {

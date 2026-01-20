@@ -61,6 +61,8 @@
             MaxPoints = 105,
             MaxRebs = 106,
             MaxAssists = 107,
+            MaxSteals = 108,
+            MaxBlocks = 109,
             IsActive = 200,
             IsInGame = 201,
             TwoPercent = 205,

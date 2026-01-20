@@ -79,6 +79,26 @@ namespace SportsStats.Services
                         }
                         return maxAssists;
                     }
+                case CalculatedStatTypes.MaxSteals:
+                    {
+                        decimal maxSteals = 0;
+                        foreach (var gameStats in stats.GroupBy(s => s.GameID))
+                        {
+                            var steals = GetValueFunc2(CalculatedStatTypes.Steals, gameStats.ToList());
+                            maxSteals = steals > maxSteals ? steals : maxSteals;
+                        }
+                        return maxSteals;
+                    }
+                case CalculatedStatTypes.MaxBlocks:
+                    {
+                        decimal maxBlocks = 0;
+                        foreach (var gameStats in stats.GroupBy(s => s.GameID))
+                        {
+                            var blocks = GetValueFunc2(CalculatedStatTypes.Blocks, gameStats.ToList());
+                            maxBlocks = blocks > maxBlocks ? blocks : maxBlocks;
+                        }
+                        return maxBlocks;
+                    }
                 case CalculatedStatTypes.FGMade:
                     {
                         return GetValueFunc(CalculatedStatTypes.TwoMade) + GetValueFunc(CalculatedStatTypes.ThreeMade);

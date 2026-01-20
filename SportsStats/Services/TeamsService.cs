@@ -75,5 +75,17 @@ namespace SportsStats.Services
 				TeamDataProvider.GetInstance().AddLeagueTeam(leagueID, teamID);
 			}
 		}
+
+		public void UpdateTeam(Team team)
+		{
+			if (UserHelper.HasUpdatePermissions(team.ID, team.LeagueID))
+			{
+				TeamDataProvider.GetInstance().UpdateTeam(ConvertObjects.ConvertType(team));
+			}
+			else
+			{
+				throw new System.UnauthorizedAccessException();
+			}
+		}
 	}
 }

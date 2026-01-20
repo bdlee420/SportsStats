@@ -3,6 +3,7 @@ using SportsStats.Models.DTOObjects;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace SportsStats.DataProviders
 {
@@ -31,6 +32,36 @@ namespace SportsStats.DataProviders
 			parameters.Add(CreateSqlParameter("@LeagueID", SqlDbType.Int, leagueID));
 			SQLExecuteCommandParam("AddLeagueTeam", parameters);
 		}
+        public void UpdateTeam(DTOTeam team)
+        {
+            // Use inline parameterized SQL to avoid stored procedure and prevent SQL injection
+            var connString = ConfigurationManager.AppSettings["ConnectionString_MSSQL"];
+            using (var conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                using (var tran = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        using (var cmd = conn.CreateCommand())
+                        {
+                            cmd.Transaction = tran;
+                            cmd.CommandType = CommandType.Text;
+                            cmd.CommandText = "UPDATE Teams SET Name = @Name WHERE ID = @TeamID";
+                            cmd.Parameters.Add(new SqlParameter("@Name", SqlDbType.VarChar) { Value = (object)team.Name ?? System.DBNull.Value });
+                            cmd.Parameters.Add(new SqlParameter("@TeamID", SqlDbType.Int) { Value = team.ID });
+                            cmd.ExecuteNonQuery();
+                        }
+                        tran.Commit();
+                    }
+                    catch
+                    {
+                        tran.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
 		public List<DTOTeam> GetTeams(int? leagueID = null, int? playerID = null, int? teamID = null, int? sportID = null, DataCache dataCache = null)
         {
             var teams = new List<DTOTeam>();
