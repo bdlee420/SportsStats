@@ -20,7 +20,7 @@
                             $location.url("/SportsStats/" + $rootScope.RedirectURL);
                         }
                         else {
-                            $location.url("/SportsStats/Teams");
+                            $location.url("/SportsStats/League");
                         }
                     }
                     else {
@@ -36,9 +36,10 @@
                 }
             });
 
-            $scope.GoToTeam = function (selection) {
+            $scope.GoToLeague = function (selection) {
                 $scope.UpdateLeagueSelection(selection);
-                $location.url("/SportsStats/Teams");
+                console.log(selection);
+                $location.url("/SportsStats/League");
             };
 
             $scope.UpdateLeagueSelection = function (selection) {
@@ -53,11 +54,6 @@
                 $cookies.put('sportsstats.com:' + $scope.UserName + ':SelectedSportID', selection.SportID, { expires: expiration });
                 $cookies.put('sportsstats.com:' + $scope.UserName + ':SelectedLeagueID', selection.LeagueID, { expires: expiration });
             };
-
-            //$scope.UpdateSportSelection = function () {
-            //    $rootScope.ShowSpinner = true;
-            //    $scope.GetLeagues($scope.SelectedSportID);
-            //};
         }
     ]);
 

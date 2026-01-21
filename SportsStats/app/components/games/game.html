@@ -63,7 +63,7 @@
     </div>
     <div style="padding-top:15px;" ng-touchmove="move($event)" ng-touchstart="start($event)" ng-touchend="end($event)">
         <div class="col-xs-12 divpadding titlebar navbar navbar-inverse" style="margin-top:5px;">
-            <div style="float: left; margin-right: 15px"><a ng-href="/SportsStats/Teams/{{Game.Team1ID}}">{{Game.Team1Name}} - {{Game.Team1Score}}</a></div><div>{{LastStatTeam1}}</div>
+            <div style="float: left; margin-right: 15px"><a ng-href="/SportsStats/Team/{{Game.Team1ID}}">{{Game.Team1Name}} - {{Game.Team1Score}}</a></div><div>{{LastStatTeam1}}</div>
         </div>
         <div class="col-xs-12">
             <div class="frozencolumn">
@@ -119,7 +119,7 @@
             <img src="/SportsStats/assets/img/add.png" style="cursor: pointer; margin-right:3px;" ng-click="AddPlayer(NewPlayer1, Game.Team1ID)" />
         </div>
         <div class="col-xs-12 divpadding titlebar navbar navbar-inverse" style="margin-top:5px;">
-            <div style="float: left; margin-right: 15px"><a ng-href="/SportsStats/Teams/{{Game.Team2ID}}">{{Game.Team2Name}} - {{Game.Team2Score}}</a></div><div>{{LastStatTeam2}}</div>
+            <div style="float: left; margin-right: 15px"><a ng-href="/SportsStats/Team/{{Game.Team2ID}}">{{Game.Team2Name}} - {{Game.Team2Score}}</a></div><div>{{LastStatTeam2}}</div>
         </div>
         <div class="col-xs-12">
             <div class="frozencolumn">

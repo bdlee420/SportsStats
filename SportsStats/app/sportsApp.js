@@ -11,11 +11,14 @@ sportsApp.config(['$routeProvider', '$locationProvider',
           when('/SportsStats/Login', {
               templateUrl: '/SportsStats/app/components/login/login.html',
           }).
-          when('/SportsStats/Teams', {
-              templateUrl: '/SportsStats/app/components/teams/teams.html',
+          when('/SportsStats/League', {
+              templateUrl: '/SportsStats/app/components/league/league.html',
           }).
-          when('/SportsStats/Teams/:teamID', {
-              templateUrl: '/SportsStats/app/components/teams/team.html?version=1',
+          when('/SportsStats/Team/:teamID', {
+              templateUrl: '/SportsStats/app/components/team/team.html?version=1',
+          }).
+          when('/SportsStats/Team', {
+              templateUrl: '/SportsStats/app/components/team/team.html?version=1',
           }).
           when('/SportsStats/Games', {
               templateUrl: '/SportsStats/app/components/games/games.html',
@@ -36,7 +39,7 @@ sportsApp.config(['$routeProvider', '$locationProvider',
               templateUrl: '/SportsStats/app/components/stats/stat.html',
           }).
           otherwise({
-              templateUrl: '/SportsStats/app/components/sports/leagues.html',
+              templateUrl: '/SportsStats/app/components/leagues/leagues.html',
           });
   }]);
 

@@ -97,13 +97,14 @@
     <Content Include="app\components\players\players.html" />
     <None Include="app\components\players\playersController.js" />
     <Content Include="app\components\players\playersList.html" />
-    <Content Include="app\components\sports\leagues.html" />
-    <None Include="app\components\sports\leaguesController.js" />
+    <Content Include="app\components\leagues\leagues.html" />
+    <None Include="app\components\leagues\leaguesController.js" />
     <Content Include="app\components\stats\stat.html" />
     <None Include="app\components\stats\statsController.js" />
-    <Content Include="app\components\teams\team.html" />
-    <Content Include="app\components\teams\teams.html" />
-    <None Include="app\components\teams\teamsController.js" />
+    <Content Include="app\components\team\teamController.js" />
+    <Content Include="app\components\team\team.html" />
+    <Content Include="app\components\league\league.html" />
+    <None Include="app\components\league\leagueController.js" />
     <None Include="app\sportsApp.js" />
     <Content Include="assets\img\add.png" />
     <Content Include="assets\img\delete.png" />
@@ -227,12 +228,15 @@
     <None Include="package.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Common\TeamHelper.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
     <Compile Include="Controllers\LeaguesController.cs" />
     <Compile Include="Controllers\StatsController.cs" />
-    <Compile Include="Controllers\TeamsController.cs" />
+    <Compile Include="Controllers\LeagueController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="DataProviders\DataAccess.cs" />
     <Compile Include="Common\DataCache.cs" />
     <Compile Include="DataProviders\GameDataProvider.cs" />

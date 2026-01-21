@@ -77,7 +77,7 @@
 
             $scope.GoToTeam = function (team) {
                 $scope.UpdateLeagueSelection(team.SportID, team.LeagueID);
-                $location.url("/SportsStats/Teams/" + team.ID);
+                $location.url("/SportsStats/Team/" + team.ID);
             };
 
             $scope.UpdateLeagueSelection = function (sportID, leagueID) {
