@@ -97,8 +97,8 @@
     <Content Include="app\components\players\players.html" />
     <None Include="app\components\players\playersController.js" />
     <Content Include="app\components\players\playersList.html" />
-    <Content Include="app\components\sports\sports.html" />
-    <None Include="app\components\sports\sportsController.js" />
+    <Content Include="app\components\sports\leagues.html" />
+    <None Include="app\components\sports\leaguesController.js" />
     <Content Include="app\components\stats\stat.html" />
     <None Include="app\components\stats\statsController.js" />
     <Content Include="app\components\teams\team.html" />
@@ -230,7 +230,7 @@
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
-    <Compile Include="Controllers\SportsController.cs" />
+    <Compile Include="Controllers\LeaguesController.cs" />
     <Compile Include="Controllers\StatsController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="DataProviders\DataAccess.cs" />

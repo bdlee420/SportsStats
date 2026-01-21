@@ -1,0 +1,16 @@
+﻿<div class="col-xs-12 divpadding titlebar navbar navbar-inverse">
+    <div>Current League(s)</div>
+</div>
+<div ng-controller="leaguesController" class="removebootpadding" style="padding-top:10px;">
+    <div class="col-xs-12" ng-repeat="sl in data.CurrentLeagues" style="padding-bottom:10px;" ng-class="sl.IsCurrentLeague ? 'currentleague' : ''">
+        <a style="cursor:pointer; width:150px;" ng-click="GoToTeam(sl.SportsLeagueSelection)">{{sl.Name}}</a>
+    </div> 
+</div>
+<div class="col-xs-12 divpadding titlebar navbar navbar-inverse">
+    <div>Old League(s)</div>
+</div>
+<div ng-controller="leaguesController" class="removebootpadding" style="padding-top:10px;">
+    <div class="col-xs-12" ng-repeat="sl in data.OldLeagues" style="padding-bottom:10px;" ng-class="sl.IsCurrentLeague ? 'currentleague' : ''">
+        <a style="cursor:pointer; width:150px;" ng-click="GoToTeam(sl.SportsLeagueSelection)">{{sl.Name}}</a>
+    </div>
+</div>

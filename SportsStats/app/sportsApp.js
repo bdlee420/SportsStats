@@ -36,7 +36,7 @@ sportsApp.config(['$routeProvider', '$locationProvider',
               templateUrl: '/SportsStats/app/components/stats/stat.html',
           }).
           otherwise({
-              templateUrl: '/SportsStats/app/components/sports/sports.html',
+              templateUrl: '/SportsStats/app/components/sports/leagues.html',
           });
   }]);
 
