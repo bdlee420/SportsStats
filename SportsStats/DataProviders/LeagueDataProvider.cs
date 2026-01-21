@@ -54,5 +54,24 @@ namespace SportsStats.DataProviders
             }
             return 0;
         }
+
+        public int AddLeague(DTOLeague league)
+        {
+            var parameters = new List<SqlParameter>
+            {
+                CreateSqlParameter("@SportID", SqlDbType.Int, league.SportID),
+                CreateSqlParameter("@Name", SqlDbType.VarChar, league.Name),
+                CreateSqlParameter("@StartDate", SqlDbType.DateTime, league.StartDate),
+                CreateSqlParameter("@EndDate", SqlDbType.DateTime, league.EndDate),
+                CreateSqlParameter("@SeasonID", SqlDbType.Int, league.SeasonID)
+            };
+
+            var dt = SQLGetDataTable("AddLeague", parameters);
+            if (dt.Rows.Count > 0)
+            {
+                return Convert.ToInt32(dt.Rows[0]["NewID"]);
+            }
+            return 0;
+        }
     }
 }

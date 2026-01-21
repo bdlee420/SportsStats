@@ -23,6 +23,17 @@ namespace SportsStats.Helpers
             }
         }
 
+        public static bool HasAdminPermissions(int? teamID = null, int? leagueID = null)
+        {
+            if (CurrentUser == null)
+                return false;
+
+            if (CurrentUser.Role == Roles.Admin)
+                return true;
+
+            return false;
+        }
+
         public static bool HasUpdatePermissions(int? teamID = null, int? leagueID = null)
         {
             if (CurrentUser == null)

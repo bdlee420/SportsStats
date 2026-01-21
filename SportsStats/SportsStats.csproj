@@ -91,6 +91,7 @@
     <Content Include="app\components\games\games.html" />
     <None Include="app\components\games\gamesController.js" />
     <Content Include="app\components\games\gameState.html" />
+    <Content Include="app\components\leagues\addLeague.html" />
     <Content Include="app\components\login\login.html" />
     <None Include="app\components\login\loginController.js" />
     <Content Include="app\components\players\player.html" />
@@ -211,6 +212,7 @@
     <Content Include="SQL\Data\DB-Backup.sql" />
     <Content Include="SQL\Data\RemoveDuplicateTeam.sql" />
     <Content Include="SQL\Data\UpdateTeamPlayersLeagueID.sql" />
+    <Content Include="SQL\Procs\AddLeague.sql" />
     <Content Include="SQL\Procs\GetGameCount.sql" />
     <Content Include="SQL\Procs\GetLeagueID.sql" />
     <Content Include="SQL\Procs\AddLeagueTeam.sql" />
@@ -231,6 +233,7 @@
     <Compile Include="Common\Extensions.cs" />
     <Compile Include="Common\TeamHelper.cs" />
     <Compile Include="Controllers\GamesController.cs" />
+    <Compile Include="Controllers\SportsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
     <Compile Include="Controllers\LeaguesController.cs" />
@@ -257,6 +260,7 @@
     <Compile Include="Models\ControllerObjects\GameLogResult.cs" />
     <Compile Include="Models\ControllerObjects\League.cs" />
     <Compile Include="Models\ControllerObjects\Sport.cs" />
+    <Compile Include="Models\ControllerObjects\SportsLeague.cs" />
     <Compile Include="Models\ControllerObjects\StatGroupResult.cs" />
     <Compile Include="Models\ControllerObjects\Stats.cs" />
     <Compile Include="Models\ControllerObjects\State.cs" />
@@ -264,6 +268,7 @@
     <Compile Include="Models\DTOObjects\DTOBaseballGameState.cs" />
     <Compile Include="Models\DTOObjects\DTOBattingOrder.cs" />
     <Compile Include="Models\DTOObjects\DTOGameLog.cs" />
+    <Compile Include="Models\DTOObjects\DTOLeague.cs" />
     <Compile Include="Models\DTOObjects\DTOLeagues.cs" />
     <Compile Include="Models\DTOObjects\DTOSports.cs" />
     <Compile Include="Models\DTOObjects\DTOState.cs" />

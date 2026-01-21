@@ -17,5 +17,9 @@ namespace SportsStats.Models.ControllerObjects
     {
         public int SportID { get; set; }
         public int LeagueID { get; set; }
+        public string Name { get; set; }
+        public int SeasonID { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public System.DateTime EndDate { get; set; }
     }
 }

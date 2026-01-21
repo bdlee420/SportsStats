@@ -14,3 +14,11 @@
         <a style="cursor:pointer; width:150px;" ng-click="GoToLeague(sl.SportsLeagueSelection)">{{sl.Name}}</a>
     </div>
 </div>
+
+<!-- Add League Form Trigger (Admin only) -->
+<div ng-controller="leaguesController" class="col-xs-12" style="padding-top:10px;">
+    <div ng-if="IsAdmin">
+        <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#addLeagueForm" aria-expanded="false" aria-controls="addLeagueForm">Add New League</button>
+    </div>
+    <div ng-include="'/SportsStats/app/components/leagues/addLeague.html'"></div>
+</div>

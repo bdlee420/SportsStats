@@ -1,5 +1,6 @@
 ﻿using SportsStats.DataProviders;
 using SportsStats.Helpers;
+using SportsStats.Models.DTOObjects;
 using SportsStats.Models.ServiceObjects;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,25 @@ namespace SportsStats.Services
         public int GetLeagueID(int gameID)
         {
             return LeagueDataProvider.GetInstance().GetLeagueId(gameID);
+        }
+
+        public int AddLeague(League league)
+        {
+            if (!UserHelper.HasAdminPermissions())
+            {
+                return 0;
+            }
+
+            var dto = new DTOLeague()
+            {
+                Name = league.Name,
+                SportID = league.SportID,
+                StartDate = league.StartDate,
+                EndDate = league.EndDate,
+                SeasonID = (int)league.Season
+            };
+
+            return LeagueDataProvider.GetInstance().AddLeague(dto);
         }
     }
 }
