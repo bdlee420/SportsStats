@@ -2,46 +2,46 @@
 var sportsApp = angular.module('sportsApp', ['ngCookies', 'ngRoute', 'ngTouch']);
 
 sportsApp.config(['$routeProvider', '$locationProvider',
-  function ($routeProvider, $locationProvider) {
-      $locationProvider.html5Mode({
-          enabled: true,
-          requireBase: false
-      });
-      $routeProvider.
-          when('/SportsStats/Login', {
-              templateUrl: '/SportsStats/app/components/login/login.html',
-          }).
-          when('/SportsStats/League', {
-              templateUrl: '/SportsStats/app/components/league/league.html',
-          }).
-          when('/SportsStats/Team/:teamID', {
-              templateUrl: '/SportsStats/app/components/team/team.html?version=1',
-          }).
-          when('/SportsStats/Team', {
-              templateUrl: '/SportsStats/app/components/team/team.html?version=1',
-          }).
-          when('/SportsStats/Games', {
-              templateUrl: '/SportsStats/app/components/games/games.html',
-          }).
-          when('/SportsStats/Games/:gameID', {
-              templateUrl: '/SportsStats/app/components/games/game.html',
-          }).
-          when('/SportsStats/GameLog/:gameID', {
-              templateUrl: '/SportsStats/app/components/gamelog/gamelog.html',
-          }).
-          when('/SportsStats/Players', {
-              templateUrl: '/SportsStats/app/components/players/players.html',
-          }).
-          when('/SportsStats/Players/:playerID', {
-              templateUrl: '/SportsStats/app/components/players/player.html?version=2',
-          }).
-          when('/SportsStats/Stats/:gameID/:teamID/:playerID', {
-              templateUrl: '/SportsStats/app/components/stats/stat.html',
-          }).
-          otherwise({
-              templateUrl: '/SportsStats/app/components/leagues/leagues.html',
-          });
-  }]);
+    function ($routeProvider, $locationProvider) {
+        $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: false
+        });
+        $routeProvider.
+            when('/SportsStats/Login', {
+                templateUrl: '/SportsStats/app/components/login/login.html',
+            }).
+            when('/SportsStats/League', {
+                templateUrl: '/SportsStats/app/components/league/league.html',
+            }).
+            when('/SportsStats/Team/:teamID', {
+                templateUrl: '/SportsStats/app/components/team/team.html?version=1',
+            }).
+            when('/SportsStats/Team', {
+                templateUrl: '/SportsStats/app/components/team/team.html?version=1',
+            }).
+            when('/SportsStats/Games', {
+                templateUrl: '/SportsStats/app/components/games/games.html',
+            }).
+            when('/SportsStats/Games/:gameID', {
+                templateUrl: '/SportsStats/app/components/games/game.html',
+            }).
+            when('/SportsStats/GameLog/:gameID', {
+                templateUrl: '/SportsStats/app/components/gamelog/gamelog.html',
+            }).
+            when('/SportsStats/Players', {
+                templateUrl: '/SportsStats/app/components/players/players.html',
+            }).
+            when('/SportsStats/Players/:playerID', {
+                templateUrl: '/SportsStats/app/components/players/player.html?version=2',
+            }).
+            when('/SportsStats/Stats/:gameID/:teamID/:playerID', {
+                templateUrl: '/SportsStats/app/components/stats/stat.html',
+            }).
+            otherwise({
+                templateUrl: '/SportsStats/app/components/leagues/leagues.html',
+            });
+    }]);
 
 sportsApp.filter('picker', ['$filter', function ($filter) {
     return function (value, filterName) {
@@ -70,49 +70,49 @@ sportsApp.run(['$rootScope', '$location', '$anchorScroll', '$routeParams', funct
 }]);
 
 angular.module("ngTouch", [])
-.directive("ngTouchstart", function () {
-    return {
-        controller: ["$scope", "$element", function ($scope, $element) {
+    .directive("ngTouchstart", function () {
+        return {
+            controller: ["$scope", "$element", function ($scope, $element) {
 
-            $element.bind("touchstart", onTouchStart);
-            function onTouchStart(event) {
-                var method = $element.attr("ng-touchstart");
-                $scope.$event = event;
-                $scope.$apply(method);
-            }
+                $element.bind("touchstart", onTouchStart);
+                function onTouchStart(event) {
+                    var method = $element.attr("ng-touchstart");
+                    $scope.$event = event;
+                    $scope.$apply(method);
+                }
 
-        }]
-    };
-})
-.directive("ngTouchmove", function () {
-    return {
-        controller: ["$scope", "$element", function ($scope, $element) {
+            }]
+        };
+    })
+    .directive("ngTouchmove", function () {
+        return {
+            controller: ["$scope", "$element", function ($scope, $element) {
 
-            $element.bind("touchmove", onTouchMove);
+                $element.bind("touchmove", onTouchMove);
 
-            function onTouchMove(event) {
-                var method = $element.attr("ng-touchmove");
-                $scope.$event = event;
-                $scope.$apply(method);
-            }
+                function onTouchMove(event) {
+                    var method = $element.attr("ng-touchmove");
+                    $scope.$event = event;
+                    $scope.$apply(method);
+                }
 
-        }]
-    };
-})
-.directive("ngTouchend", function () {
-    return {
-        controller: ["$scope", "$element", function ($scope, $element) {
+            }]
+        };
+    })
+    .directive("ngTouchend", function () {
+        return {
+            controller: ["$scope", "$element", function ($scope, $element) {
 
-            $element.bind("touchend", onTouchEnd);
-            function onTouchEnd(event) {
-                var method = $element.attr("ng-touchend");
-                $scope.$event = event;
-                $scope.$apply(method);
-            }
+                $element.bind("touchend", onTouchEnd);
+                function onTouchEnd(event) {
+                    var method = $element.attr("ng-touchend");
+                    $scope.$event = event;
+                    $scope.$apply(method);
+                }
 
-        }]
-    };
-});
+            }]
+        };
+    });
 
 sportsApp.factory('CurrentStateFactory', ['$rootScope', '$cookies', '$location', '$http', function ($rootScope, $cookies, $location, $http) {
     var service = {};
@@ -121,32 +121,28 @@ sportsApp.factory('CurrentStateFactory', ['$rootScope', '$cookies', '$location',
         if (!$rootScope.CurrentState) {
             var cookie_SelectedSportID = parseInt($cookies.get('sportsstats.com:' + userName + ':SelectedSportID'));
             var cookie_SelectedLeagueID = parseInt($cookies.get('sportsstats.com:' + userName + ':SelectedLeagueID'));
-            var hasCookies = true;
+            var cookie_SelectedTeamID = parseInt($cookies.get('sportsstats.com:' + userName + ':SelectedTeamID'));
 
-            if (typeof cookie_SelectedSportID === 'undefined' || isNaN(parseFloat(cookie_SelectedSportID))) {
-                cookie_SelectedSportID = 0;
-                hasCookies = false;
+            $rootScope.CurrentState =
+            {
+                SelectedSportID: 0,
+                SelectedLeagueID: 0,
+                SelectedTeamID: 0
+            };
+
+            if (typeof cookie_SelectedSportID !== 'undefined' && !isNaN(parseFloat(cookie_SelectedSportID))) {
+                $rootScope.CurrentState.SelectedSportID = cookie_SelectedSportID;
             }
-            if (typeof cookie_SelectedLeagueID === 'undefined' || isNaN(parseFloat(cookie_SelectedLeagueID))) {
-                cookie_SelectedLeagueID = 0;
-                hasCookies = false;
+
+            if (typeof cookie_SelectedLeagueID !== 'undefined' && !isNaN(parseFloat(cookie_SelectedLeagueID))) {
+                $rootScope.CurrentState.SelectedLeagueID = cookie_SelectedLeagueID;
             }
-            if (hasCookies) {
-                $rootScope.CurrentState =
-                    {
-                        SelectedSportID: cookie_SelectedSportID,
-                        SelectedLeagueID: cookie_SelectedLeagueID
-                    };
-            }
-            else {
-                $rootScope.CurrentState =
-                    {
-                        SelectedSportID: 0,
-                        SelectedLeagueID: 0
-                    };
+
+            if (typeof cookie_SelectedTeamID !== 'undefined' && !isNaN(parseFloat(cookie_SelectedTeamID))) {
+                $rootScope.CurrentState.SelectedTeamID = cookie_SelectedTeamID;
             }
         }
-        if (redirect && ($rootScope.CurrentState.SelectedLeagueID === 0 || $rootScope.CurrentState.SelectedSportID === 0)) {
+        if (redirect && ($rootScope.CurrentState.SelectedLeagueID === 0 || $rootScope.CurrentState.SelectedSportID === 0 || $rootScope.CurrentState.SelectedTeamID === 0)) {
             $location.url("/SportsStats");
             return false;
         }

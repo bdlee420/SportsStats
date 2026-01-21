@@ -38,7 +38,6 @@
 
             $scope.GoToLeague = function (selection) {
                 $scope.UpdateLeagueSelection(selection);
-                console.log(selection);
                 $location.url("/SportsStats/League");
             };
 

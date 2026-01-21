@@ -1,8 +1,8 @@
 ﻿(function () {
     "use strict";    
 
-    sportsApp.controller('teamController', ['$scope', '$http', '$routeParams', '$location', '$rootScope', 'CurrentStateFactory',
-        function teamController($scope, $http, $routeParams, $location, $rootScope, CurrentStateFactory) {
+    sportsApp.controller('teamController', ['$scope', '$http', '$routeParams', '$location', '$rootScope', '$cookies', 'CurrentStateFactory',
+        function teamController($scope, $http, $routeParams, $location, $rootScope, $cookies, CurrentStateFactory) {
             $rootScope.RedirectURL = "Team/" + $routeParams.teamID;
             var currentState;
             $rootScope.ShowSpinner = true;
@@ -38,17 +38,21 @@
                             $scope.currentSort = $scope.hockeyCurrentSort;
                         }
 
-                        var selectedTeamID = currentState.LastSelectedTeamID;
+                        var selectedTeamID = currentState.SelectedTeamID;
                         
                         if (typeof $routeParams.teamID !== 'undefined') {
                             selectedTeamID = $routeParams.teamID;
-                            currentState.LastSelectedTeamID = selectedTeamID;
+                            currentState.SelectedTeamID = selectedTeamID;
                         }
 
                         if (typeof selectedTeamID === 'undefined') {
                             $location.url("/SportsStats/League");
                             return;
                         }
+
+                        var expiration = new Date();
+                        expiration.setDate(expiration.getDate() + 30);
+                        $cookies.put('sportsstats.com:' + user.data.UserName + ':SelectedTeamID', selectedTeamID, { expires: expiration });
 
                         $scope.ReadOnly = user.data.RoleID !== 1 && !user.data.AdminLeagueIDs.includes(currentState.SelectedLeagueID);
                         $http.get("/SportsStats/api/Team/GetTeam?teamID=" + selectedTeamID + "&leagueID=" + currentState.SelectedLeagueID).then(function (success) {
